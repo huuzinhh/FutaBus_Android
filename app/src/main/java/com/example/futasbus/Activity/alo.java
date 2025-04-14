@@ -33,7 +33,7 @@ public class alo extends AppCompatActivity {
 
     private TextView tvTitle, tvTabLogin, tvTabRegister, tvForgotPassword;
     private LinearLayout layoutLoginForm, layoutRegisterForm, layoutOtpForm;
-    private EditText etPhoneNumber, etPassword, etRegisterEmail, etOtp;
+    private EditText etEmail, etPassword, etRegisterEmail, etOtp;
     private Button btnLogin, btnSendOtp, btnVerifyOtp;
 
     private String registerEmail;
@@ -50,7 +50,7 @@ public class alo extends AppCompatActivity {
         layoutLoginForm = findViewById(R.id.layout_login_form);
         layoutRegisterForm = findViewById(R.id.layout_register_form);
         layoutOtpForm = findViewById(R.id.layout_otp_form);
-        etPhoneNumber = findViewById(R.id.et_phone_number);
+        etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         etRegisterEmail = findViewById(R.id.et_register_email);
         etOtp = findViewById(R.id.et_otp);
@@ -81,13 +81,13 @@ public class alo extends AppCompatActivity {
 
         // Handle login button click
         btnLogin.setOnClickListener(v -> {
-            String phoneNumber = etPhoneNumber.getText().toString().trim();
+            String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
 
-            if (phoneNumber.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(alo.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             } else {
-                loginUser(phoneNumber, password);
+                loginUser(email, password);
             }
         });
 
@@ -121,9 +121,9 @@ public class alo extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String soDienThoai, String password) {
+    private void loginUser(String email, String password) {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        LoginRequest loginRequest = new LoginRequest(soDienThoai, password);
+        LoginRequest loginRequest = new LoginRequest(email, password);
 
         Call<LoginResponse> call = apiService.login(loginRequest);
         call.enqueue(new Callback<LoginResponse>() {

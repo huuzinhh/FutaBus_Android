@@ -5,23 +5,23 @@ package com.example.futasbus.request;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
-    @SerializedName("soDienThoai")
-    private String soDienThoai;
+    @SerializedName("email")
+    private String email;
 
     @SerializedName("matKhau")
     private String matKhau;
 
-    public LoginRequest(String soDienThoai, String matKhau) {
-        this.soDienThoai = soDienThoai;
+    public LoginRequest(String email, String matKhau) {
+        this.email = email;
         this.matKhau = matKhau;
     }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getMatKhau() {

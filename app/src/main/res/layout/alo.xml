@@ -141,14 +141,14 @@
 
                 <!-- Phone Number Input -->
                 <EditText
-                    android:id="@+id/et_phone_number"
+                    android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập số điện thoại"
-                    android:inputType="phone"
+                    android:hint="Nhập email"
+                    android:inputType="textEmailAddress"
                     android:padding="12dp"
                     android:background="@drawable/edit_text_background"
-                    android:drawableStart="@android:drawable/ic_menu_call"
+                    android:drawableStart="@android:drawable/ic_dialog_email"
                     android:drawablePadding="8dp"
                     android:layout_marginBottom="16dp" />
 
