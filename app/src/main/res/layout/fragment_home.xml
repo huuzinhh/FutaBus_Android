@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".activity.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Thanh header cam -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/futa_orange"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/circle_white"
+                    android:padding="8dp"
+                    android:src="@drawable/avata" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Xin chào,"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thông"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/help_icon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/circle_white"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_headset" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Nội dung phía dưới -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:text="Mua Vé Phương Trang"
+                android:textColor="#D84315"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Box chọn điểm đi/điểm đến -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_white_bg"
+                android:orientation="vertical"
+                android:elevation="4dp"
+                android:padding="16dp">
+
+                <!-- Điểm đi & đến -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Điểm đi -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Điểm đi"
+                            android:textColor="#888888"
+                            android:textSize="12sp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerDiemDi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:spinnerMode="dropdown" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tỉnh/Thành phố"
+                            android:textColor="#888888"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <!-- Icon đổi chiều -->
+                    <ImageButton
+                        android:id="@+id/btnSwap"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginHorizontal="8dp"
+                        android:src="@drawable/ic_swap"
+                        android:background="@null" />
+                    <!-- Điểm đến -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Điểm đến"
+                            android:textColor="#888888"
+                            android:textSize="12sp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerDiemDen"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:spinnerMode="dropdown" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tỉnh/Thành phố"
+                            android:textColor="#888888"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Switch khứ hồi -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingVertical="8dp">
+
+                    <Switch
+                        android:id="@+id/switchKhuhHoi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Khứ hồi" />
+                </LinearLayout>
+
+                <!-- Ngày đi, ngày về, số vé -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:weightSum="3">
+
+                    <!-- Ngày đi -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ngày đi"
+                            android:textColor="#888888"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/editTextNgayDi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Chọn ngày"
+                            android:inputType="none"
+                            android:focusable="false"
+                            android:textColor="#212121"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:drawableEnd="@drawable/ic_calendar" />
+                    </LinearLayout>
+
+                    <!-- Ngày về -->
+                    <LinearLayout
+                        android:id="@+id/returnCheck"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:visibility="gone" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ngày về"
+                            android:textColor="#888888"
+                            android:textSize="12sp" />
+
+                        <EditText
+                            android:id="@+id/editTextNgayVe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Chọn ngày"
+                            android:inputType="none"
+                            android:focusable="false"
+                            android:textColor="#212121"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:drawableEnd="@drawable/ic_calendar" />
+                    </LinearLayout>
+
+                    <!-- Số vé -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Số vé"
+                            android:textColor="#888888"
+                            android:textSize="12sp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerSoVe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:dropDownWidth="wrap_content"
+                            android:entries="@array/so_ve_array"
+                            android:spinnerMode="dropdown" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <!-- Nút tìm tuyến -->
+            <Button
+                android:id="@+id/btnTimTuyen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/futa_orange"
+                android:text="Tìm tuyến xe"
+                android:textColor="@color/white" />
+
+            <!-- Banners -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/home_background" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/khuyenmai2" />
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>

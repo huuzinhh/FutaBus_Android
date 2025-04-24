@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#EF6C00"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Trở về"
+            app:tint="@android:color/white" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/txtDeparture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="tes1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow"
+                android:paddingHorizontal="4dp" />
+
+            <TextView
+                android:id="@+id/txtDestination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="test2"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông tin khách hàng"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingBottom="16dp" />
+
+        <!-- Họ và tên -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và tên *" />
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập họ và tên"
+            android:text="Thông"
+            android:padding="12dp"
+            android:background="@drawable/bg_edittext" />
+        <TextView
+            android:id="@+id/NameError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không được để trống."
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email *"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập Email"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/emailError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không được để trống."
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhập số điện thoại *"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập số điện thoại"
+            android:text="0967204420"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:inputType="phone" />
+        <TextView
+            android:id="@+id/SDTError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không được để trống."
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số CMND/CCCD"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/edtIdCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập số CMND/CCCD"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:inputType="number" />
+        <TextView
+            android:id="@+id/CCCDError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không được để trống."
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lưu"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/futa_orange" />
+</LinearLayout>

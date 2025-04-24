@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent;
                         switch (idPhanQuyen) {
                             case 1:
-                                intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
                                 break;
                             case 2:
                                 intent = new Intent(LoginActivity.this, AdminHomeActivity.class);

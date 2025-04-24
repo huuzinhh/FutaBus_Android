@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_item_card">
+
+    <!-- Thời gian đi - đến -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tvDateStart"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="20/04/2025"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_forward"
+            android:paddingHorizontal="4dp" />
+
+        <TextView
+            android:id="@+id/tvDateEnd"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="20/04/2025"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+    <!-- Giá, loại ghế, chỗ trống -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="8dp"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_info_container"
+        android:layout_gravity="center_horizontal"
+        android:elevation="2dp">
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#d32f2f"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_point" />
+
+        <TextView
+            android:id="@+id/tvSeatType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ghế"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_point" />
+
+        <TextView
+            android:id="@+id/tvSeatsLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Điểm đi - đến -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp">
+
+            <!-- From -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tvTimeStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01:00"
+                    android:textSize="16sp"
+                    android:textColor="#333333"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_start_point" />
+
+                <TextView
+                    android:id="@+id/tvFrom"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:textSize="16sp"
+                    android:text="test1"/>
+            </LinearLayout>
+
+            <!-- Distance -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_marginStart="56dp"
+                    android:layout_height="55dp"
+                    android:layout_width="5dp"
+                    android:background="@drawable/dotted_vertical_line" />
+                <TextView
+                    android:id="@+id/tvDistanceDuration"
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="#757575"
+                    android:text="30.0h"/>
+            </LinearLayout>
+
+            <!-- To -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tvTimeEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="01:00"
+                    android:textSize="16sp"
+                    android:textColor="#333333"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_end_point" />
+
+                <TextView
+                    android:id="@+id/tvTo"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:textSize="16sp"
+                    android:text="test2"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    <!-- Lịch trình -->
+    <TextView
+        android:id="@+id/tvLichTrinh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Lịch trình"
+        android:textColor="#1E88E5"
+        android:textSize="14sp"
+        android:drawableLeft="@drawable/ic_info"
+        android:drawablePadding="6dp" />
+</LinearLayout>
+</LinearLayout>

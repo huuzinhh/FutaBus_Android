@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootSeatLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#EF6C00"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Trở về"/>
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chọn Ghế"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingBottom="12dp" />
+    </LinearLayout>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/SeatviewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:layout_gravity="center">
+
+        <!-- Đã bán -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal">
+
+            <View
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_seat_unavailable" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đã Bán"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Còn trống -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal">
+
+            <View
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_seat_available" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Còn Trống"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Đang chọn -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal">
+
+            <View
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_seat_seleted" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đang Chọn"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- Thông tin ghế đã chọn -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/rounded_top_corners"
+        android:elevation="2dp"
+        android:layout_marginTop="16dp">
+
+        <!-- Layout 2 cột Chiều đi - Chiều về -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- Cột Chiều đi -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chiều đi"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/Sove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:id="@+id/seatNumbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <!-- Cột Chiều về -->
+            <LinearLayout
+                android:id="@+id/layoutReturnTrip"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"> <!-- có thể là GONE nếu không có chiều về -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chiều về"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/returnSove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:id="@+id/returnSeatNumbers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Tổng tiền -->
+        <TextView
+            android:id="@+id/Giatien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnConfirmSeats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận ghế"
+        android:backgroundTint="@color/futa_orange"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp" />
+</LinearLayout>

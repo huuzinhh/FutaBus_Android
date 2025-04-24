@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="option_gia">
+        <item>Giá</item>
+        <item>Thấp đến cao</item>
+        <item>Cao đến thấp</item>
+    </string-array>
+
+    <string-array name="option_loai_ghe">
+        <item>Loại ghế</item>
+        <item>Ghế ngồi</item>
+        <item>Giường nằm</item>
+    </string-array>
+
+    <string-array name="option_gio">
+        <item>Giờ</item>
+        <item>Sáng</item>
+        <item>Chiều</item>
+        <item>Tối</item>
+    </string-array>
+</resources>
