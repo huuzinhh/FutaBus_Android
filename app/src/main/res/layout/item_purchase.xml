@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="4dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Tên tuyến -->
+        <TextView
+            android:id="@+id/tvTenTuyen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mỹ Đình - Miền Đông"
+            android:textSize="18sp"
+            android:textColor="#EF6C00"
+            android:textStyle="bold" />
+
+        <!-- Thời gian đi -->
+        <TextView
+            android:id="@+id/tvThoiDiemDi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20/04/2025 01:00"
+            android:textSize="14sp"
+            android:textColor="#757575"
+            android:layout_marginTop="4dp"/>
+
+        <!-- Số lượng vé và tổng tiền -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tvSoLuongVe"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Số lượng vé: 2"
+                android:textSize="14sp"
+                android:textColor="#212121"/>
+
+            <TextView
+                android:id="@+id/tvTongTien"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tổng tiền: 1.000.000đ"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                android:gravity="end"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

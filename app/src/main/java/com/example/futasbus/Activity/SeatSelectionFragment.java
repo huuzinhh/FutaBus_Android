@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.futasbus.R;
+import com.example.futasbus.respone.SelectedSeat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +24,15 @@ public class SeatSelectionFragment extends Fragment {
     private static final String ARG_DIRECTION = "direction";
     private GridLayout gridLayoutAbove;
     private GridLayout gridLayoutUnder;
-    private final List<String> selectedSeats = new ArrayList<>();
+    private final List<SelectedSeat> selectedSeats = new ArrayList<>();
+    private List<SelectedSeat> allSeats = new ArrayList<>();
     private List<String> soldSeats = new ArrayList<>();
     private int MAX_SEATS;
-    public static SeatSelectionFragment newInstance(String direction, ArrayList<String> soldSeats, int maxSeats) {
+    public static SeatSelectionFragment newInstance(String direction,ArrayList<SelectedSeat>AllSeat, ArrayList<String> soldSeats, int maxSeats) {
         SeatSelectionFragment fragment = new SeatSelectionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_DIRECTION, direction);
+        args.putSerializable("ALL_SEATS", AllSeat);
         args.putStringArrayList("SOLD_SEATS", soldSeats);
         args.putInt("MAX_SEATS", maxSeats);
         fragment.setArguments(args);
@@ -61,21 +64,15 @@ public class SeatSelectionFragment extends Fragment {
         if (getArguments() != null) {
             soldSeats = getArguments().getStringArrayList("SOLD_SEATS");
             if (soldSeats == null) soldSeats = new ArrayList<>();
-        }
-
-        if (getArguments() != null) {
-            soldSeats = getArguments().getStringArrayList("SOLD_SEATS");
-            if (soldSeats == null) soldSeats = new ArrayList<>();
             MAX_SEATS = getArguments().getInt("MAX_SEATS", 1);
+            allSeats = (ArrayList<SelectedSeat>) getArguments().getSerializable("ALL_SEATS");
         }
-
         createSeatButtons();
         return view;
     }
     public interface OnSeatSelectedListener {
-        void onSeatSelected(String tripType, List<String> selectedSeats);
+        void onSeatSelected(String tripType, List<SelectedSeat> selectedSeats);
     }
-
 
     private void createSeatButtons() {
         gridLayoutAbove.removeAllViews();
@@ -84,38 +81,42 @@ public class SeatSelectionFragment extends Fragment {
         gridLayoutAbove.setColumnCount(3);
         gridLayoutUnder.setColumnCount(3);
 
-        // ===== Tầng A =====
-        int seatNumberA = 1;
-        for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 3; col++) {
-                if (row == 0 && col == 1) continue; // Bỏ ghế giữa ở hàng đầu
-                if (seatNumberA > 17) break;
+        int rowA = 0, colA = 0;
+        int rowB = 0, colB = 0;
 
-                Button seatBtn = createSeatButton("A", seatNumberA, row, col);
-                gridLayoutAbove.addView(seatBtn);
-                seatNumberA++;
-            }
-        }
+        for (SelectedSeat seat : allSeats) {
+            String name = seat.getTenViTri();
+            if (name == null || name.length() < 2) continue;
 
-        // ===== Tầng B =====
-        int seatNumberB = 1;
-        for (int row = 0; row < 6; row++) {
-            for (int col = 0; col < 3; col++) {
-                if (row == 0 && col == 1) continue;
-                if (seatNumberB > 17) break;
+            char tầng = name.charAt(0); // 'A' hoặc 'B'
 
-                Button seatBtn = createSeatButton("B", seatNumberB, row, col);
-                gridLayoutUnder.addView(seatBtn);
-                seatNumberB++;
+            // Bỏ ghế giữa hàng đầu tiên (row == 0, col == 1)
+            if (tầng == 'A') {
+                if (rowA == 0 && colA == 1) colA++; // bỏ cột giữa hàng đầu tiên
+
+                Button btn = createSeatButton(seat, rowA, colA);
+                gridLayoutAbove.addView(btn);
+
+                colA++;
+                if (colA == 3) { colA = 0; rowA++; }
+
+            } else if (tầng == 'B') {
+                if (rowB == 0 && colB == 1) colB++; // bỏ cột giữa hàng đầu tiên
+
+                Button btn = createSeatButton(seat, rowB, colB);
+                gridLayoutUnder.addView(btn);
+
+                colB++;
+                if (colB == 3) { colB = 0; rowB++; }
             }
         }
     }
 
-    private Button createSeatButton(String prefix, int seatNumber, int row, int col) {
+
+    private Button createSeatButton(SelectedSeat selectedSeat, int row, int col) {
         Button seatBtn = new Button(getContext());
-        String seatId = prefix + seatNumber;
-        seatBtn.setText(seatId);
-        seatBtn.setTag(seatId);
+        seatBtn.setText(selectedSeat.getTenViTri());
+        seatBtn.setTag(selectedSeat); // Gán đối tượng SelectedSeat vào tag
 
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.width = 0;
@@ -125,7 +126,8 @@ public class SeatSelectionFragment extends Fragment {
         params.setMargins(2, 2, 2, 2);
         seatBtn.setLayoutParams(params);
 
-        if (soldSeats.contains(seatId)) {
+        // Kiểm tra xem ghế đã được bán chưa (sử dụng thông tin từ đối tượng SelectedSeat)
+        if (soldSeats.contains(selectedSeat.getTenViTri())) {
             seatBtn.setBackgroundResource(R.drawable.ic_chair_unavalable);
             seatBtn.setEnabled(false);
         } else {
@@ -137,21 +139,26 @@ public class SeatSelectionFragment extends Fragment {
     }
 
     private void onSeatClicked(Button seatBtn) {
-        String seatId = (String) seatBtn.getTag();
-        if (selectedSeats.contains(seatId)) {
-            selectedSeats.remove(seatId);
+        SelectedSeat seat = (SelectedSeat) seatBtn.getTag();
+
+        if (selectedSeats.contains(seat)) {
+            selectedSeats.remove(seat);
             seatBtn.setBackgroundResource(R.drawable.ic_chair_available);
         } else {
             if (selectedSeats.size() >= MAX_SEATS) {
                 Toast.makeText(getContext(), "Bạn chỉ được chọn " + MAX_SEATS + " ghế", Toast.LENGTH_SHORT).show();
                 return;
             }
-            selectedSeats.add(seatId);
+            selectedSeats.add(seat);
             seatBtn.setBackgroundResource(R.drawable.ic_chair_seleted);
-            Log.d("seatSelect", "onSeatClicked: "+seatId);
+            Log.d("seatSelect", "onSeatClicked: " + seat.getTenViTri());
+            Log.d("seatSelect", "onSeatClicked: " + seat.getIdViTri());
         }
+
         if (seatSelectedListener != null) {
             seatSelectedListener.onSeatSelected(direction, selectedSeats);
         }
     }
+
+
 }

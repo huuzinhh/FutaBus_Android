@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class BookBusFragment extends Fragment {
     private ListView listView;
     private TripAdapter adapter;
-    private TextView tvEmptyMessage;
+    private LinearLayout emptyLayout;
     public ChuyenXeResult getSelectedTrip() {
         return adapter != null ? adapter.getSelectedTrip() : null;
     }
@@ -36,7 +37,7 @@ public class BookBusFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_bus, container, false);
         ListView listView = view.findViewById(R.id.listViewTrips);
-        tvEmptyMessage = view.findViewById(R.id.tvEmptyMessage);
+        emptyLayout = view.findViewById(R.id.EmptyLayout);
         List<ChuyenXeResult> trips = (List<ChuyenXeResult>) getArguments().getSerializable(ARG_TRIPS);
 
         // Gán vào adapter field thay vì khai báo mới
@@ -44,12 +45,12 @@ public class BookBusFragment extends Fragment {
         listView.setAdapter(adapter);
         if (trips == null || trips.isEmpty()) {
             listView.setVisibility(View.GONE);
-            tvEmptyMessage.setVisibility(View.VISIBLE);
+            emptyLayout.setVisibility(View.VISIBLE);
         } else {
             adapter = new TripAdapter(requireContext(), R.layout.item_bus_trip, trips);
             listView.setAdapter(adapter);
             listView.setVisibility(View.VISIBLE);
-            tvEmptyMessage.setVisibility(View.GONE);
+            emptyLayout.setVisibility(View.GONE);
         }
         return view;
     }

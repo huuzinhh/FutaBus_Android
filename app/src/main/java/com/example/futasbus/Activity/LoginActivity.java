@@ -31,12 +31,13 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout layoutLoginForm, layoutRegisterForm;
     private EditText etPhoneNumber, etPassword, etFullName, etRegisterPhoneNumber, etRegisterPassword, etConfirmPassword;
     private Button btnLogin, btnRegister;
+    private boolean fromSeatSelection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        fromSeatSelection = getIntent().getBooleanExtra("fromSeatSelection", false);
         // Initialize views
         tvTitle = findViewById(R.id.tv_title);
         tvTabLogin = findViewById(R.id.tv_tab_login);
@@ -118,22 +119,27 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         editor.apply();
 
-                        Intent intent;
-                        switch (idPhanQuyen) {
-                            case 1:
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
-                                break;
-                            case 2:
-                                intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
-                                break;
-
-                            default:
-                                Toast.makeText(LoginActivity.this, "Phân quyền không hợp lệ", Toast.LENGTH_SHORT).show();
-                                return;
+                        if (fromSeatSelection) {
+                            // Gửi kết quả thành công về Fragment
+                            setResult(RESULT_OK);
+                            finish();
+                        } else {
+                            // Truy cập đúng trang theo phân quyền
+                            Intent intent;
+                            switch (idPhanQuyen) {
+                                case 1:
+                                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    break;
+                                case 2:
+                                    intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                    break;
+                                default:
+                                    Toast.makeText(LoginActivity.this, "Phân quyền không hợp lệ", Toast.LENGTH_SHORT).show();
+                                    return;
+                            }
+                            startActivity(intent);
+                            finish();
                         }
-
-                        startActivity(intent);
-                        finish();
                     } else {
                         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
                     }

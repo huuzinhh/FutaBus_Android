@@ -1,6 +1,7 @@
 package com.example.futasbus.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ public class TripAdapter extends ArrayAdapter<ChuyenXeResult> {
 
     private Context context;
     private int resource;
-    private int selectedPosition = -1; // vị trí được chọn
+    private int selectedPosition = -1;
 
     public TripAdapter(Context context, int resource, List<ChuyenXeResult> objects) {
         super(context, resource, objects);
@@ -53,9 +54,9 @@ public class TripAdapter extends ArrayAdapter<ChuyenXeResult> {
 
         if (trip != null) {
             tvTimeStart.setText(DateTimeHelper.toHour(trip.getThoiDiemDi()));
-            tvTimeEnd.setText(DateTimeHelper.toHour(trip.getThoiDiemDi()));
+            tvTimeEnd.setText(DateTimeHelper.toHour(trip.getThoiDiemDen()));
             tvDateStart.setText(DateTimeHelper.toDate(trip.getThoiDiemDi()));
-            tvDateEnd.setText(DateTimeHelper.toDate(trip.getThoiDiemDi()));
+            tvDateEnd.setText(DateTimeHelper.toDate(trip.getThoiDiemDen()));
             tvFrom.setText(trip.getTenBenXeDi());
             tvTo.setText(trip.getTenBenXeDen());
             NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
@@ -74,9 +75,9 @@ public class TripAdapter extends ArrayAdapter<ChuyenXeResult> {
 
         // Highlight item nếu đang được chọn
         if (position == selectedPosition) {
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.selected_item)); // chọn màu tùy ý
+            convertView.setBackground(context.getResources().getDrawable(R.drawable.bg_stroke_select_item_card));
         } else {
-            convertView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+            convertView.setBackground(context.getResources().getDrawable(R.drawable.bg_stroke_black_item_card));
         }
 
         convertView.setOnClickListener(v -> {

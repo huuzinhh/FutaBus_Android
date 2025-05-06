@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thông tin lượt đi"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Tuyến xe -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tuyến xe"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvTuyenXe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bến xe Mỹ Đình - Bến xe Miền Đông"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Thời gian xuất bến -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Thời gian xuất bến"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvThoiGianXuatBen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09:00 20/05/2025"
+                android:textColor="#1E88E5"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Số lượng ghế -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Số lượng ghế"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvSoLuongGhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 Ghế"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Số ghế -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Số ghế"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvSoGhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A11"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Điểm lên xe -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Điểm lên xe"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvDiemLenXe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bến xe Mỹ Đình"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Thời gian tới nơi đón -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Thời gian tới nơi đón"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvThoiGianDon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09:00 20/05/2025"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Điểm trả khách -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Điểm trả khách"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvDiemTra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bến xe Miền Đông"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <!-- Tổng tiền -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tổng tiền"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvTongTien"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500.000đ"
+                android:textColor="#1E88E5"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class TripResponse {
+public class    TripResponse {
     @SerializedName("chuyenXeResultList")
     private List<ChuyenXeResult> chuyenXeResultList; // Chiều đi
 
