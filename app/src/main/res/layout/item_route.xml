@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_margin="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="4dp"
+    android:layout_marginBottom="8dp"
+    android:backgroundTint="#FFFFFF"
+    android:clipToPadding="false"
+    android:background="@drawable/card_background">
+
+    <!-- Thông tin tuyến -->
+    <TextView
+        android:id="@+id/txtTenTuyen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tuyến: TP.HCM - Hà Nội"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/txtQuangDuong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3500km"
+        android:textSize="14sp"
+        android:textColor="#555555"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/txtGia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giá: 500.000 đ"
+        android:textSize="14sp"
+        android:textColor="#009688"
+        android:layout_marginTop="4dp" />
+
+    <!-- Hàng chứa nút Sửa và Xóa -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:text="Sửa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFC107"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:text="Xóa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F44336"
+            android:textColor="#ffffff"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+
+</LinearLayout>

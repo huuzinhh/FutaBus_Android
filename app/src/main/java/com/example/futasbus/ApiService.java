@@ -1,4 +1,6 @@
 package com.example.futasbus;
+import com.example.futasbus.model.ChuyenXe;
+import com.example.futasbus.model.TuyenXe;
 import com.example.futasbus.request.LoginRequest;
 import com.example.futasbus.request.OtpRequest;
 import com.example.futasbus.request.RegisterRequest;
@@ -7,9 +9,12 @@ import com.example.futasbus.respone.BookTicketsResponse;
 import com.example.futasbus.respone.LoginResponse;
 import com.example.futasbus.respone.OtpResponse;
 import com.example.futasbus.respone.RegisterResponse;
+import com.example.futasbus.respone.RouteResponse;
 import com.example.futasbus.respone.TinhThanhResponse;
 import com.example.futasbus.respone.TripResponse;
 import com.example.futasbus.respone.VerifyOtpResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -63,4 +68,8 @@ public interface ApiService {
             @Query("soGheReturn") int soGheReturn,
             @Query("idXeReturn") int idXeReturn
     );
+    @GET("api/admin/getListTuyenXe")
+    Call<List<TuyenXe>> getDanhSachTuyenXe();
+    @GET("api/admin/getListChuyenXe")
+    Call<List<ChuyenXe>> getDanhSachChuyenXe();
 }
