@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/futa_orange"
-    tools:context=".activity.AccountFragment">
+    tools:context=".Activity.AccountFragment">
 
     <!-- Header -->
     <TextView
@@ -14,7 +15,9 @@
         android:padding="16dp"
         android:text="Tài khoản"
         android:textColor="#FFFFFF"
-        android:textSize="24sp" />
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textStyle="bold" />
 
     <!-- Nội dung chính -->
     <LinearLayout
@@ -24,43 +27,83 @@
         android:background="@drawable/rounded_top_corners"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/accountInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="24dp"
-            android:paddingBottom="24dp">
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/item_border_background">
 
             <ImageView
+                android:id="@+id/iv_avatar"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="16dp"
                 android:contentDescription="Avatar"
-                android:src="@drawable/ic_account" />
-
-            <LinearLayout
+                android:src="@drawable/ic_account"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="10dp"
+                app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                app:layout_constraintTop_toTopOf="@id/iv_avatar"
+                app:layout_constraintBottom_toBottomOf="@id/iv_avatar">
 
                 <TextView
+                    android:id="@+id/tv_Login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thông"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:text="Đăng Nhập"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/ll_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0967204420"
-                    android:textColor="#888888"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thông"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_phonenumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0967204420"
+                        android:textColor="#888888"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </FrameLayout>
+            <ImageButton
+                android:id="@+id/btnInfoUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_arrow_next"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/ll_notification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -84,10 +127,20 @@
                 android:layout_weight="1"
                 android:text="Thông Báo"
                 android:textSize="16sp" />
+            <ImageButton
+                android:id="@+id/btnNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_next"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </LinearLayout>
 
         <!-- Cài Đặt -->
         <LinearLayout
+            android:id="@+id/ll_ChangePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -102,19 +155,29 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_setting"
+                android:src="@drawable/ic_password"
                 android:contentDescription="Cài Đặt" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Cài Đặt"
+                android:text="Thay Đổi Mật Khẩu"
                 android:textSize="16sp" />
+            <ImageButton
+                android:id="@+id/btnChangePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_next"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </LinearLayout>
 
         <!-- Giới Thiệu Bạn Bè -->
         <LinearLayout
+            android:id="@+id/ll_ShareFriend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -138,10 +201,20 @@
                 android:layout_weight="1"
                 android:text="Giới Thiệu Bạn Bè"
                 android:textSize="16sp" />
+            <ImageButton
+                android:id="@+id/btnsharewithfriend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_next"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </LinearLayout>
 
         <!-- Đăng Xuất -->
         <LinearLayout
+            android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -165,6 +238,15 @@
                 android:layout_weight="1"
                 android:text="Đăng Xuất"
                 android:textSize="16sp" />
+            <ImageButton
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_next"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </LinearLayout>
 
 

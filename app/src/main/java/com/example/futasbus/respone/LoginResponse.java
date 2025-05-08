@@ -13,7 +13,7 @@ public class LoginResponse {
     private String message;
 
     @SerializedName("nguoiDung")
-    private NguoiDung user;
+    private NguoiDungResponse user;
 
     public String getStatus() {
         return status;
@@ -31,11 +31,11 @@ public class LoginResponse {
         this.message = message;
     }
 
-    public NguoiDung getUser() {
+    public NguoiDungResponse getUser() {
         return user;
     }
 
-    public void setUser(NguoiDung user) {
+    public void setUser(NguoiDungResponse user) {
         this.user = user;
     }
 }

@@ -7,42 +7,45 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.futasbus.R;
 
-public class EditCustomerInfoActivity extends AppCompatActivity {
+public class EditBookingCustomerInfoActivity extends AppCompatActivity {
 
-    private EditText edtName, edtEmail, edtPhone, edtCCCD;
-    private TextView NameError, EmailError, PhoneError, CCCDError;
+    private EditText edtName, edtPhone;
+    private TextView NameError, edtEmail,Departure,Destination;
     private Button btnConfirm;
     private ImageButton returnButton;
-
+    private ImageView tripRoundArrow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_customer_info);
-
+        setContentView(R.layout.activity_edit_booking_customer_info);
+        Departure = findViewById(R.id.txtDeparture);
+        Destination = findViewById(R.id.txtDestination);
         edtName = findViewById(R.id.edtName);
         edtEmail = findViewById(R.id.edtEmail);
         edtPhone = findViewById(R.id.edtPhone);
-        edtCCCD = findViewById(R.id.edtIdCard);
         btnConfirm = findViewById(R.id.btnSave);
 
         NameError = findViewById(R.id.NameError);
-        EmailError = findViewById(R.id.emailError);
-        PhoneError = findViewById(R.id.SDTError);
-        CCCDError = findViewById(R.id.CCCDError);
         returnButton = findViewById(R.id.btnBack);
+        tripRoundArrow = findViewById(R.id.iv_round_trip);
+
         returnButton.setOnClickListener(v -> finish());
         // Nhận dữ liệu ban đầu từ ConfirmBookingActivity
         Intent intent = getIntent();
         edtName.setText(intent.getStringExtra("name"));
         edtEmail.setText(intent.getStringExtra("email"));
         edtPhone.setText(intent.getStringExtra("phone"));
-        edtCCCD.setText(intent.getStringExtra("CCCD"));
-
+        Departure.setText(intent.getStringExtra("departure"));
+        Destination.setText(intent.getStringExtra("destination"));
+        if(getIntent().getBooleanExtra("istripround", false)){
+            tripRoundArrow.setImageResource(R.drawable.ic_round_trip);
+        }
         btnConfirm.setOnClickListener(view -> {
             boolean isValid = true;
 
@@ -52,48 +55,19 @@ public class EditCustomerInfoActivity extends AppCompatActivity {
                 NameError.setText("Tên không được để trống !");
                 NameError.setVisibility(View.VISIBLE);
                 isValid = false;
-            }
-
-            // Kiểm tra Email
-            String email = edtEmail.getText().toString().trim();
-            if (email.isEmpty()) {
-                EmailError.setText("Email không được để trống !");
-                EmailError.setVisibility(View.VISIBLE);
-                isValid = false;
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                EmailError.setText("Email không hợp lệ !");
-                EmailError.setVisibility(View.VISIBLE);
+            } else if (!name.matches("^[a-zA-ZÀ-ỹ\\s]+$")) {
+                NameError.setText("Tên chỉ được chứa chữ cái và khoảng trắng!");
+                NameError.setVisibility(View.VISIBLE);
                 isValid = false;
             }
-
             // Kiểm tra Số điện thoại
             String phone = edtPhone.getText().toString().trim();
-            if (phone.isEmpty()) {
-                PhoneError.setText("Số điện thoại không được để trống !");
-                PhoneError.setVisibility(View.VISIBLE);
-                isValid = false;
-            } else if (!phone.matches("^0[0-9]{9}$")) {
-                PhoneError.setText("Số điện thoại không hợp lệ !");
-                PhoneError.setVisibility(View.VISIBLE);
-                isValid = false;
-            }
-
-            // Kiểm tra CCCD
-            String cccd = edtCCCD.getText().toString().trim();
-            if (cccd.isEmpty()) {
-                CCCDError.setText("CCCD không được để trống !");
-                CCCDError.setVisibility(View.VISIBLE);
-                isValid = false;
-            }
-
             if (!isValid) return;
 
             // Nếu hợp lệ, gửi kết quả về ConfirmBookingActivity
             Intent resultIntent = new Intent();
             resultIntent.putExtra("name", name);
-            resultIntent.putExtra("email", email);
             resultIntent.putExtra("phone", phone);
-            resultIntent.putExtra("CCCD", cccd);
             setResult(RESULT_OK, resultIntent);
             finish();
         });

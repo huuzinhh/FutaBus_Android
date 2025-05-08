@@ -11,17 +11,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.futasbus.helper.SharedPrefHelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.R;
+import com.example.futasbus.helper.ToastHelper;
 import com.example.futasbus.respone.TinhThanhResponse;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.model.TinhThanh;
@@ -34,7 +37,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-
+    private TextView tvUsername,tvLogin;
+    private ImageButton avata;
     private Spinner spinnerDiemDi, spinnerDiemDen, spinnerSoVe;
     private EditText editTextNgayDi, editTextNgayVe;
     private Switch switchKhuHoi;
@@ -45,8 +49,13 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         initViews(view);
-        fetchTinhThanhData();
         return view;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchTinhThanhData();
+        updateUserInfo();
     }
 
     private void initViews(View view) {
@@ -56,11 +65,14 @@ public class HomeFragment extends Fragment {
         spinnerDiemDi = view.findViewById(R.id.spinnerDiemDi);
         spinnerDiemDen = view.findViewById(R.id.spinnerDiemDen);
         spinnerSoVe = view.findViewById(R.id.spinnerSoVe);
-
+        tvUsername = view.findViewById(R.id.tv_username);
+        tvLogin = view.findViewById(R.id.tv_login);
+        avata = view.findViewById(R.id.avata);
         editTextNgayDi = view.findViewById(R.id.editTextNgayDi);
         editTextNgayVe = view.findViewById(R.id.editTextNgayVe);
         switchKhuHoi = view.findViewById(R.id.switchKhuhHoi);
         btnTimTuyen = view.findViewById(R.id.btnTimTuyen);
+
         switchKhuHoi.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 returnCheck.setVisibility(View.VISIBLE);
@@ -97,13 +109,13 @@ public class HomeFragment extends Fragment {
                     List<TinhThanh> list = response.body().getTinhThanhList();
                     populateSpinners(list);
                 } else {
-                    showToast("Không lấy được dữ liệu tỉnh thành");
+                    ToastHelper.show(requireContext(), "Không lấy được dữ liệu tỉnh thành!");
                 }
             }
 
             @Override
             public void onFailure(Call<TinhThanhResponse> call, Throwable t) {
-                showToast("Lỗi kết nối: " + t.getMessage());
+                ToastHelper.show(requireContext(), "Lỗi kết nối: " + t.getMessage());
                 Log.e("API_ERROR", "Lỗi kết nối", t);
             }
         });
@@ -126,6 +138,16 @@ public class HomeFragment extends Fragment {
 
     private void showDatePickerDialog(EditText targetEditText) {
         final Calendar calendar = Calendar.getInstance();
+
+        // Nếu đang chọn ngày về và đã có ngày đi
+        if (targetEditText == editTextNgayVe && !editTextNgayDi.getText().toString().isEmpty()) {
+            String[] parts = editTextNgayDi.getText().toString().split("/");
+            int day = Integer.parseInt(parts[0]);
+            int month = Integer.parseInt(parts[1]) - 1; // Java calendar month is 0-based
+            int year = Integer.parseInt(parts[2]);
+            calendar.set(year, month, day); // Đặt ngày tối thiểu là ngày đi
+        }
+
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -133,36 +155,44 @@ public class HomeFragment extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 requireContext(),
                 (view, year1, month1, dayOfMonth) -> {
-                    // Tháng bắt đầu từ 0
                     String selectedDate = String.format("%02d/%02d/%d", dayOfMonth, month1 + 1, year1);
                     targetEditText.setText(selectedDate);
                 },
                 year, month, day
         );
 
-        // CẤM chọn ngày trong quá khứ
+        // Đặt ngày tối thiểu là hôm nay hoặc ngày đi (nếu chọn ngày về)
         datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
         datePickerDialog.show();
     }
-
     private void onSearchRoute() {
         // Lấy giá trị từ Spinner
         TinhThanh diemDi = (TinhThanh) spinnerDiemDi.getSelectedItem();
         TinhThanh diemDen = (TinhThanh) spinnerDiemDen.getSelectedItem();
         Boolean isRoundTrip = switchKhuHoi.isChecked();
+
         // Lấy giá trị từ EditText
         String ngayDi = editTextNgayDi.getText().toString();
         String ngayVe = editTextNgayVe.getText().toString();
         String soVe = spinnerSoVe.getSelectedItem().toString();
-        // Kiểm tra và xử lý dữ liệu
-        if (diemDi == null || diemDen == null || ngayDi.isEmpty()) {
-            showToast("Vui lòng điền đầy đủ thông tin.");
+
+        if (diemDi == null || diemDen == null) {
+            ToastHelper.show(requireContext(), "Vui lòng Chọn đầy đủ điểm đi và điểm đến !");
+            return;
+        }
+        if (ngayDi.isEmpty()) {
+            ToastHelper.show(requireContext(), "Vui lòng Chọn ngày đi !");
             return;
         }
 
-//        // Tạo Intent để chuyển sang BookBusActivity và truyền dữ liệu
+        if (isRoundTrip && ngayVe.isEmpty()) {
+            ToastHelper.show(requireContext(), "Vui lòng chọn ngày về cho chuyến khứ hồi !");
+            return;
+        }
+
+        // Tạo Intent để chuyển sang BookBusActivity và truyền dữ liệu
         Intent intent = new Intent(getActivity(), BookBusActivity.class);
-        Bundle Location  = new Bundle();
+        Bundle Location = new Bundle();
         Location.putInt("departureId", diemDi.getIdTinhThanh());
         Location.putString("departure", diemDi.getTenTinh());
         Location.putInt("destinationId", diemDen.getIdTinhThanh());
@@ -174,8 +204,29 @@ public class HomeFragment extends Fragment {
         intent.putExtras(Location);
         startActivity(intent);
     }
+    private void updateUserInfo() {
+        String userName = SharedPrefHelper.getUserName(requireContext());
+        if (userName == null || userName.isEmpty()) {
+            avata.setImageResource(R.drawable.ic_login);
+            tvUsername.setVisibility(View.GONE);
+            tvLogin.setVisibility(View.VISIBLE);
 
-    private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            avata.setOnClickListener(v -> {
+                Intent intent = new Intent(requireContext(), LoginActivity.class);
+                startActivity(intent);
+            });
+        } else {
+            avata.setImageResource(R.drawable.avata);
+            tvUsername.setVisibility(View.VISIBLE);
+            tvUsername.setText("Xin Chào,\n" + userName);
+            tvLogin.setVisibility(View.GONE);
+
+            avata.setOnClickListener(v -> {
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).navigateToAccountTab();
+                }
+            });
+        }
     }
+
 }

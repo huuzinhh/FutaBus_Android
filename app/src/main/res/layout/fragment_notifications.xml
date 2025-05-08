@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.NotificationsFragment">
+    android:background="@color/white"
+    tools:context=".Activity.NotificationsFragment">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/futa_orange">
 
@@ -17,12 +18,14 @@
             android:padding="16dp"
             android:text="Thông Báo"
             android:textColor="#FFFFFF"
-            android:textSize="24sp" />
+            android:textSize="30dp"
+            android:gravity="center"
+            android:textStyle="bold" />
 
         <!-- Nội dung cuộn -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/rounded_top_corners"
             android:orientation="vertical"
             android:padding="16dp">

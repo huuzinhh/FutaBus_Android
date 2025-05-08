@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.futasbus.Adapter.BookBusPagerAdapter;
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.R;
+import com.example.futasbus.helper.ToastHelper;
 import com.example.futasbus.respone.TripResponse;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.model.ChuyenXeResult;
@@ -32,6 +34,7 @@ public class BookBusActivity extends AppCompatActivity {
     List<ChuyenXeResult>  listGo, listReturn;
     private TextView txtDeparture, txtDestination;
     private ImageButton returnButton;
+    private ImageView tripRoundArrow;
 
     private int departureId, destinationId, tickets;
     private String departure, destination, departureDate, returnDate;
@@ -52,7 +55,7 @@ public class BookBusActivity extends AppCompatActivity {
         txtDeparture = findViewById(R.id.txtDeparture);
         txtDestination = findViewById(R.id.txtDestination);
         returnButton = findViewById(R.id.btnBack);
-
+        tripRoundArrow = findViewById(R.id.iv_round_trip);
         returnButton.setOnClickListener(v -> finish());
 
         // Lấy dữ liệu từ Intent
@@ -70,7 +73,9 @@ public class BookBusActivity extends AppCompatActivity {
 
         txtDeparture.setText(departure);
         txtDestination.setText(destination);
-
+        if(isRoundTrip){
+            tripRoundArrow.setImageResource(R.drawable.ic_round_trip);
+        }
         adapter = new BookBusPagerAdapter(this);
         viewPager.setAdapter(adapter);
 
@@ -96,7 +101,7 @@ public class BookBusActivity extends AppCompatActivity {
             }
 
             if (selectedGo == null || (isRoundTrip && selectedReturn == null)) {
-                Toast.makeText(this, "Vui lòng chọn đầy đủ chuyến xe", Toast.LENGTH_SHORT).show();
+                ToastHelper.show(BookBusActivity.this, "Vui lòng chọn đầy đủ chuyến xe");
                 return;
             }
 
@@ -162,7 +167,7 @@ public class BookBusActivity extends AppCompatActivity {
                         tab.setText(adapter.getTitle(position));
                     }).attach();
                 } else {
-                    Toast.makeText(BookBusActivity.this, "Không có chuyến xe nào", Toast.LENGTH_SHORT).show();
+                    ToastHelper.show(BookBusActivity.this, "Không có chuyến xe nào");
                 }
             }
 

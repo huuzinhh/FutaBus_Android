@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="12dp"
-    android:layout_margin="8dp"
-    android:background="@drawable/bg_item_card">
+    android:layout_marginBottom="50dp">
 
     <!-- Thời gian đi - đến -->
     <LinearLayout

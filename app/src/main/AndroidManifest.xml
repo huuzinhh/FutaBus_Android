@@ -16,23 +16,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.InvoiceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.LocationManagementActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.VehicleManagementActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.TripManagementActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.RouteManagementActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.EditCustomerInfoActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".Activity.ConfirmBookingActivity"
             android:exported="false" />
@@ -43,7 +28,7 @@
             android:name=".Activity.BookBusActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.AdminHomeActivity"
+            android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,6 +36,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.AdminHomeActivity"
+            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".Activity.alo"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+<!--        <activity android:name=".Activity.UserHomeActivity" />-->
     </application>
 
 </manifest>

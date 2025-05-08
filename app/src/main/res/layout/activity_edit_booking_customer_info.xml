@@ -43,6 +43,7 @@
                 android:text="tes1" />
 
             <ImageView
+                android:id="@+id/iv_round_trip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_arrow"
@@ -106,22 +107,13 @@
             android:text="Email *"
             android:layout_marginTop="16dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập Email"
+            android:hint="Email"
             android:background="@drawable/bg_edittext"
             android:padding="12dp" />
-
-        <TextView
-            android:id="@+id/emailError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Không được để trống."
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="12sp"
-            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -135,35 +127,13 @@
             android:layout_height="wrap_content"
             android:hint="Nhập số điện thoại"
             android:text="0967204420"
+            android:inputType="number"
+            android:maxLength="10"
+            android:digits="0123456789"
             android:background="@drawable/bg_edittext"
-            android:padding="12dp"
-            android:inputType="phone" />
+            android:padding="12dp" />
         <TextView
             android:id="@+id/SDTError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Không được để trống."
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="12sp"
-            android:visibility="gone"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Số CMND/CCCD"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/edtIdCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nhập số CMND/CCCD"
-            android:background="@drawable/bg_edittext"
-            android:padding="12dp"
-            android:inputType="number" />
-        <TextView
-            android:id="@+id/CCCDError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Không được để trống."
@@ -175,7 +145,9 @@
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18dp"
         android:text="Lưu"
         android:layout_marginTop="20dp"
+        android:padding="10dp"
         android:backgroundTint="@color/futa_orange" />
 </LinearLayout>
