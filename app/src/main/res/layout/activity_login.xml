@@ -94,7 +94,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -142,16 +141,17 @@
 
                 <!-- Phone Number Input -->
                 <EditText
-                    android:id="@+id/et_phone_number"
+                    android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập số điện thoại"
+                    android:hint="Nhập email"
+                    android:inputType="textEmailAddress"
                     android:padding="12dp"
                     android:background="@drawable/edit_text_background"
-                    android:drawableStart="@android:drawable/ic_menu_call"
+                    android:drawableStart="@android:drawable/ic_dialog_email"
                     android:drawablePadding="8dp"
                     android:layout_marginBottom="16dp" />
-<!--                android:inputType="phone"-->
+
                 <!-- Password Input -->
                 <EditText
                     android:id="@+id/et_password"
@@ -196,29 +196,58 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-
-
-                <!-- Phone Number Input -->
+                <!-- Email Input -->
                 <EditText
-                    android:id="@+id/et_register_phone_number"
+                    android:id="@+id/et_register_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập số điện thoại"
-                    android:inputType="phone"
+                    android:hint="Nhập email"
+                    android:inputType="textEmailAddress"
                     android:padding="12dp"
                     android:background="@drawable/edit_text_background"
-                    android:drawableStart="@android:drawable/ic_menu_call"
+                    android:drawableStart="@android:drawable/ic_menu_send"
                     android:drawablePadding="8dp"
                     android:layout_marginBottom="16dp" />
 
-
-
-                <!-- Register Button -->
+                <!-- Send OTP Button -->
                 <Button
-                    android:id="@+id/btn_register"
+                    android:id="@+id/btn_send_otp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Đăng ký"
+                    android:text="Gửi mã OTP"
+                    android:backgroundTint="#FF5722"
+                    android:textColor="@android:color/white"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp" />
+            </LinearLayout>
+
+            <!-- Form Nhập OTP -->
+            <LinearLayout
+                android:id="@+id/layout_otp_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- OTP Input -->
+                <EditText
+                    android:id="@+id/et_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập mã OTP"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    android:background="@drawable/edit_text_background"
+                    android:drawableStart="@android:drawable/ic_lock_lock"
+                    android:drawablePadding="8dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Verify OTP Button -->
+                <Button
+                    android:id="@+id/btn_verify_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Xác nhận OTP"
                     android:backgroundTint="#FF5722"
                     android:textColor="@android:color/white"
                     android:padding="12dp"

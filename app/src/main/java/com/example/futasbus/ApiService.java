@@ -1,5 +1,7 @@
 package com.example.futasbus;
+import com.example.futasbus.model.ChuyenXe;
 import com.example.futasbus.model.NguoiDung;
+import com.example.futasbus.model.TuyenXe;
 import com.example.futasbus.request.BookingWrapper;
 import com.example.futasbus.request.LoginRequest;
 import com.example.futasbus.request.OtpRequest;
@@ -14,6 +16,7 @@ import com.example.futasbus.respone.TinhThanhResponse;
 import com.example.futasbus.respone.TripResponse;
 import com.example.futasbus.respone.VerifyOtpResponse;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -83,4 +86,8 @@ public interface ApiService {
 
     @POST("api/user/update-user")
     Call<Map<String, Object>> updateUserInfo(@Body NguoiDung nguoiDung);
+    @GET("api/admin/getListTuyenXe")
+    Call<List<TuyenXe>> getDanhSachTuyenXe();
+    @GET("api/admin/getListChuyenXe")
+    Call<List<ChuyenXe>> getDanhSachChuyenXe();
 }
