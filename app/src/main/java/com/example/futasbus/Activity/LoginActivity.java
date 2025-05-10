@@ -144,6 +144,8 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("hoTen", loginResponse.getUser().getHoTen());
                             idPhanQuyen = loginResponse.getUser().getIdPhanQuyen();
                             editor.putInt("idPhanQuyen", idPhanQuyen);
+                            editor.putBoolean("isLoggedIn", true);
+
                         } else {
                             Log.w("LOGIN_WARNING", "Không nhận được thông tin người dùng từ server");
                         }
@@ -152,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent;
                         switch (idPhanQuyen) {
                             case 1:
-                                intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
                                 break;
                             case 2:
                                 intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
