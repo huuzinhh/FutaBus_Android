@@ -24,7 +24,7 @@
             android:id="@+id/topBarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trang quản trị"
+            android:text="Trang chủ"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:paddingStart="16dp"/>

@@ -24,7 +24,7 @@
             android:id="@+id/topBarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trang quản trị"
+            android:text="Tài khoản"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:paddingStart="16dp"/>
@@ -66,18 +66,23 @@
                 <EditText android:hint="Nguyễn Thị Bé Hai" style="@style/InputStyle" />
 
                 <TextView android:text="Giới tính:" style="@style/LabelStyle" android:layout_marginBottom="5dp" />
+
                 <Spinner
                     android:id="@+id/spinnerGender"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="41dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
                     android:background="#f6f6f6"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
                     android:spinnerMode="dropdown" />
 
-                <TextView android:text="Năm sinh:" style="@style/LabelStyle" android:layout_marginBottom="5dp" />
+                <TextView
+                    style="@style/LabelStyle"
+                    android:layout_marginBottom="5dp"
+                    android:paddingTop="8dp"
+                    android:text="Năm sinh:" />
                 <EditText android:hint="2000" style="@style/InputStyle" />
 
                 <TextView android:text="Số điện thoại:" style="@style/LabelStyle" android:layout_marginBottom="5dp" />
