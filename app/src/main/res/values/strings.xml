@@ -11,4 +11,8 @@
     </string-array>
     <string name="ticket_count_seat">Số vé: %d</string>
     <string name="seats_selected">Ghế: %1$s</string>
+    <string-array name="gender_options">
+        <item>Nam</item>
+        <item>Nữ</item>
+    </string-array>
 </resources>

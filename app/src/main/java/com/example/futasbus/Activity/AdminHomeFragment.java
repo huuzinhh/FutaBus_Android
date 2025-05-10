@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 
 import com.example.futasbus.Adapter.AdminHomeAdapter;
@@ -33,13 +31,14 @@ public class AdminHomeFragment extends Fragment {
         gridView = view.findViewById(R.id.gridViewAdminHome);
         adminHomeList = new ArrayList<>();
 
-
-        adminHomeList.add(new AdminHomeModel("Tuyến xe", R.drawable.ic_bell));
-        adminHomeList.add(new AdminHomeModel("Chuyến xe", R.drawable.ic_bell));
-        adminHomeList.add(new AdminHomeModel("Xe", R.drawable.ic_bell));
-        adminHomeList.add(new AdminHomeModel("Địa điểm",R.drawable.ic_bell));
-        adminHomeList.add(new AdminHomeModel("Hóa đơn",R.drawable.ic_bell));
-        adminHomeList.add(new AdminHomeModel("Tỉnh/thành",R.drawable.ic_bell));
+        adminHomeList.add(new AdminHomeModel("Quản lý người dùng", R.drawable.ic_customer));
+        adminHomeList.add(new AdminHomeModel("Quản lý vé", R.drawable.ic_ticket_bus));
+        adminHomeList.add(new AdminHomeModel("Quản lý tuyến xe", R.drawable.ic_bus_route));
+        adminHomeList.add(new AdminHomeModel("Quản lý chuyến xe", R.drawable.ic_bus_trip));
+        adminHomeList.add(new AdminHomeModel("Quản lý bến xe", R.drawable.ic_bus_station));
+        adminHomeList.add(new AdminHomeModel("Quản lý xe",R.drawable.ic_bus));
+        adminHomeList.add(new AdminHomeModel("Quản lý địa điểm",R.drawable.ic_location));
+        adminHomeList.add(new AdminHomeModel("Thống kê",R.drawable.ic_statistic));
 
         adminHomeAdapter = new AdminHomeAdapter(getActivity(), adminHomeList);
         gridView.setAdapter(adminHomeAdapter);

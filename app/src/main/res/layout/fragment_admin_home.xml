@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="24dp">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#EF5222"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iconMenu"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_menu"
+            android:contentDescription="Menu icon" />
+
+        <TextView
+            android:id="@+id/topBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trang quản trị"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:paddingStart="16dp"/>
+    </LinearLayout>
 
     <GridView
         android:id="@+id/gridViewAdminHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"
+        android:layout_below="@id/topBar"
+        android:numColumns="1"
         android:verticalSpacing="8dp"
         android:horizontalSpacing="8dp"
         android:padding="8dp"

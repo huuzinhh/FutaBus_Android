@@ -2,28 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@android:color/white"
-    android:padding="8dp"
-    android:elevation="4dp"
-    android:layout_margin="4dp">
+    android:padding="16dp"
+    android:gravity="center_vertical"
+    android:layout_margin="4dp"
+    android:elevation="1dp">
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:scaleType="centerCrop"
-        android:background="@android:color/darker_gray"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:contentDescription=""
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_bus" />
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Food Name"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:paddingTop="4dp"
-        android:paddingBottom="2dp"
-        android:layout_gravity="center_horizontal"
-        />
+        android:layout_weight="1"
+        android:text="Quản lý bến xe"
+        android:textSize="16sp"
+        android:paddingStart="16dp"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/icon_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_arrow_right"
+        android:contentDescription=""
+        android:layout_marginStart="8dp"
+        android:scaleType="centerInside" />
+
 </LinearLayout>
