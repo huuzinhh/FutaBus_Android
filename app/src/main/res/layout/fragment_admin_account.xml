@@ -63,14 +63,24 @@
                     style="@style/LabelStyle"
                     android:layout_marginBottom="5dp"
                     android:text="Họ và tên:" />
-                <EditText android:hint="Nguyễn Thị Bé Hai" style="@style/InputStyle" />
+                <EditText
+                    android:id="@+id/editFullName"
+                    android:hint="Nhập họ và tên"
+                    android:enabled="false"
+                    style="@style/InputStyle" />
 
-                <TextView android:text="Giới tính:" style="@style/LabelStyle" android:layout_marginBottom="5dp" />
+                <TextView
+                    android:text="Giới tính:"
+                    style="@style/LabelStyle"
+                    android:layout_marginBottom="5dp" />
 
                 <Spinner
                     android:id="@+id/spinnerGender"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
+                    android:enabled="false"
+                    android:clickable="false"
+
                     android:layout_marginTop="0dp"
                     android:layout_marginBottom="0dp"
                     android:background="#f6f6f6"
@@ -83,17 +93,85 @@
                     android:layout_marginBottom="5dp"
                     android:paddingTop="8dp"
                     android:text="Năm sinh:" />
-                <EditText android:hint="2000" style="@style/InputStyle" />
+                <EditText
+                    android:id="@+id/editBirthDay"
+                    android:hint="Nhập năm sinh"
+                    android:enabled="false"
+                    style="@style/InputStyle" />
 
-                <TextView android:text="Số điện thoại:" style="@style/LabelStyle" android:layout_marginBottom="5dp" />
-                <EditText android:hint="0123456989" style="@style/InputStyle" />
+                <TextView android:text="Số điện thoại:"
+                    style="@style/LabelStyle"
+                    android:layout_marginBottom="5dp" />
+                <EditText
+                    android:id="@+id/editPhone"
+                    android:hint="Nhập số điện thoại"
+                    android:enabled="false"
+                    style="@style/InputStyle" />
 
-                <TextView android:text="Email:" style="@style/LabelStyle" android:layout_marginBottom="5dp" />
-                <EditText android:hint="dung@gmail.com" style="@style/InputStyle" />
+                <TextView
+                    android:text="Email:"
+                    style="@style/LabelStyle"
+                    android:layout_marginBottom="5dp" />
+                <EditText
+                    android:id="@+id/editEmail"
+                    android:hint="Nhập email"
+                    android:enabled="false"
+                    style="@style/InputStyle" />
 
-                <TextView android:text="Địa chỉ:" style="@style/LabelStyle" android:layout_marginBottom="5dp" />
-                <EditText android:hint="Hà Nội" style="@style/InputStyle" />
+                <TextView
+                    android:text="Địa chỉ:"
+                    style="@style/LabelStyle"
+                    android:layout_marginBottom="5dp" />
+                <EditText
+                    android:id="@+id/editAddress"
+                    android:hint="Nhập địa chỉ"
+                    android:enabled="false"
+                    style="@style/InputStyle" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chỉnh sửa"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="8dp"
+                android:backgroundTint="#EF5222"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hủy"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="8dp"
+                    android:backgroundTint="#EF5222"
+                    android:textColor="@android:color/white"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cập nhật"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="8dp"
+                    android:backgroundTint="#4CAF50"
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
