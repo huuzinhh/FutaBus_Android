@@ -39,7 +39,7 @@ public class AdminHomeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.gird_item_admin_home, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_admin_home, parent, false);
         }
 
         ImageView img = convertView.findViewById(R.id.img);

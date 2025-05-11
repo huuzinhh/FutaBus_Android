@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 
+import java.util.HashMap;
+import java.util.Map;
 
 import com.example.futasbus.Adapter.AdminHomeAdapter;
 import com.example.futasbus.R;
@@ -24,6 +28,8 @@ public class AdminHomeFragment extends Fragment {
     private GridView gridView;
     private AdminHomeAdapter adminHomeAdapter;
     private List<AdminHomeModel> adminHomeList;
+    private Map<String, Class<?>> activityMap;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
@@ -46,20 +52,39 @@ public class AdminHomeFragment extends Fragment {
             String selectedItem = adminHomeList.get(position).getName();
 
             switch (selectedItem) {
-                case "Tuyến xe":
-                    startActivity(new Intent(getActivity(), RouteManagementActivity.class));
+                case "Quản lý người dùng":
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
+
+                    if (currentFragment != null) {
+                        transaction.remove(currentFragment);
+                    }
+
+                    Fragment newFragment = new UserManagementFragment();
+                    transaction.replace(R.id.admin_fragment_container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
-                case "Chuyến xe":
-                    startActivity(new Intent(getActivity(), TripManagementActivity.class));
+                case "Quản lý vé":
+                    //startActivity(new Intent(getActivity(), UserManagementActivity.class));
                     break;
-                case "Xe":
-                    startActivity(new Intent(getActivity(), VehicleManagementActivity.class));
+                case "Quản lý tuyến xe":
+                    //startActivity(new Intent(getActivity(), VehicleManagementActivity.class));
                     break;
-                case "Địa điểm":
-                    startActivity(new Intent(getActivity(), LocationManagementActivity.class));
+                case "Quản lý chuyến xe":
+                    //startActivity(new Intent(getActivity(), LocationManagementActivity.class));
                     break;
-                case "Hóa đơn":
-                    startActivity(new Intent(getActivity(), InvoiceActivity.class));
+                case "Quản lý bến xe":
+                    //startActivity(new Intent(getActivity(), VehicleManagementActivity.class));
+                    break;
+                case "Quản lý xe":
+                    //startActivity(new Intent(getActivity(), InvoiceActivity.class));
+                    break;
+                case "Quản lý địa điểm":
+                    //startActivity(new Intent(getActivity(), InvoiceActivity.class));
+                    break;
+                case "Thống kê":
+                    //startActivity(new Intent(getActivity(), InvoiceActivity.class));
                     break;
             }
         });
