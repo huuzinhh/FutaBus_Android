@@ -14,10 +14,18 @@ import java.util.List;
 public class BusRouteAdapter extends BaseAdapter {
     private Context context;
     private List<TuyenXe> tuyenXeList;
+    private OnBusRouteActionListener listener;
 
-    public BusRouteAdapter(Context context, List<TuyenXe> tuyenXeList) {
+    public interface OnBusRouteActionListener {
+        void onView(TuyenXe tuyenXe);
+        void onEdit(TuyenXe tuyenXe);
+        void onDelete(TuyenXe tuyenXe);
+    }
+
+    public BusRouteAdapter(Context context, List<TuyenXe> tuyenXeList, OnBusRouteActionListener listener) {
         this.context = context;
         this.tuyenXeList = tuyenXeList;
+        this.listener = listener;
     }
 
     @Override
@@ -60,15 +68,15 @@ public class BusRouteAdapter extends BaseAdapter {
         tvThoiGian.setText("Thời gian: " + tuyenXe.getThoiGianDiChuyenTB() + " giờ");
 
         btnView.setOnClickListener(v -> {
-            // Hiển thị chi tiết tuyến xe
+            if (listener != null) listener.onView(tuyenXe);
         });
 
         btnEdit.setOnClickListener(v -> {
-            // Mở màn hình/sửa tuyến xe
+            if (listener != null) listener.onEdit(tuyenXe);
         });
 
         btnDelete.setOnClickListener(v -> {
-            // Hiển thị dialog xác nhận xóa tuyến xe
+            if (listener != null) listener.onDelete(tuyenXe);
         });
 
         return convertView;

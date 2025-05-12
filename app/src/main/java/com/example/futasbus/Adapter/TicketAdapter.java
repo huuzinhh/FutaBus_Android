@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.futasbus.R;
 import com.example.futasbus.model.BookingInfo;
+import com.example.futasbus.model.TuyenXe;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -17,10 +18,18 @@ import java.util.Locale;
 public class TicketAdapter extends BaseAdapter {
     private Context context;
     private List<BookingInfo> bookingList;
+    private TicketAdapter.OnTicketActionListener listener;
 
-    public TicketAdapter(Context context, List<BookingInfo> bookingList) {
+    public interface OnTicketActionListener {
+        void onView(BookingInfo bookingInfor);
+        void onEdit(BookingInfo bookingInfor);
+        void onDelete(BookingInfo bookingInfor);
+    }
+
+    public TicketAdapter(Context context, List<BookingInfo> bookingList, TicketAdapter.OnTicketActionListener listener) {
         this.context = context;
         this.bookingList = bookingList;
+        this.listener = listener;
     }
 
     @Override
@@ -91,15 +100,15 @@ public class TicketAdapter extends BaseAdapter {
         tvTrangThai.setText("Trạng thái: " + trangThaiText);
 
         btnView.setOnClickListener(v -> {
-            // TODO: Hiển thị chi tiết vé
+            if (listener != null) listener.onView(booking);
         });
 
         btnEdit.setOnClickListener(v -> {
-            // TODO: Mở màn hình sửa vé
+            if (listener != null) listener.onEdit(booking);
         });
 
         btnDelete.setOnClickListener(v -> {
-            // TODO: Hiển thị dialog xác nhận xoá vé
+            if (listener != null) listener.onDelete(booking);
         });
 
         return convertView;

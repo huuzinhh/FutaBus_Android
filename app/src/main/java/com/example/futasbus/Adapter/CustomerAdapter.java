@@ -16,10 +16,18 @@ import java.util.List;
 public class CustomerAdapter extends BaseAdapter {
     private Context context;
     private List<NguoiDung> nguoiDungList;
+    private CustomerAdapter.OnCustomerActionListener listener;
 
-    public CustomerAdapter(Context context, List<NguoiDung> nguoiDungList) {
+    public interface OnCustomerActionListener {
+        void onView(NguoiDung nguoiDung);
+        void onEdit(NguoiDung nguoiDung);
+        void onDelete(NguoiDung nguoiDung);
+    }
+
+    public CustomerAdapter(Context context, List<NguoiDung> nguoiDungList, CustomerAdapter.OnCustomerActionListener listener) {
         this.context = context;
         this.nguoiDungList = nguoiDungList;
+        this.listener = listener;
     }
 
     @Override
@@ -52,7 +60,7 @@ public class CustomerAdapter extends BaseAdapter {
         TextView tvDiaChi = convertView.findViewById(R.id.tv_dia_chi);
         ImageView btnEdit = convertView.findViewById(R.id.btn_edit);
         ImageView btnDelete = convertView.findViewById(R.id.btn_delete);
-        ImageView btnSee = convertView.findViewById(R.id.btn_see);
+        ImageView btnView = convertView.findViewById(R.id.btn_see);
 
         NguoiDung nguoiDung = nguoiDungList.get(i);
 
@@ -63,16 +71,16 @@ public class CustomerAdapter extends BaseAdapter {
         tvEmail.setText("Email: " + nguoiDung.getEmail());
         tvDiaChi.setText("Địa chỉ: " + nguoiDung.getDiaChi());
 
-        btnSee.setOnClickListener(v -> {
-            // Hiển thị chi tiết người dùng
+        btnView.setOnClickListener(v -> {
+            if (listener != null) listener.onView(nguoiDung);
         });
 
         btnEdit.setOnClickListener(v -> {
-            // Mở dialog/screen sửa thông tin
+            if (listener != null) listener.onEdit(nguoiDung);
         });
 
         btnDelete.setOnClickListener(v -> {
-            // Hiển thị dialog xác nhận xóa
+            if (listener != null) listener.onDelete(nguoiDung);
         });
 
         return convertView;
