@@ -68,7 +68,6 @@ public class HistoryFragment extends Fragment {
             return;
         }
 
-        // Nếu đã đăng nhập thì gọi API
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
         apiService.getPurchaseHistory(idNguoiDung).enqueue(new Callback<ListPurchaseResponse>() {
             @Override

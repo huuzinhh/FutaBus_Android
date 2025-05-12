@@ -15,73 +15,52 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Hàng 1: Họ tên -->
         <TextView
-            android:id="@+id/tv_ho_ten"
+            android:id="@+id/tv_ten_tuyen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Họ tên: Nguyễn Văn A"
+            android:text="Tuyến: Sài Gòn - Hà Nội"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Hàng 2: Giới tính và Năm sinh -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
-
-            <TextView
-                android:id="@+id/tv_gioi_tinh"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Giới tính: Nam"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_nam_sinh"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Năm sinh: 1998"
-                android:textColor="#000000"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <!-- Hàng 3: SĐT -->
         <TextView
-            android:id="@+id/tv_so_dien_thoai"
+            android:id="@+id/tv_ben_di"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="SĐT: 0909123456"
+            android:text="Bến xe đi: Bến xe Miền Đông"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Hàng 4: Email -->
         <TextView
-            android:id="@+id/tv_email"
+            android:id="@+id/tv_ben_den"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Email: nguyenvana@example.com"
+            android:text="Bến xe đến: Bến xe Giáp Bát"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
 
-        <!-- Hàng 5: Địa chỉ -->
         <TextView
-            android:id="@+id/tv_dia_chi"
+            android:id="@+id/tv_quang_duong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ: 123 Đường ABC, Quận 1, TP.HCM"
+            android:text="Quãng đường: 1.700 km"
             android:textColor="#000000"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tv_thoi_gian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thời gian: 32h"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
     </LinearLayout>
 
-    <!-- Cột bên phải: 3 nút chức năng -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -90,7 +69,7 @@
         android:paddingStart="8dp">
 
         <ImageView
-            android:id="@+id/btn_see"
+            android:id="@+id/btn_view"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginBottom="8dp"

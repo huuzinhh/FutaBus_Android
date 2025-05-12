@@ -29,6 +29,9 @@ public class AdminHomeFragment extends Fragment {
     private AdminHomeAdapter adminHomeAdapter;
     private List<AdminHomeModel> adminHomeList;
     private Map<String, Class<?>> activityMap;
+    private FragmentTransaction transaction;
+    private Fragment currentFragment;
+    private Fragment newFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,24 +56,43 @@ public class AdminHomeFragment extends Fragment {
 
             switch (selectedItem) {
                 case "Quản lý người dùng":
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
+                    transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
 
                     if (currentFragment != null) {
                         transaction.remove(currentFragment);
                     }
 
-                    Fragment newFragment = new UserManagementFragment();
+                    newFragment = new UserManagementFragment();
                     transaction.replace(R.id.admin_fragment_container, newFragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
                     break;
                 case "Quản lý vé":
-                    //startActivity(new Intent(getActivity(), UserManagementActivity.class));
+                    transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
+
+                    if (currentFragment != null) {
+                        transaction.remove(currentFragment);
+                    }
+
+                    newFragment = new TicketManagementFragment();
+                    transaction.replace(R.id.admin_fragment_container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
                 case "Quản lý tuyến xe":
-                    //startActivity(new Intent(getActivity(), VehicleManagementActivity.class));
-                    break;
+                    transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
+
+                    if (currentFragment != null) {
+                        transaction.remove(currentFragment);
+                    }
+
+                    newFragment = new BusRouteManagementFragment();
+                    transaction.replace(R.id.admin_fragment_container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 case "Quản lý chuyến xe":
                     //startActivity(new Intent(getActivity(), LocationManagementActivity.class));
                     break;

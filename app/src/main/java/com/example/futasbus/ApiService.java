@@ -1,4 +1,5 @@
 package com.example.futasbus;
+import com.example.futasbus.model.BookingInfo;
 import com.example.futasbus.model.ChuyenXe;
 import com.example.futasbus.model.NguoiDung;
 import com.example.futasbus.model.TuyenXe;
@@ -90,4 +91,14 @@ public interface ApiService {
     Call<List<TuyenXe>> getDanhSachTuyenXe();
     @GET("api/admin/getListChuyenXe")
     Call<List<ChuyenXe>> getDanhSachChuyenXe();
+
+    @GET("api/admin/nguoidung/all")
+    Call<List<NguoiDung>> getAllNguoiDung();
+
+    @GET("api/admin/tuyenxe/all")
+    Call<List<TuyenXe>> getAllTuyenXe();
+
+    @GET("api/admin/phieudatve/all")
+    Call<List<BookingInfo>> getAllPhieuDatVe();
+
 }
