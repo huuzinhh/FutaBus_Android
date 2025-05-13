@@ -31,7 +31,6 @@ public class CustomerInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_customer_info, container, false);
 
-        // Ánh xạ view
         tvHoTen = view.findViewById(R.id.tvHoTen);
         tvGioiTinh = view.findViewById(R.id.tvGioiTinh);
         tvNgaySinh = view.findViewById(R.id.tvNgaySinh);

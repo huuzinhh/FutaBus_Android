@@ -20,14 +20,14 @@ import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.model.BenXe;
 import com.example.futasbus.model.QuanHuyen;
-import com.example.futasbus.model.TinhThanh;
 import com.example.futasbus.model.TuyenXe;
 import com.example.futasbus.model.TuyenXeUpdateDTO;
-
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -201,54 +201,35 @@ public class BusRouteManagementFragment extends Fragment {
 
                         @Override
                         public void onDelete(TuyenXe tuyenXe) {
-                            Toast.makeText(getContext(), "Xoá: " + tuyenXe.getTenTuyen(), Toast.LENGTH_SHORT).show();
+                            new AlertDialog.Builder(getContext())
+                                    .setTitle("Xác nhận xoá")
+                                    .setMessage("Bạn có chắc chắn muốn xoá tuyến xe này không?")
+                                    .setPositiveButton("Xoá", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                                            Call<ResponseBody> call = apiService.xoaTuyenXe(tuyenXe.getIdTuyenXe());
 
-                        }
+                                            call.enqueue(new Callback<ResponseBody>() {
+                                                @Override
+                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                    if (response.isSuccessful()) {
+                                                        Toast.makeText(getContext(), "Xoá tuyến xe thành công", Toast.LENGTH_SHORT).show();
+                                                        loadTuyenXe();
+                                                    } else {
+                                                        Toast.makeText(getContext(), "Không tìm thấy tuyến xe", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
 
-                        private int timViTriBenXeTheoId(int id, List<BenXe> danhSachBenXe) {
-                            for (int i = 0; i < danhSachBenXe.size(); i++) {
-                                if (danhSachBenXe.get(i).getIdBenXe() == id) {
-                                    return i;
-                                }
-                            }
-                            return 0;
-                        }
-
-                        private int getTenTinhThanhByQuanHuyenId(int idQuanHuyen, List<QuanHuyen> danhSachQuanHuyen) {
-                            for (QuanHuyen qh : danhSachQuanHuyen) {
-                                if (qh.getIdQuanHuyen() == idQuanHuyen) {
-                                    return qh.getTinhThanh().getIdTinhThanh();
-                                }
-                            }
-                            return 0;
-                        }
-
-                        private void capNhatTuyenXe(TuyenXeUpdateDTO tuyenXe) {
-                            ApiService apiService = ApiClient.getClient().create(ApiService.class);
-                            Call<Map<String, Object>> call = apiService.updateTuyenXe(tuyenXe);
-
-                            call.enqueue(new Callback<Map<String, Object>>() {
-                                @Override
-                                public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                                    if (response.isSuccessful() && response.body() != null) {
-                                        Boolean success = (Boolean) response.body().get("success");
-                                        String message = (String) response.body().get("message");
-
-                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-
-                                        if (success != null && success) {
-                                            adapter.notifyDataSetChanged();
+                                                @Override
+                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                    Toast.makeText(getContext(), "Lỗi khi gọi API: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                         }
-                                    } else {
-                                        Toast.makeText(getContext(), "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                                    Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                    })
+                                    .setNegativeButton("Huỷ", null)
+                                    .show();
                         }
                     });
                     gridViewBusRoute.setAdapter(adapter);
@@ -264,5 +245,72 @@ public class BusRouteManagementFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private int timViTriBenXeTheoId(int id, List<BenXe> danhSachBenXe) {
+        for (int i = 0; i < danhSachBenXe.size(); i++) {
+            if (danhSachBenXe.get(i).getIdBenXe() == id) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    private int getTenTinhThanhByQuanHuyenId(int idQuanHuyen, List<QuanHuyen> danhSachQuanHuyen) {
+        for (QuanHuyen qh : danhSachQuanHuyen) {
+            if (qh.getIdQuanHuyen() == idQuanHuyen) {
+                return qh.getTinhThanh().getIdTinhThanh();
+            }
+        }
+        return 0;
+    }
+
+    private void capNhatTuyenXe(TuyenXeUpdateDTO tuyenXe) {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<Map<String, Object>> call = apiService.updateTuyenXe(tuyenXe);
+
+        call.enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = (Boolean) response.body().get("success");
+                    String message = (String) response.body().get("message");
+
+                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+                    if (success != null && success) {
+                        adapter.notifyDataSetChanged();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadTuyenXe() {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        apiService.getAllTuyenXe().enqueue(new Callback<List<TuyenXe>>() {
+            @Override
+            public void onResponse(Call<List<TuyenXe>> call, Response<List<TuyenXe>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    tuyenXeList.clear();
+                    tuyenXeList.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getContext(), "Không tải được danh sách tuyến xe", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TuyenXe>> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

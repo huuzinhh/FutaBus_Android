@@ -24,9 +24,11 @@ import com.example.futasbus.respone.VerifyOtpResponse;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -122,5 +124,11 @@ public interface ApiService {
 
     @POST("api/admin/update-tuyenxe")
     Call<Map<String, Object>> updateTuyenXe(@Body TuyenXeUpdateDTO tuyenXe);
+
+    @PUT("api/admin/nguoidung/xoa/{id}")
+    Call<ResponseBody> xoaNguoiDung(@Path("id") int id);
+
+    @PUT("api/admin/tuyenxe/xoa/{id}")
+    Call<ResponseBody> xoaTuyenXe(@Path("id") int id);
 
 }

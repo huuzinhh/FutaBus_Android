@@ -1,6 +1,7 @@
 package com.example.futasbus.Activity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.R;
 import com.example.futasbus.model.NguoiDung;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -111,36 +113,35 @@ public class UserManagementFragment extends Fragment {
 
                         @Override
                         public void onDelete(NguoiDung nguoiDung) {
-                            Toast.makeText(getContext(), "Xoá: " + nguoiDung.getHoTen(), Toast.LENGTH_SHORT).show();
-                        }
+                            new AlertDialog.Builder(getContext())
+                                    .setTitle("Xác nhận xoá")
+                                    .setMessage("Bạn có chắc chắn muốn xoá người dùng này không?")
+                                    .setPositiveButton("Xoá", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                                            Call<ResponseBody> call = apiService.xoaNguoiDung(nguoiDung.getIdNguoiDung());
 
-                        private void capNhatNguoiDung(NguoiDung nguoiDung) {
-                            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                                            call.enqueue(new Callback<ResponseBody>() {
+                                                @Override
+                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                    if (response.isSuccessful()) {
+                                                        Toast.makeText(getContext(), "Xoá thành công", Toast.LENGTH_SHORT).show();
+                                                        loadNguoiDung();
+                                                    } else {
+                                                        Toast.makeText(getContext(), "Không tìm thấy người dùng", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
 
-                            Call<Map<String, Object>> call = apiService.updateNguoiDung(nguoiDung);
-
-                            call.enqueue(new Callback<Map<String, Object>>() {
-                                @Override
-                                public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                                    if (response.isSuccessful() && response.body() != null) {
-                                        Boolean success = (Boolean) response.body().get("success");
-                                        String message = (String) response.body().get("message");
-
-                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-
-                                        if (success != null && success) {
-                                            adapter.notifyDataSetChanged();
+                                                @Override
+                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                    Toast.makeText(getContext(), "Lỗi khi gọi API: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
                                         }
-                                    } else {
-                                        Toast.makeText(getContext(), "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                                    Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                                    })
+                                    .setNegativeButton("Huỷ", null)
+                                    .show();
                         }
                     });
                     gridViewUser.setAdapter(adapter);
@@ -156,6 +157,56 @@ public class UserManagementFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void capNhatNguoiDung(NguoiDung nguoiDung) {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+        Call<Map<String, Object>> call = apiService.updateNguoiDung(nguoiDung);
+
+        call.enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = (Boolean) response.body().get("success");
+                    String message = (String) response.body().get("message");
+
+                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+                    if (success != null && success) {
+                        adapter.notifyDataSetChanged();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadNguoiDung() {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        apiService.getAllNguoiDung().enqueue(new Callback<List<NguoiDung>>() {
+            @Override
+            public void onResponse(Call<List<NguoiDung>> call, Response<List<NguoiDung>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    nguoiDungList.clear();
+                    nguoiDungList.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getContext(), "Không tải được danh sách người dùng", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NguoiDung>> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
 
