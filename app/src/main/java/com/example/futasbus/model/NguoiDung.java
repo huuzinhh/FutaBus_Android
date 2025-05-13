@@ -1,7 +1,9 @@
 package com.example.futasbus.model;
-import com.google.gson.annotations.SerializedName;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class NguoiDung implements Serializable {
@@ -16,7 +18,7 @@ public class NguoiDung implements Serializable {
     private String soDienThoai;
     private String email;
     private String matKhau;
-    private Date ngayDangKy;
+    private Timestamp ngayDangKy;
     private int trangThai;
     private int idPhanQuyen;
 
@@ -24,7 +26,7 @@ public class NguoiDung implements Serializable {
     }
 
     public NguoiDung(int idNguoiDung, String hoTen, boolean gioiTinh, int namSinh, String CCCD, String diaChi,
-                     String soDienThoai, String email, String matKhau, Date ngayDangKy, int trangThai, int idPhanQuyen) {
+                     String soDienThoai, String email, String matKhau, Timestamp ngayDangKy, int trangThai, int idPhanQuyen) {
         this.idNguoiDung = idNguoiDung;
         this.hoTen = hoTen;
         this.gioiTinh = gioiTinh;
@@ -111,11 +113,11 @@ public class NguoiDung implements Serializable {
         this.matKhau = matKhau;
     }
 
-    public Date getNgayDangKy() {
+    public Timestamp getNgayDangKy() {
         return ngayDangKy;
     }
 
-    public void setNgayDangKy(Date ngayDangKy) {
+    public void setNgayDangKy(Timestamp ngayDangKy) {
         this.ngayDangKy = ngayDangKy;
     }
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingLeft="24dp"
+    android:paddingTop="24dp"
+    android:paddingRight="24dp"
+    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="Chỉnh sửa tuyến xe"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="12dp" />
+
+    <EditText
+        android:id="@+id/edtTenTuyen"
+        android:hint="Tên tuyến"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/spinnerBenXeDi"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:id="@+id/spinnerBenXeDen"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:spinnerMode="dropdown" />
+
+    <EditText
+        android:id="@+id/edtQuangDuong"
+        android:hint="Quảng đường (km)"
+        android:textSize="14sp"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/edtThoiGian"
+        android:hint="Thời gian (giờ)"
+        android:textSize="14sp"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/edtSoChuyenNgay"
+        android:hint="Số chuyến trong ngày"
+        android:textSize="14sp"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/edtSoNgayTuan"
+        android:hint="Số ngày trong tuần"
+        android:textSize="14sp"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -1,8 +1,12 @@
 package com.example.futasbus;
+import com.example.futasbus.model.BenXe;
 import com.example.futasbus.model.BookingInfo;
 import com.example.futasbus.model.ChuyenXe;
 import com.example.futasbus.model.NguoiDung;
+import com.example.futasbus.model.QuanHuyen;
+import com.example.futasbus.model.TinhThanh;
 import com.example.futasbus.model.TuyenXe;
+import com.example.futasbus.model.TuyenXeUpdateDTO;
 import com.example.futasbus.request.BookingWrapper;
 import com.example.futasbus.request.LoginRequest;
 import com.example.futasbus.request.OtpRequest;
@@ -100,5 +104,23 @@ public interface ApiService {
 
     @GET("api/admin/phieudatve/all")
     Call<List<BookingInfo>> getAllPhieuDatVe();
+
+    @GET("api/admin/benxe/all")
+    Call<List<BenXe>> getAllBenXe();
+
+    @GET("api/admin/benxedto/all")
+    Call<List<BenXe>> getAllBenXeDTO();
+
+    @GET("api/admin/tinhthanh/all")
+    Call<List<TinhThanh>> getAllTinhThanh();
+
+    @GET("api/admin/quanhuyen/all")
+    Call<List<QuanHuyen>> getAllQuanHuyen();
+
+    @POST("api/user/update-user")
+    Call<Map<String, Object>> updateNguoiDung(@Body NguoiDung nguoiDung);
+
+    @POST("api/admin/update-tuyenxe")
+    Call<Map<String, Object>> updateTuyenXe(@Body TuyenXeUpdateDTO tuyenXe);
 
 }

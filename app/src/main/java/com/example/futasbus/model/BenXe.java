@@ -60,6 +60,7 @@ public class BenXe {
 
     @Override
     public String toString() {
-        return tenBenXe; // thường dùng cho Spinner, hoặc để hiển thị đơn giản
+        return tenBenXe;
     }
+
 }

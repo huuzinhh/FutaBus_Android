@@ -7,7 +7,6 @@ public class TuyenXe {
     private float thoiGianDiChuyenTB;
     private double giaHienHanh;
     private float quangDuong;
-
     private TinhThanh tinhThanhDi;
     private TinhThanh tinhThanhDen;
     private BenXe benXeDi;
