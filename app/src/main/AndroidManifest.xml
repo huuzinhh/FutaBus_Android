@@ -49,6 +49,9 @@
             android:name=".Activity.RouteManagementActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.CustomerActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.SplashActivity"
             android:exported="true">
             <intent-filter>

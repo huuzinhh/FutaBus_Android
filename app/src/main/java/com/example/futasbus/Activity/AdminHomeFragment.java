@@ -93,20 +93,31 @@ public class AdminHomeFragment extends Fragment {
                     transaction.replace(R.id.admin_fragment_container, newFragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
+                    break;
                 case "Quản lý chuyến xe":
-                    //startActivity(new Intent(getActivity(), LocationManagementActivity.class));
+                    transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
+
+                    if (currentFragment != null) {
+                        transaction.remove(currentFragment);
+                    }
+
+                    newFragment = new TripManagementFragment();
+                    transaction.replace(R.id.admin_fragment_container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
                 case "Quản lý bến xe":
-                    //startActivity(new Intent(getActivity(), VehicleManagementActivity.class));
+
                     break;
                 case "Quản lý xe":
-                    //startActivity(new Intent(getActivity(), InvoiceActivity.class));
+
                     break;
                 case "Quản lý địa điểm":
-                    //startActivity(new Intent(getActivity(), InvoiceActivity.class));
+
                     break;
                 case "Thống kê":
-                    //startActivity(new Intent(getActivity(), InvoiceActivity.class));
+
                     break;
             }
         });

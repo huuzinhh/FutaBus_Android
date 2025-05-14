@@ -4,74 +4,73 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.futasbus.R;
 import com.example.futasbus.model.ChuyenXe;
+import com.example.futasbus.model.TuyenXe;
 
-
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class TripManagementAdapter extends RecyclerView.Adapter<TripManagementAdapter.TripViewHolder> {
-
-    private List<ChuyenXe> tripList;
+public class TripManagementAdapter extends BaseAdapter {
     private Context context;
+    private List<ChuyenXe> chuyenXeList;
+    private TripManagementAdapter.OnBusTripActionListener listener;
 
-    public TripManagementAdapter(List<ChuyenXe> tripList) {
-        this.tripList = tripList;
+    public interface OnBusTripActionListener {
+        void onView(ChuyenXe chuyenXe);
+
+        void onEdit(ChuyenXe chuyenXe);
+
+        void onDelete(ChuyenXe chuyenXe);
     }
 
-    @NonNull
-    @Override
-    public TripViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.item_trip_managent, parent, false);
-        return new TripViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
-        ChuyenXe chuyenXe = tripList.get(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        holder.tvTuyenXe.setText("Tuyến " + chuyenXe.getTuyenXe().getTenTuyen());
-        holder.tvThoiGian.setText("Từ " + sdf.format(chuyenXe.getThoiDiemDi()) + " đến " + sdf.format(chuyenXe.getThoiDiemDen()));
-        holder.tvGiaVe.setText("Giá vé: " + chuyenXe.getGiaVe() + "đ");
-
-        holder.btnSua.setOnClickListener(v -> {
-            Toast.makeText(context, "Sửa chuyến " + chuyenXe.getIdChuyenXe(), Toast.LENGTH_SHORT).show();
-            // TODO: Mở màn hình sửa chuyến xe
-        });
-
-        holder.btnXoa.setOnClickListener(v -> {
-            Toast.makeText(context, "Xóa chuyến " + chuyenXe.getIdChuyenXe(), Toast.LENGTH_SHORT).show();
-            // TODO: Gọi API xóa chuyến
-        });
+    public TripManagementAdapter(Context context, List<ChuyenXe> chuyenXeList, TripManagementAdapter.OnBusTripActionListener listener) {
+        this.context = context;
+        this.chuyenXeList = chuyenXeList;
+        this.listener = listener;
     }
 
     @Override
-    public int getItemCount() {
-        return tripList != null ? tripList.size() : 0;
+    public int getCount() {
+        return chuyenXeList.size();
     }
 
-    public static class TripViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTuyenXe, tvThoiGian, tvGiaVe;
-        Button btnSua, btnXoa;
+    @Override
+    public Object getItem(int i) {
+        return chuyenXeList.get(i);
+    }
 
-        public TripViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTuyenXe = itemView.findViewById(R.id.tvTuyenXe);
-            tvThoiGian = itemView.findViewById(R.id.tvThoiGian);
-            tvGiaVe = itemView.findViewById(R.id.tvGiaVe);
-            btnSua = itemView.findViewById(R.id.btnSua);
-            btnXoa = itemView.findViewById(R.id.btnXoa);
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int i, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            convertView = inflater.inflate(R.layout.item_trip_managent, parent, false);
         }
+        TextView tvTuyenXe = convertView.findViewById(R.id.tvTuyenXe);
+        TextView tvThoiGian = convertView.findViewById(R.id.tvThoiGian);
+        TextView tvGiaVe = convertView.findViewById(R.id.tvGiaVe);
+        ChuyenXe chuyenXe = chuyenXeList.get(i);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
+
+        tvTuyenXe.setText("Tuyến " + chuyenXe.getTuyenXe().getTenTuyen());
+        tvThoiGian.setText("Từ " + sdf.format(chuyenXe.getThoiDiemDi()) + " đến " + sdf.format(chuyenXe.getThoiDiemDen()));
+        tvGiaVe.setText("Giá vé: " + chuyenXe.getGiaVe() + "đ");
+
+
+
+        return convertView;
     }
 }
+
+
+
+
