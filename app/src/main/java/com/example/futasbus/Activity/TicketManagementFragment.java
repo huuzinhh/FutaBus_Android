@@ -3,10 +3,13 @@ package com.example.futasbus.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +23,8 @@ import android.widget.Toast;
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.model.BookingInfo;
+import com.example.futasbus.model.PhieuDatVe;
+import com.example.futasbus.model.TuyenXe;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -41,6 +46,8 @@ public class TicketManagementFragment extends Fragment {
     private GridView gridViewTicket;
     private List<BookingInfo> bookingList;
     private TicketAdapter adapter;
+    private List<BookingInfo> filteredList = new ArrayList<>();
+    List<BookingInfo> displayList = new ArrayList<>();
 
     public TicketManagementFragment() {
     }
@@ -57,12 +64,46 @@ public class TicketManagementFragment extends Fragment {
         gridViewTicket = view.findViewById(R.id.gridViewTicket);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+        EditText edtSearchTicket = view.findViewById(R.id.edtSearchTicket);
+        edtSearchTicket.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterTicket(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        Spinner spinnerTrangThai = view.findViewById(R.id.spinnerStatus);
+
+        List<String> trangThaiList = Arrays.asList("Tất cả", "Đã huỷ", "Đã đặt", "Chờ thanh toán", "Đã thanh toán", "Hoàn tất");
+        ArrayAdapter<String> statusAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, trangThaiList);
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTrangThai.setAdapter(statusAdapter);
+
+        spinnerTrangThai.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filterBookingListByStatus(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         apiService.getAllPhieuDatVe().enqueue(new Callback<List<BookingInfo>>() {
             @Override
             public void onResponse(Call<List<BookingInfo>> call, Response<List<BookingInfo>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     bookingList = response.body();
-                    adapter = new TicketAdapter(requireContext(), bookingList, new TicketAdapter.OnTicketActionListener() {
+                    filteredList = new ArrayList<>(bookingList);
+                    adapter = new TicketAdapter(requireContext(), filteredList, new TicketAdapter.OnTicketActionListener() {
                         @Override
                         public void onView(BookingInfo bookingInfo) {
                             LayoutInflater inflater = LayoutInflater.from(requireContext());
@@ -374,6 +415,42 @@ public class TicketManagementFragment extends Fragment {
         });
     }
 
+    private void filterTicket(String query) {
+        filteredList.clear();
+
+        if (query.isEmpty()) {
+            filteredList.addAll(displayList);
+        } else {
+            for (BookingInfo bookingInfo : displayList) {
+                if (bookingInfo.getHoTen().toLowerCase().contains(query.toLowerCase())
+                        || bookingInfo.getSoDienThoai().toLowerCase().contains(query.toLowerCase())
+                        || bookingInfo.getEmail().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(bookingInfo);
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private void filterBookingListByStatus(int statusIndex) {
+        filteredList.clear();
+
+        if (statusIndex == 0) {
+            filteredList.addAll(bookingList);
+        } else {
+            int actualStatus = statusIndex - 1;
+            for (BookingInfo booking : bookingList) {
+                if (booking.getTrangThai() == actualStatus) {
+                    filteredList.add(booking);
+                }
+            }
+        }
+
+        displayList.clear();
+        displayList.addAll(filteredList);
+        adapter.notifyDataSetChanged();
+    }
 }
 
 

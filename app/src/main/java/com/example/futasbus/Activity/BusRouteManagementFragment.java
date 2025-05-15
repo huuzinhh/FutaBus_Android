@@ -45,6 +45,7 @@ public class BusRouteManagementFragment extends Fragment {
     private List<BenXe> danhSachBenXe = new ArrayList<>();
     private List<QuanHuyen> danhSachQuanHuyen = new ArrayList<>();
     TuyenXeUpdateDTO tuyenxeUpdate = new TuyenXeUpdateDTO();
+    private List<TuyenXe> filteredList = new ArrayList<>();
 
     public BusRouteManagementFragment() {
     }
@@ -113,13 +114,13 @@ public class BusRouteManagementFragment extends Fragment {
             public void afterTextChanged(Editable s) {}
         });
 
-
         apiService.getAllTuyenXe().enqueue(new Callback<List<TuyenXe>>() {
             @Override
             public void onResponse(Call<List<TuyenXe>> call, Response<List<TuyenXe>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     tuyenXeList = response.body();
-                    adapter = new BusRouteAdapter(requireContext(), tuyenXeList, new BusRouteAdapter.OnBusRouteActionListener() {
+                    filteredList = new ArrayList<>(tuyenXeList);
+                    adapter = new BusRouteAdapter(requireContext(), filteredList, new BusRouteAdapter.OnBusRouteActionListener() {
                         @Override
                         public void onView(TuyenXe tuyenXe) {
                             LayoutInflater inflater = LayoutInflater.from(requireContext());
@@ -436,22 +437,19 @@ public class BusRouteManagementFragment extends Fragment {
         });
     }
 
-    private void filterBusRoutes(String keyword) {
-        if (tuyenXeList == null || adapter == null) return;
+    private void filterBusRoutes(String query) {
+        filteredList.clear();
 
-        List<TuyenXe> filteredList = new ArrayList<>();
-        for (TuyenXe tuyen : tuyenXeList) {
-            if (tuyen.getTenTuyen().toLowerCase().contains(keyword.toLowerCase())) {
-                filteredList.add(tuyen);
+        if (query.isEmpty()) {
+            filteredList.addAll(tuyenXeList);
+        } else {
+            for (TuyenXe tuyenXe : tuyenXeList) {
+                if (tuyenXe.getTenTuyen().toLowerCase().contains(query.toLowerCase()) || tuyenXe.getBenXeDi().getTenBenXe().toLowerCase().contains(query.toLowerCase()) || tuyenXe.getBenXeDen().getTenBenXe().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(tuyenXe);
+                }
             }
         }
 
-        updateData(filteredList); // Giả sử adapter có hàm này
-    }
-
-
-    public void updateData(List<TuyenXe> newList) {
-        this.tuyenXeList = newList;
         adapter.notifyDataSetChanged();
     }
 }

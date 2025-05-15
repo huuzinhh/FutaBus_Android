@@ -30,24 +30,41 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/admin_fragment_container"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_below="@id/topBar"-->
-<!--        android:background="#FFFFFF"-->
-<!--        android:clickable="true">-->
-<!--    </FrameLayout>-->
+    <LinearLayout
+        android:id="@+id/layoutSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topBar"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="#fef7ff"
+        android:gravity="center_vertical"
+        android:clickable="true">
+
+        <EditText
+            android:id="@+id/edtSearchUser"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:hint="Tìm người dùng..."
+            android:backgroundTint="@color/futa_orange"
+            android:paddingHorizontal="8dp" />
+    </LinearLayout>
+
     <GridView
         android:id="@+id/gridViewUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topBar"
+        android:layout_below="@id/layoutSearch"
         android:background="#fef7ff"
         android:numColumns="1"
         android:verticalSpacing="8dp"
         android:horizontalSpacing="8dp"
-        android:padding="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
         android:clickable="true"/>
