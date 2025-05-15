@@ -30,16 +30,50 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layoutSearchAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topBar"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="#fef7ff"
+        android:gravity="center_vertical"
+        android:clickable="true">
+
+        <EditText
+            android:id="@+id/edtSearchRoute"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:hint="Tìm tuyến xe..."
+            android:backgroundTint="@color/futa_orange"
+            android:paddingHorizontal="8dp" />
+
+        <ImageButton
+            android:id="@+id/btnAddRoute"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Thêm tuyến xe"
+            android:src="@drawable/ic_add" />
+    </LinearLayout>
+
     <GridView
         android:id="@+id/gridViewBusRoute"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topBar"
+        android:layout_below="@id/layoutSearchAdd"
         android:background="#fef7ff"
         android:numColumns="1"
         android:verticalSpacing="8dp"
         android:horizontalSpacing="8dp"
-        android:padding="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
         android:clickable="true"/>

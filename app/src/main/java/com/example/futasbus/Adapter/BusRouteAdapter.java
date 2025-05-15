@@ -62,8 +62,8 @@ public class BusRouteAdapter extends BaseAdapter {
         TuyenXe tuyenXe = tuyenXeList.get(i);
 
         tvTenTuyen.setText("Tuyến: " + tuyenXe.getTenTuyen());
-        tvBenDi.setText("Bến xe đi: " + tuyenXe.getBenXeDi());
-        tvBenDen.setText("Bến xe đến: " + tuyenXe.getBenXeDen());
+        tvBenDi.setText("Bến xe đi: " + tuyenXe.getBenXeDi().getTenBenXe());
+        tvBenDen.setText("Bến xe đến: " + tuyenXe.getBenXeDen().getTenBenXe());
         tvQuangDuong.setText("Quãng đường: " + tuyenXe.getQuangDuong() + " km");
         tvThoiGian.setText("Thời gian: " + tuyenXe.getThoiGianDiChuyenTB() + " giờ");
 
