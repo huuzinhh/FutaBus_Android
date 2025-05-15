@@ -54,16 +54,30 @@
         android:elevation="4dp"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvAccount"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Tài khoản"
-            android:textColor="#EF5222"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:paddingBottom="16dp" />
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_back_orange"
+                android:contentDescription="Quay lại" />
+
+            <TextView
+                android:id="@+id/tvAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Tài khoản"
+                android:textColor="#EF5222"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/avatar"
