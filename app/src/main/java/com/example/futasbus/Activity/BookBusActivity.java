@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -88,43 +89,83 @@ public class BookBusActivity extends AppCompatActivity {
                 Log.d("DEBUG", "goFragment null");
                 return;
             }
-            ChuyenXeResult selectedGo = goFragment.getSelectedTrip();
 
-            ChuyenXeResult selectedReturn = null;
-            if (isRoundTrip && adapter.getItemCount() > 1) {
+            ChuyenXeResult selectedGo = goFragment.getSelectedTrip();
+            if (selectedGo == null) {
+                ToastHelper.show(BookBusActivity.this, "Vui lòng chọn chuyến xe đi");
+                return;
+            }
+
+            if (isRoundTrip) {
                 BookBusFragment returnFragment = findFragmentByPosition(1);
                 if (returnFragment == null) {
                     Log.d("DEBUG", "returnFragment null");
                     return;
                 }
-                selectedReturn = returnFragment.getSelectedTrip();
-            }
 
-            if (selectedGo == null || (isRoundTrip && selectedReturn == null)) {
-                ToastHelper.show(BookBusActivity.this, "Vui lòng chọn đầy đủ chuyến xe");
-                return;
-            }
+                ChuyenXeResult selectedReturn = returnFragment.getSelectedTrip();
+                if (selectedReturn == null) {
+                    new AlertDialog.Builder(BookBusActivity.this)
+                            .setTitle("Thiếu chuyến về")
+                            .setMessage("Bạn chưa chọn chuyến về. Bạn có muốn chuyển sang vé một chiều không?")
+                            .setPositiveButton("Có", (dialog, which) -> {
+                                isRoundTrip = false;
 
-            // Chuyển sang màn hình tiếp theo (ví dụ chọn chỗ ngồi)
-            Bundle bundle = new Bundle();
-            bundle.putInt("departureId", departureId);
-            bundle.putString("departure", departure);
-            bundle.putInt("destinationId", destinationId);
-            bundle.putString("destination", destination);
-            bundle.putString("departureDate", departureDate);
-            bundle.putString("returnDate", returnDate);
-            bundle.putBoolean("isRoundTrip", isRoundTrip);
-            bundle.putInt("tickets", tickets);
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("departureId", departureId);
+                                bundle.putString("departure", departure);
+                                bundle.putInt("destinationId", destinationId);
+                                bundle.putString("destination", destination);
+                                bundle.putString("departureDate", departureDate);
+                                bundle.putString("returnDate", returnDate);
+                                bundle.putBoolean("isRoundTrip", false); // cập nhật trong intent
+                                bundle.putInt("tickets", tickets);
 
-            Intent intent = new Intent(BookBusActivity.this, SeatSelectionActivity.class);
-            intent.putExtras(bundle);
+                                Intent intent = new Intent(BookBusActivity.this, SeatSelectionActivity.class);
+                                intent.putExtras(bundle);
+                                intent.putExtra("goTrip", selectedGo);
+                                startActivity(intent);
+                            })
+                            .setNegativeButton("Không", null)
+                            .show();
+                    return;
+                }
 
-            intent.putExtra("goTrip", selectedGo);
-            if (selectedReturn != null) {
+                // Đã chọn cả hai chuyến → tiếp tục
+                Bundle bundle = new Bundle();
+                bundle.putInt("departureId", departureId);
+                bundle.putString("departure", departure);
+                bundle.putInt("destinationId", destinationId);
+                bundle.putString("destination", destination);
+                bundle.putString("departureDate", departureDate);
+                bundle.putString("returnDate", returnDate);
+                bundle.putBoolean("isRoundTrip", true);
+                bundle.putInt("tickets", tickets);
+
+                Intent intent = new Intent(BookBusActivity.this, SeatSelectionActivity.class);
+                intent.putExtras(bundle);
+                intent.putExtra("goTrip", selectedGo);
                 intent.putExtra("returnTrip", selectedReturn);
+                startActivity(intent);
+            } else {
+                // Vé một chiều
+                Bundle bundle = new Bundle();
+                bundle.putInt("departureId", departureId);
+                bundle.putString("departure", departure);
+                bundle.putInt("destinationId", destinationId);
+                bundle.putString("destination", destination);
+                bundle.putString("departureDate", departureDate);
+                bundle.putString("returnDate", returnDate);
+                bundle.putBoolean("isRoundTrip", false);
+                bundle.putInt("tickets", tickets);
+
+                Intent intent = new Intent(BookBusActivity.this, SeatSelectionActivity.class);
+                intent.putExtras(bundle);
+                intent.putExtra("goTrip", selectedGo);
+                startActivity(intent);
             }
-            startActivity(intent);
         });
+
     }
 
     private BookBusFragment findFragmentByPosition(int position) {
