@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         if (isLoggedIn) {
             int role = sharedPref.getInt("idPhanQuyen", -1);
             if (role == 1) {
-                intent = new Intent(this, UserHomeActivity.class);
+                intent = new Intent(this, MainActivity.class);
             } else if (role == 2) {
                 intent = new Intent(this, AdminHomeActivity.class);
             } else {

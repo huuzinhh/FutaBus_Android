@@ -49,6 +49,18 @@
             android:name=".Activity.RouteManagementActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.ThankYouActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CustomerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CheckOutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EditBookingCustomerInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -60,10 +72,6 @@
         <activity
             android:name=".Activity.LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.UserManagementActivity"
-            android:exported="false" />
-
     </application>
 
 </manifest>
