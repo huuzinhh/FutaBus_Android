@@ -1,18 +1,25 @@
 package com.example.futasbus.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import com.example.futasbus.helper.ToastHelper;
 
 
@@ -43,6 +50,8 @@ public class AdminAccountFragment extends Fragment {
     private Button btnEdit;
     private Button btnCancel;
     private Button btnUpdate;
+    private LinearLayout sidebar;
+    private ImageView iconMenu;
 
     public AdminAccountFragment() {
 
@@ -60,8 +69,6 @@ public class AdminAccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//        }
     }
 
     @Override
@@ -80,9 +87,30 @@ public class AdminAccountFragment extends Fragment {
         btnCancel = view.findViewById(R.id.btnCancel);
         btnUpdate = view.findViewById(R.id.btnUpdate);
 
+        sidebar = view.findViewById(R.id.sidebar);
+        iconMenu = view.findViewById(R.id.iconMenu);
+
+        iconMenu.setOnClickListener(v -> {
+            if (sidebar.getVisibility() == View.GONE) {
+                sidebar.setVisibility(View.VISIBLE);
+            } else {
+                sidebar.setVisibility(View.GONE);
+            }
+        });
+
+        LinearLayout topBar = view.findViewById(R.id.topBar);
+
+        topBar.setOnClickListener(v -> {
+            if (sidebar.getVisibility() == View.VISIBLE) {
+                sidebar.setVisibility(View.GONE);
+            }
+        });
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
 
         int idNguoiDung = sharedPreferences.getInt("idNguoiDung", -1);
+
+        TextView tvUsername = view.findViewById(R.id.tvUsername);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item,
@@ -90,6 +118,25 @@ public class AdminAccountFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGender.setAdapter(adapter);
         spinnerGender.setOnTouchListener((v, event) -> true);
+
+        Button btnLogout = view.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(v -> {
+            new androidx.appcompat.app.AlertDialog.Builder(requireActivity())
+                    .setTitle("Xác nhận đăng xuất")
+                    .setMessage("Bạn có chắc chắn muốn đăng xuất không?")
+                    .setPositiveButton("Có", (dialog, which) -> {
+                        SharedPreferences preferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.clear();
+                        editor.apply();
+
+                        Intent intent = new Intent(requireActivity(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("Không", null)
+                    .show();
+        });
 
         ApiService apiService = ApiClient.getApiService();
         apiService.getGeneralInformation(idNguoiDung).enqueue(new Callback<NguoiDung>() {
@@ -107,6 +154,8 @@ public class AdminAccountFragment extends Fragment {
                     editAddress.setText(user.getDiaChi());
                     editPhone.setText(user.getSoDienThoai());
                     editEmail.setText(user.getEmail());
+
+                    tvUsername.setText(user.getHoTen());
                 } else {
                     Log.e("API", "Không lấy được thông tin người dùng");
                 }

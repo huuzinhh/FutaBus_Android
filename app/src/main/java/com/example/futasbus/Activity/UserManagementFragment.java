@@ -3,6 +3,8 @@ package com.example.futasbus.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,14 @@ import com.example.futasbus.Adapter.CustomerAdapter;
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.R;
+import com.example.futasbus.model.BookingInfo;
 import com.example.futasbus.model.NguoiDung;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +36,7 @@ public class UserManagementFragment extends Fragment {
     private GridView gridViewUser;
     private List<NguoiDung> nguoiDungList;
     private CustomerAdapter adapter;
+    private List<NguoiDung> filteredList = new ArrayList<>();
 
     public UserManagementFragment() {
     }
@@ -48,12 +54,27 @@ public class UserManagementFragment extends Fragment {
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
+        EditText edtSearchUser = view.findViewById(R.id.edtSearchUser);
+        edtSearchUser.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterUser(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         apiService.getAllNguoiDung().enqueue(new Callback<List<NguoiDung>>() {
             @Override
             public void onResponse(Call<List<NguoiDung>> call, Response<List<NguoiDung>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     nguoiDungList = response.body();
-                    adapter = new CustomerAdapter(requireContext(), nguoiDungList, new CustomerAdapter.OnCustomerActionListener() {
+                    filteredList = new ArrayList<>(nguoiDungList);
+                    adapter = new CustomerAdapter(requireContext(), filteredList, new CustomerAdapter.OnCustomerActionListener() {
                         @Override
                         public void onView(NguoiDung nguoiDung) {
                             LayoutInflater inflater = LayoutInflater.from(requireContext());
@@ -207,6 +228,25 @@ public class UserManagementFragment extends Fragment {
                 Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void filterUser(String query) {
+        filteredList.clear();
+
+        if (query.isEmpty()) {
+            filteredList.addAll(nguoiDungList);
+        } else {
+            for (NguoiDung nguoiDung : nguoiDungList) {
+                if (nguoiDung.getHoTen().toLowerCase().contains(query.toLowerCase())
+                        || nguoiDung.getSoDienThoai().toLowerCase().contains(query.toLowerCase())
+                        || nguoiDung.getEmail().toLowerCase().contains(query.toLowerCase())
+                        || nguoiDung.getDiaChi().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(nguoiDung);
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged();
     }
 }
 

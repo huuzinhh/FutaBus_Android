@@ -184,7 +184,7 @@ public class EditCustomerInfoFragment extends Fragment {
             isValid = false;
         }
 
-        if (!isValid) {
+        if (isValid) {
             EditUserInfo();
         }
     }

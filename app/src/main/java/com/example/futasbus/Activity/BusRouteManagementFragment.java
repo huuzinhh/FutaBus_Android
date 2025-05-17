@@ -2,12 +2,15 @@ package com.example.futasbus.Activity;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import com.example.futasbus.Adapter.BusRouteAdapter;
@@ -20,6 +23,7 @@ import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.model.BenXe;
 import com.example.futasbus.model.QuanHuyen;
+import com.example.futasbus.model.TinhThanh;
 import com.example.futasbus.model.TuyenXe;
 import com.example.futasbus.model.TuyenXeUpdateDTO;
 import okhttp3.ResponseBody;
@@ -41,6 +45,7 @@ public class BusRouteManagementFragment extends Fragment {
     private List<BenXe> danhSachBenXe = new ArrayList<>();
     private List<QuanHuyen> danhSachQuanHuyen = new ArrayList<>();
     TuyenXeUpdateDTO tuyenxeUpdate = new TuyenXeUpdateDTO();
+    private List<TuyenXe> filteredList = new ArrayList<>();
 
     public BusRouteManagementFragment() {
     }
@@ -74,6 +79,11 @@ public class BusRouteManagementFragment extends Fragment {
             }
         });
 
+        ImageButton btnAddRoute = view.findViewById(R.id.btnAddRoute);
+        btnAddRoute.setOnClickListener(v -> {
+            showAddRouteDialog();
+        });
+
         apiService.getAllQuanHuyen().enqueue(new Callback<List<QuanHuyen>>() {
             @Override
             public void onResponse(Call<List<QuanHuyen>> call, Response<List<QuanHuyen>> response) {
@@ -90,12 +100,27 @@ public class BusRouteManagementFragment extends Fragment {
             }
         });
 
+        EditText edtSearchRoute = view.findViewById(R.id.edtSearchRoute);
+        edtSearchRoute.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterBusRoutes(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         apiService.getAllTuyenXe().enqueue(new Callback<List<TuyenXe>>() {
             @Override
             public void onResponse(Call<List<TuyenXe>> call, Response<List<TuyenXe>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     tuyenXeList = response.body();
-                    adapter = new BusRouteAdapter(requireContext(), tuyenXeList, new BusRouteAdapter.OnBusRouteActionListener() {
+                    filteredList = new ArrayList<>(tuyenXeList);
+                    adapter = new BusRouteAdapter(requireContext(), filteredList, new BusRouteAdapter.OnBusRouteActionListener() {
                         @Override
                         public void onView(TuyenXe tuyenXe) {
                             LayoutInflater inflater = LayoutInflater.from(requireContext());
@@ -300,8 +325,7 @@ public class BusRouteManagementFragment extends Fragment {
             public void onResponse(Call<List<TuyenXe>> call, Response<List<TuyenXe>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     tuyenXeList.clear();
-                    tuyenXeList.addAll(response.body());
-                    adapter.notifyDataSetChanged();
+                    loadTuyenXe();
                 } else {
                     Toast.makeText(getContext(), "Không tải được danh sách tuyến xe", Toast.LENGTH_SHORT).show();
                 }
@@ -312,5 +336,120 @@ public class BusRouteManagementFragment extends Fragment {
                 Toast.makeText(getContext(), "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showAddRouteDialog() {
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View dialogView = inflater.inflate(R.layout.dialog_add_bus_route, null);
+
+        EditText edtTenTuyen = dialogView.findViewById(R.id.edtTenTuyen);
+        Spinner spinnerBenXeDi = dialogView.findViewById(R.id.spinnerBenXeDi);
+        Spinner spinnerBenXeDen = dialogView.findViewById(R.id.spinnerBenXeDen);
+        EditText edtQuangDuong = dialogView.findViewById(R.id.edtQuangDuong);
+        EditText edtThoiGian = dialogView.findViewById(R.id.edtThoiGian);
+        EditText edtSoChuyenNgay = dialogView.findViewById(R.id.edtSoChuyenNgay);
+        EditText edtSoNgayTuan = dialogView.findViewById(R.id.edtSoNgayTuan);
+
+        ArrayAdapter<BenXe> benXeAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, danhSachBenXe);
+        benXeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBenXeDi.setAdapter(benXeAdapter);
+        spinnerBenXeDen.setAdapter(benXeAdapter);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setView(dialogView);
+        builder.setPositiveButton("Lưu", (dialog, which) -> {
+            String tenTuyen = edtTenTuyen.getText().toString();
+            BenXe benXeDi = danhSachBenXe.get(spinnerBenXeDi.getSelectedItemPosition());
+            BenXe benXeDen = danhSachBenXe.get(spinnerBenXeDen.getSelectedItemPosition());
+            float quangDuong = Float.parseFloat(edtQuangDuong.getText().toString());
+            float thoiGian = Float.parseFloat(edtThoiGian.getText().toString());
+            int soChuyenNgay = Integer.parseInt(edtSoChuyenNgay.getText().toString());
+            int soNgayTuan = Integer.parseInt(edtSoNgayTuan.getText().toString());
+
+            TuyenXe newTuyenXe = new TuyenXe();
+            newTuyenXe.setTenTuyen(tenTuyen);
+            newTuyenXe.setBenXeDi(benXeDi);
+            newTuyenXe.setBenXeDen(benXeDen);
+            newTuyenXe.setQuangDuong(quangDuong);
+            newTuyenXe.setThoiGianDiChuyenTB(thoiGian);
+            newTuyenXe.setSoChuyenTrongNgay(soChuyenNgay);
+            newTuyenXe.setSoNgayChayTrongTuan(soNgayTuan);
+
+            addBusRoute(newTuyenXe);
+            dialog.dismiss();
+        });
+
+        builder.setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+
+    private void addBusRoute(TuyenXe tuyenXe) {
+        BenXe benXeDi = new BenXe();
+        benXeDi.setIdBenXe(tuyenXe.getBenXeDi().getIdBenXe());
+        benXeDi.setTenBenXe(tuyenXe.getBenXeDi().getTenBenXe());
+        benXeDi.setIdQuanHuyen(tuyenXe.getBenXeDi().getIdQuanHuyen());
+        tuyenXe.setBenXeDi(benXeDi);
+
+        BenXe benXeDen = new BenXe();
+        benXeDen.setIdBenXe(tuyenXe.getBenXeDen().getIdBenXe());
+        benXeDen.setTenBenXe(tuyenXe.getBenXeDen().getTenBenXe());
+        benXeDen.setIdQuanHuyen(tuyenXe.getBenXeDen().getIdQuanHuyen());
+        tuyenXe.setBenXeDen(benXeDen);
+
+        int tinhDi = getTenTinhThanhByQuanHuyenId(tuyenXe.getBenXeDi().getIdQuanHuyen(), danhSachQuanHuyen);
+        int tinhDen = getTenTinhThanhByQuanHuyenId(tuyenXe.getBenXeDen().getIdQuanHuyen(), danhSachQuanHuyen);
+
+        TinhThanh tinhThanhDi = new TinhThanh();
+        tinhThanhDi.setIdTinhThanh(tinhDi);
+        tuyenXe.setTinhThanhDi(tinhThanhDi);
+
+        TinhThanh tinhThanhDen = new TinhThanh();
+        tinhThanhDen.setIdTinhThanh(tinhDen);
+        tuyenXe.setTinhThanhDen(tinhThanhDen);
+
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        apiService.themTuyenXe(tuyenXe).enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = (Boolean) response.body().get("success");
+                    String message = (String) response.body().get("message");
+
+                    if (success != null && success) {
+                        tuyenXeList.add(tuyenXe);
+                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+                        if (success != null && success) {
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Thêm thất bại: " + message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Phản hồi không hợp lệ!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(getContext(), "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void filterBusRoutes(String query) {
+        filteredList.clear();
+
+        if (query.isEmpty()) {
+            filteredList.addAll(tuyenXeList);
+        } else {
+            for (TuyenXe tuyenXe : tuyenXeList) {
+                if (tuyenXe.getTenTuyen().toLowerCase().contains(query.toLowerCase()) || tuyenXe.getBenXeDi().getTenBenXe().toLowerCase().contains(query.toLowerCase()) || tuyenXe.getBenXeDen().getTenBenXe().toLowerCase().contains(query.toLowerCase())) {
+                    filteredList.add(tuyenXe);
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged();
     }
 }

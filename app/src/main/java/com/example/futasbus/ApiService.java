@@ -131,4 +131,19 @@ public interface ApiService {
     @PUT("api/admin/tuyenxe/xoa/{id}")
     Call<ResponseBody> xoaTuyenXe(@Path("id") int id);
 
+    @PUT("api/admin/cancel-ve/{id}")
+    Call<Map<String, Object>> cancelVe(
+            @Path("id") int id,
+            @Body Map<String, Object> requestBody
+    );
+
+    @PUT("api/admin/update-ve/{id}")
+    Call<Map<String, Object>> capNhatTrangThaiVe(
+            @Path("id") int id,
+            @Body Map<String, Integer> requestBody
+    );
+
+    @POST("api/admin/tuyenxe/them")
+    Call<Map<String, Object>> themTuyenXe(@Body TuyenXe tuyenXe);
+
 }

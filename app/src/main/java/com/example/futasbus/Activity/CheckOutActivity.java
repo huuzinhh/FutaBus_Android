@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -44,6 +45,7 @@ public class CheckOutActivity extends AppCompatActivity {
     private TextView tvHoTen,tvPhone,tvEmail,tvgiavedi, tvgiaveve, tvtongtien;
     private double priceGo = 0, priceReturn = 0;
     private Button btnConfirm;
+    private ImageButton returnButton;
     private TicketResponse ticketResponse;
     private ChuyenXeResult selectedGo, selectedReturn;
     private String startTimeGo, endTimeGo, startTimeReturn, endTimeReturn;
@@ -74,10 +76,11 @@ public class CheckOutActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.vptrip);
         tabLayout = findViewById(R.id.tabLayout);
         btnConfirm = findViewById(R.id.btnConfirm);
-
+        returnButton = findViewById(R.id.btnBack);
         handleIntentData();
 
         setupFragments();
+        returnButton.setOnClickListener(v -> finish());
         btnConfirm.setOnClickListener(v -> confirmBooking());
     }
     private void setupFragments() {
