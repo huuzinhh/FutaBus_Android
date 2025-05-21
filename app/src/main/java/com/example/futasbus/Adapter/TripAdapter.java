@@ -50,7 +50,6 @@ public class TripAdapter extends ArrayAdapter<ChuyenXeResult> {
         TextView tvSeatType = convertView.findViewById(R.id.tvSeatType);
         TextView tvSeatsLeft = convertView.findViewById(R.id.tvSeatsLeft);
         TextView tvDistanceDuration = convertView.findViewById(R.id.tvDistanceDuration);
-        TextView tvLichTrinh = convertView.findViewById(R.id.tvLichTrinh);
 
         if (trip != null) {
             tvTimeStart.setText(DateTimeHelper.toHour(trip.getThoiDiemDi()));
@@ -70,7 +69,6 @@ public class TripAdapter extends ArrayAdapter<ChuyenXeResult> {
             }
 
             tvDistanceDuration.setText("Thời Gian Dự Kiến: "+formatter.format(trip.getThoiGianDiChuyenTB()) + "H");
-            tvLichTrinh.setText("Lịch trình");
         }
 
         // Highlight item nếu đang được chọn

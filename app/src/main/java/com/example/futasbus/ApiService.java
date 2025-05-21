@@ -57,7 +57,7 @@ public interface ApiService {
             @Query("returnDate") String returnDate,
             @Query("tickets") int tickets
     );
-    @GET("api/user/book-tickets")
+    @GET("api/user/book-tickets1")
     Call<BookTicketsResponse> bookTickets(
             @Query("departureId") int departureId,
             @Query("departure") String departure,
