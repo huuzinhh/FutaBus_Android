@@ -26,6 +26,8 @@ public class BookTicketsResponse {
     private double priceReturn;
     private int soGheReturn;
     private int idXeReturn;
+    private String biensoxeGo;
+    private String biensoxeReturn;
 
     private List<ViTriGhe> viTriGheTangDuoiList;
     private List<ViTriGhe> viTriGheTangTrenList;
@@ -198,6 +200,22 @@ public class BookTicketsResponse {
 
     public void setIdXeReturn(int idXeReturn) {
         this.idXeReturn = idXeReturn;
+    }
+
+    public String getBiensoxeGo() {
+        return biensoxeGo;
+    }
+
+    public void setBiensoxeGo(String biensoxeGo) {
+        this.biensoxeGo = biensoxeGo;
+    }
+
+    public String getBiensoxeReturn() {
+        return biensoxeReturn;
+    }
+
+    public void setBiensoxeReturn(String biensoxeReturn) {
+        this.biensoxeReturn = biensoxeReturn;
     }
 
     public List<ViTriGhe> getViTriGheTangDuoiList() {

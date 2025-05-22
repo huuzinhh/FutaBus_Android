@@ -42,7 +42,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
 
     private TicketResponse ticketResponse;
     private ChuyenXeResult selectedGo, selectedReturn;
-    private String startTimeGo, endTimeGo, startTimeReturn, endTimeReturn;
+    private String startTimeGo, endTimeGo, startTimeReturn, endTimeReturn,biensoxeGo,biensoxeReturn;
     private double priceGo = 0, priceReturn = 0;
     private boolean isTripRound;
     private TabLayout tabLayout;
@@ -117,11 +117,13 @@ public class ConfirmBookingActivity extends AppCompatActivity {
             startTimeGo = bundle.getString("Starttimego");
             endTimeGo = bundle.getString("Endtimego");
             priceGo = bundle.getDouble("priceGo", 0);
+            biensoxeGo = bundle.getString("biensoxeGo");
 
             if (selectedReturn != null) {
                 startTimeReturn = bundle.getString("Starttimereturn");
                 endTimeReturn = bundle.getString("Endtimereturn");
                 priceReturn = bundle.getDouble("priceReturn", 0);
+                biensoxeReturn = bundle.getString("biensoxeReturn");
                 isTripRound = true;
                 tripRoundArrow.setImageResource(R.drawable.ic_round_trip);
             }
@@ -130,11 +132,11 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
         txtDeparture.setText(ticketResponse.getDeparture());
         txtDestination.setText(ticketResponse.getDestination());
-        tvgiavedi.setText("Số tiền: " + formatter.format(priceGo) + " VND");
-        tvtongtien.setText("Số tiền: " + formatter.format(priceGo + priceReturn) + " VND");
+        tvgiavedi.setText(formatter.format(priceGo) + " VND");
+        tvtongtien.setText(formatter.format(priceGo + priceReturn) + " VND");
 
         if (selectedReturn != null) {
-            tvgiaveve.setText("Số tiền: " + formatter.format(priceReturn) + " VND");
+            tvgiaveve.setText(formatter.format(priceReturn) + " VND");
             luotve.setVisibility(View.VISIBLE);
         }
     }
@@ -198,22 +200,23 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CheckOutActivity.class);
 
         intent.putExtra("User_data",user);
-
+        Bundle bundle = new Bundle();
         intent.putExtra("goTrip", selectedGo);
         intent.putExtra("ticket", ticketResponse);
         intent.putExtra("selectedSeatsGo", new ArrayList<>(selectedSeatsGo));
-        intent.putExtra("Starttimego", startTimeGo);
-        intent.putExtra("Endtimego", endTimeGo);
-        intent.putExtra("priceGo", priceGo);
-
+        bundle.putString("Starttimego", startTimeGo);
+        bundle.putString("Endtimego", endTimeGo);
+        bundle.putDouble("priceGo", priceGo);
+        bundle.putString("biensoxeGo", biensoxeGo);
         if (selectedReturn != null) {
-            intent.putExtra("Starttimereturn", startTimeReturn);
-            intent.putExtra("Endtimereturn", endTimeReturn);
-            intent.putExtra("priceReturn", priceReturn);
+            bundle.putString("Starttimereturn", startTimeReturn);
+            bundle.putString("Endtimereturn", endTimeReturn);
+            bundle.putDouble("priceReturn", priceReturn);
+            bundle.putString("biensoxeReturn", biensoxeReturn);
             intent.putExtra("returnTrip", selectedReturn);
             intent.putExtra("selectedSeatsReturn", new ArrayList<>(selectedSeatsReturn));
         }
-
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

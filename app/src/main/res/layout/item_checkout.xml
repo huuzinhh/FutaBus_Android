@@ -10,7 +10,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thông tin lượt đi"
+        android:text="Thông tin Vé Xe"
         android:textStyle="bold"
         android:textColor="#000000"
         android:textSize="18sp"
@@ -164,6 +164,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bến xe Miền Đông"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+        </LinearLayout>
+        <!-- Biển Số Xe -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Biển Số Xe"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tvBienSoXe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sdadsads"
                 android:textColor="#000000"
                 android:textSize="16sp"/>
         </LinearLayout>

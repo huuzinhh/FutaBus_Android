@@ -46,7 +46,7 @@ public class SeatSelectionActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private SeatPagerAdapter adapter;
-    private String startTimeGo, endTimeGo, startTimeReturn, endTimeReturn;
+    private String startTimeGo, endTimeGo, startTimeReturn, endTimeReturn,biensoxeGo,biensoxeReturn;
 
     private List<SelectedSeat> selectedSeatsGo = new ArrayList<>();
     private List<SelectedSeat> selectedSeatsReturn = new ArrayList<>();
@@ -175,6 +175,7 @@ public class SeatSelectionActivity extends AppCompatActivity {
             bundle.putString("Starttimego", startTimeGo);
             bundle.putString("Endtimego", endTimeGo);
             bundle.putDouble("priceGo", priceGo);
+            bundle.putString("biensoxeGo", biensoxeGo);
             Intent putintent = new Intent(SeatSelectionActivity.this, ConfirmBookingActivity.class);
             putintent.putExtra("ticket", ticketResponse);
             putintent.putExtra("goTrip", selectedGo);
@@ -185,6 +186,7 @@ public class SeatSelectionActivity extends AppCompatActivity {
                 bundle.putString("Starttimereturn", startTimeReturn);
                 bundle.putString("Endtimereturn", endTimeReturn);
                 bundle.putDouble("priceReturn", priceReturn);
+                bundle.putString("biensoxeReturn", biensoxeReturn);
             }
 
             putintent.putExtras(bundle);
@@ -228,6 +230,8 @@ public class SeatSelectionActivity extends AppCompatActivity {
                     ArrayList<SelectedSeat> SeatReturn = new ArrayList<>();
                     ArrayList<String> soldSeatsGo = new ArrayList<>();
                     ArrayList<String> soldSeatsReturn = new ArrayList<>();
+                    biensoxeGo = data.getBiensoxeGo();
+                    biensoxeReturn = data.getBiensoxeReturn() != null ? data.getBiensoxeReturn() : "";
 
                     for (ViTriGhe ghe : data.getViTriGheTangDuoiList()) {
                         SeatGo.add(new SelectedSeat(ghe.getIdViTriGhe(), ghe.getTenViTri()));
