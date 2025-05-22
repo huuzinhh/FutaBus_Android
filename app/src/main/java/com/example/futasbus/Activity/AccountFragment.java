@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
@@ -37,13 +38,15 @@ public class AccountFragment extends Fragment {
     private TextView tv_username, tv_phonenumber, tv_login;
     private LinearLayout ll_info;
     private NguoiDung user;
+    private FragmentTransaction transaction;
+    private Fragment currentFragment;
+    private Fragment newFragment;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
 
-        // Ánh xạ view
         logoutLayout = rootView.findViewById(R.id.logout);
         accountInfo = rootView.findViewById(R.id.accountInfo);
         tv_username = rootView.findViewById(R.id.tv_username);
@@ -93,10 +96,20 @@ public class AccountFragment extends Fragment {
         ll_sharefriend.setOnClickListener(shareClickListener);
         if (btnShareWithFriend != null) btnShareWithFriend.setOnClickListener(shareClickListener);
 
-        // Listener chung cho change password
         View.OnClickListener changePasswordClickListener = view -> {
-            ToastHelper.show(requireContext(), "Thay đổi mật khẩu đang phát triển");
+            transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.account_fragment_container);
+
+            if (currentFragment != null) {
+                transaction.remove(currentFragment);
+            }
+
+            newFragment = new ChangePassCustomerFragment();
+            transaction.replace(R.id.account_fragment_container, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         };
+
         ll_changepassword.setOnClickListener(changePasswordClickListener);
         if (btnChangePassword != null) btnChangePassword.setOnClickListener(changePasswordClickListener);
 
