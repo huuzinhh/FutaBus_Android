@@ -146,4 +146,7 @@ public interface ApiService {
     @POST("api/admin/tuyenxe/them")
     Call<Map<String, Object>> themTuyenXe(@Body TuyenXe tuyenXe);
 
+    @POST("api/user/update-password")
+    Call<Map<String, Object>> updatePassword(@Body NguoiDung nguoiDung);
+
 }

@@ -137,6 +137,23 @@ public class AdminHomeFragment extends Fragment {
                     .show();
         });
 
+        TextView btnChangePassword = view.findViewById(R.id.btnChangePassword);
+        btnChangePassword.setOnClickListener(v -> {
+            sidebar.setVisibility(View.GONE);
+
+            transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
+
+            if (currentFragment != null) {
+                transaction.remove(currentFragment);
+            }
+
+            newFragment = new ChangePasswordFragment();
+            transaction.replace(R.id.admin_fragment_container, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
         adminHomeAdapter = new AdminHomeAdapter(getActivity(), adminHomeList);
         gridView.setAdapter(adminHomeAdapter);
         gridView.setOnItemClickListener((parent, view1, position, id) -> {
