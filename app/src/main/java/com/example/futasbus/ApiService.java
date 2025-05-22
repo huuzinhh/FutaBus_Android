@@ -16,6 +16,8 @@ import com.example.futasbus.respone.BookTicketsResponse;
 import com.example.futasbus.respone.ListPurchaseResponse;
 import com.example.futasbus.respone.LoginResponse;
 import com.example.futasbus.respone.OtpResponse;
+import com.example.futasbus.respone.PurchaseItem;
+import com.example.futasbus.respone.PurchaseItemResponse;
 import com.example.futasbus.respone.RegisterResponse;
 import com.example.futasbus.respone.TinhThanhResponse;
 import com.example.futasbus.respone.TripResponse;
@@ -145,5 +147,6 @@ public interface ApiService {
 
     @POST("api/admin/tuyenxe/them")
     Call<Map<String, Object>> themTuyenXe(@Body TuyenXe tuyenXe);
-
+    @GET("api/user/purchase-history-items/{idPhieuDatVe}")
+    Call<PurchaseItemResponse> getPurchaseItem(@Path("idPhieuDatVe") int idPhieuDatVe);
 }

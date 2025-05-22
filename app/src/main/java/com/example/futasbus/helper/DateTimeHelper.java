@@ -52,4 +52,11 @@ public class DateTimeHelper {
             return input;
         }
     }
+    public static String toFullDateTime(long timestamp) {
+        Date date = new Date(timestamp);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm - dd/MM/yyyy");
+        return outputFormat.format(date);
+    }
+
+
 }
