@@ -153,4 +153,11 @@ public interface ApiService {
 
     @GET("api/user/purchase-history-items/{idPhieuDatVe}")
     Call<PurchaseItemResponse> getPurchaseItem(@Path("idPhieuDatVe") int idPhieuDatVe);
+
+    @POST("api/user/login-google-mobile")
+    Call<LoginResponse> loginWithGoogleMobile(@Body Map<String, String> payload);
+
+    @POST("api/user/login-google-android")
+    Call<LoginResponse> loginGoogleAndroid(@Body LoginRequest request);
+
 }

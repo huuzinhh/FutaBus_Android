@@ -26,6 +26,10 @@ import com.example.futasbus.R;
 import com.example.futasbus.helper.SharedPrefHelper;
 import com.example.futasbus.helper.ToastHelper;
 import com.example.futasbus.model.NguoiDung;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -176,19 +180,36 @@ public class AccountFragment extends Fragment {
                 .create();
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(cancelView -> dialog.dismiss());
+
         dialogView.findViewById(R.id.btnLogout).setOnClickListener(logoutView -> {
             SharedPreferences preferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();
-            editor.apply();
+            boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
+            String hoTen = preferences.getString("hoTen", "");
+            preferences.edit().clear().apply();
 
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            ToastHelper.show(requireContext(), "Đăng Xuất Thành Công !");
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(requireContext());
+            if (account != null) {
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .build();
+                GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+                googleSignInClient.signOut().addOnCompleteListener(task -> {
+                    moveToMain();
+                });
+            } else {
+                moveToMain();
+            }
+
             dialog.dismiss();
         });
 
         dialog.show();
+    }
+
+    private void moveToMain() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        ToastHelper.show(requireContext(), "Đăng Xuất Thành Công !");
     }
 }
