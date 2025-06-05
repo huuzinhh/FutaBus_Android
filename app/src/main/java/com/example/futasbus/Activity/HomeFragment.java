@@ -83,7 +83,11 @@ public class HomeFragment extends Fragment {
         });
 
         // Sự kiện click vào EditText để chọn ngày
-        editTextNgayDi.setOnClickListener(v -> showDatePickerDialog(editTextNgayDi));
+        editTextNgayVe.setEnabled(false);
+        editTextNgayDi.setOnClickListener(v -> {
+            showDatePickerDialog(editTextNgayDi);
+            editTextNgayVe.setEnabled(true);
+        });
         editTextNgayVe.setOnClickListener(v -> showDatePickerDialog(editTextNgayVe));
 
         // Sự kiện click vào nút tìm tuyến
@@ -139,7 +143,6 @@ public class HomeFragment extends Fragment {
     private void showDatePickerDialog(EditText targetEditText) {
         final Calendar calendar = Calendar.getInstance();
 
-        // Nếu đang chọn ngày về và đã có ngày đi
         if (targetEditText == editTextNgayVe && !editTextNgayDi.getText().toString().isEmpty()) {
             String[] parts = editTextNgayDi.getText().toString().split("/");
             int day = Integer.parseInt(parts[0]);
@@ -147,6 +150,7 @@ public class HomeFragment extends Fragment {
             int year = Integer.parseInt(parts[2]);
             calendar.set(year, month, day); // Đặt ngày tối thiểu là ngày đi
         }
+
 
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -175,11 +179,8 @@ public class HomeFragment extends Fragment {
         String ngayDi = editTextNgayDi.getText().toString();
         String ngayVe = editTextNgayVe.getText().toString();
         String soVe = spinnerSoVe.getSelectedItem().toString();
-
-        if (diemDi == null || diemDen == null) {
-            ToastHelper.show(requireContext(), "Vui lòng Chọn đầy đủ điểm đi và điểm đến !");
-            return;
-        }
+        Log.d("ngaydi",ngayDi );
+        Log.d("ngayve",ngayVe );
         if (ngayDi.isEmpty()) {
             ToastHelper.show(requireContext(), "Vui lòng Chọn ngày đi !");
             return;

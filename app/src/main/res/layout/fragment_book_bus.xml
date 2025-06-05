@@ -16,10 +16,9 @@
         <Spinner
             android:id="@+id/spinnerPrice"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="40dp"
-            android:background="@drawable/bg_spinner_filter"
-            android:padding="8dp"/>
+            android:layout_weight="1"
+            android:theme="@style/SpinnerDropDownItemStyle" />
 
         <Spinner
             android:id="@+id/spinnerSeatType"
@@ -27,8 +26,7 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/bg_spinner_filter"
-            android:padding="8dp"/>
+            android:theme="@style/SpinnerDropDownItemStyle"/>
 
         <Spinner
             android:id="@+id/spinnerTime"
@@ -36,8 +34,7 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:background="@drawable/bg_spinner_filter"
-            android:padding="8dp"/>
+            android:theme="@style/SpinnerDropDownItemStyle"/>
     </LinearLayout>
 
     <!-- Danh sách chuyến đi -->

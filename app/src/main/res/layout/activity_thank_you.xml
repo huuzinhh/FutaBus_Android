@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:orientation="vertical"
-    android:background="#DEDEDE"
+    android:background="#FFFFFF"
     tools:context=".Activity.ThankYouActivity">
 
     <!-- Toolbar -->
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/futa_orange"
+        style="@style/Background"
         android:padding="20dp"
         android:gravity="center_vertical">
 
@@ -114,8 +114,6 @@
             android:layout_marginTop="32dp"
             android:padding="12dp"
             android:text="Quay về trang chủ"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/futa_orange"
-            android:textSize="18sp"/>
+            style="@style/button"/>
     </LinearLayout>
 </LinearLayout>

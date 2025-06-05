@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -31,13 +34,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AccountFragment extends Fragment {
-    private LinearLayout logoutLayout, ll_notification, ll_sharefriend, ll_changepassword;
+    private LinearLayout logoutLayout, ll_darkmode, ll_sharefriend, ll_changepassword;
     private ImageButton btnNotification, btnSetting, btnShareWithFriend, btnChangePassword, btnLogout;
     private ConstraintLayout accountInfo;
     private TextView tv_username, tv_phonenumber, tv_login;
     private LinearLayout ll_info;
     private NguoiDung user;
-
+    private Switch switcher;
+    private boolean nightmode;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,19 +54,37 @@ public class AccountFragment extends Fragment {
         accountInfo = rootView.findViewById(R.id.accountInfo);
         tv_username = rootView.findViewById(R.id.tv_username);
         tv_phonenumber = rootView.findViewById(R.id.tv_phonenumber);
+        ll_darkmode = rootView.findViewById(R.id.ll_darkmode);
         tv_login = rootView.findViewById(R.id.tv_Login);
         ll_info = rootView.findViewById(R.id.ll_info);
-
-        ll_notification = rootView.findViewById(R.id.ll_notification);
         ll_changepassword = rootView.findViewById(R.id.ll_ChangePassword);
         ll_sharefriend = rootView.findViewById(R.id.ll_ShareFriend);
-
-        btnNotification = rootView.findViewById(R.id.btnNotification);
         btnShareWithFriend = rootView.findViewById(R.id.btnsharewithfriend);
         btnChangePassword = rootView.findViewById(R.id.btnChangePassword);
         btnLogout = rootView.findViewById(R.id.btnLogout);
-        btnSetting = rootView.findViewById(R.id.btnInfoUser); // nếu có thêm nút chỉnh sửa info
+        btnSetting = rootView.findViewById(R.id.btnInfoUser);
+        switcher = rootView.findViewById(R.id.switch_dark_mode);
 
+        sharedPreferences = requireActivity().getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        nightmode = sharedPreferences.getBoolean("night", false);
+        switcher.setChecked(nightmode);
+
+        switcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editor = sharedPreferences.edit();
+                if (nightmode) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor.putBoolean("night", false);
+                    nightmode = false; // cập nhật lại biến
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor.putBoolean("night", true);
+                    nightmode = true; // cập nhật lại biến
+                }
+                editor.apply();
+            }
+        });
         // Listener chung cho account info
         View.OnClickListener accountClickListener = view -> {
             if (user != null) {
@@ -78,13 +102,6 @@ public class AccountFragment extends Fragment {
         View.OnClickListener logoutClickListener = view -> Logout();
         logoutLayout.setOnClickListener(logoutClickListener);
         if (btnLogout != null) btnLogout.setOnClickListener(logoutClickListener);
-
-        // Listener chung cho notification
-        View.OnClickListener notificationClickListener = view -> {
-            ToastHelper.show(requireContext(), "Chức năng thông báo đang phát triển");
-        };
-        ll_notification.setOnClickListener(notificationClickListener);
-        if (btnNotification != null) btnNotification.setOnClickListener(notificationClickListener);
 
         // Listener chung cho share with friend
         View.OnClickListener shareClickListener = view -> {
@@ -117,14 +134,14 @@ public class AccountFragment extends Fragment {
             tv_login.setVisibility(View.VISIBLE);
             ll_info.setVisibility(View.GONE);
             logoutLayout.setVisibility(View.GONE);
-            ll_notification.setVisibility(View.GONE);
+            ll_darkmode.setVisibility(View.GONE);
             ll_changepassword.setVisibility(View.GONE);
             ll_sharefriend.setVisibility(View.GONE);
         } else {
             tv_login.setVisibility(View.GONE);
             ll_info.setVisibility(View.VISIBLE);
             logoutLayout.setVisibility(View.VISIBLE);
-            ll_notification.setVisibility(View.VISIBLE);
+            ll_darkmode.setVisibility(View.VISIBLE);
             ll_changepassword.setVisibility(View.VISIBLE);
             ll_sharefriend.setVisibility(View.VISIBLE);
 
@@ -178,4 +195,5 @@ public class AccountFragment extends Fragment {
 
         dialog.show();
     }
+
 }

@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#EF6C00"
+        style="@style/Background"
         android:padding="12dp"
         android:gravity="center_vertical">
 
@@ -88,9 +89,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nhập họ và tên"
-            android:text="Thông"
             android:padding="12dp"
-            android:background="@drawable/bg_edittext" />
+            android:background="@drawable/bg_edittext"
+            style="@style/edit_text_info_booking"/>
         <TextView
             android:id="@+id/NameError"
             android:layout_width="wrap_content"
@@ -113,7 +114,8 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:background="@drawable/bg_edittext"
-            android:padding="12dp" />
+            android:padding="12dp"
+            style="@style/edit_text_info_booking"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -131,7 +133,8 @@
             android:maxLength="10"
             android:digits="0123456789"
             android:background="@drawable/bg_edittext"
-            android:padding="12dp" />
+            android:padding="12dp"
+            style="@style/edit_text_info_booking"/>
         <TextView
             android:id="@+id/SDTError"
             android:layout_width="wrap_content"
@@ -145,9 +148,8 @@
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18dp"
         android:text="Lưu"
         android:layout_marginTop="20dp"
         android:padding="10dp"
-        android:backgroundTint="@color/futa_orange" />
+        style="@style/button"  />
 </LinearLayout>

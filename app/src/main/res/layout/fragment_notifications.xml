@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    style="@style/Background"
     tools:context=".Activity.NotificationsFragment">
 
     <TextView
@@ -15,7 +15,6 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:gravity="center"
-        android:background="@color/futa_orange"
         android:textStyle="bold" />
 
     <LinearLayout

@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    style="@style/Info_User">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,7 +34,8 @@
                     android:text="Thông"
                     android:textSize="18dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    style="@style/edit_text"/>
                 <TextView
                     android:id="@+id/NameError"
                     android:layout_width="wrap_content"
@@ -70,14 +72,18 @@
                     android:id="@+id/rbNam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nam" />
+                    android:text="Nam"
+                    android:textSize="16dp"
+                    style="@style/radio"/>
 
                 <RadioButton
                     android:id="@+id/rbNu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nữ"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:textSize="16dp"
+                    style="@style/radio"/>
             </RadioGroup>
 
         </LinearLayout>
@@ -89,7 +95,7 @@
             android:orientation="horizontal"
             android:padding="10dp">
             <TextView
-                android:text="Ngày sinh"
+                android:text="Năm sinh"
                 android:textColor="#666"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -98,7 +104,9 @@
             <Spinner
                 android:id="@+id/spinnerNamSinh"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:popupBackground="@color/white"
+                style="@style/SpinnerDropDownItemStyle"/>
 
         </LinearLayout>
 
@@ -114,7 +122,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"/>
             <TextView
                 android:id="@+id/tvCCCD"
                 android:text="123456789000"
@@ -135,7 +144,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -143,6 +153,7 @@
                 <EditText
                     android:id="@+id/tvDiaChi"
                     android:text="TP. Hồ Chí Minh"
+                    style="@style/edit_text"
                     android:textSize="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -169,7 +180,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,7 +194,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:maxLength="10"
-                    android:digits="0123456789" />
+                    android:digits="0123456789"
+                    style="@style/edit_text"/>
                 <TextView
                     android:id="@+id/PhoneError"
                     android:layout_width="wrap_content"
@@ -206,7 +219,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16dp"/>
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"/>
             <TextView
                 android:id="@+id/tvEmail"
                 android:text="gmai.com"
@@ -229,7 +243,7 @@
             android:text="Lưu Thay Đổi"
             android:layout_marginTop="20dp"
             android:padding="10dp"
-            android:backgroundTint="@color/futa_orange"
+            style="@style/button"
             android:layout_gravity="bottom"/>
     </LinearLayout>
 </LinearLayout>

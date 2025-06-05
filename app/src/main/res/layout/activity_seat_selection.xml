@@ -3,12 +3,13 @@
     android:id="@+id/rootSeatLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#EF6C00"
+        style="@style/Background"
         android:padding="12dp"
         android:gravity="center_vertical">
         <ImageButton
@@ -32,7 +33,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"/>
+        style="@style/TabLayoutStyle"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/SeatviewPager"
@@ -209,9 +210,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Xác nhận ghế"
-        android:textSize="18dp"
-        android:backgroundTint="@color/futa_orange"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="16dp"
+        style="@style/button"
         android:padding="10dp"/>
 </LinearLayout>

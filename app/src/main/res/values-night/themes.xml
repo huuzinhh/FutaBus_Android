@@ -1,7 +1,52 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.FutasBus" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="insideBackgroundColor">#ADACAC</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundColor">#474747</item>
     </style>
+    <style name="Theme.FutasBus" parent="Base.Theme.FutasBus" />
+    <style name="Background">
+        <item name="android:background">#474747</item>
+    </style>
+    <style name="TEXT">
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="button">
+        <item name="android:backgroundTint">#474747</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+    <style name="TabLayoutStyle" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@color/light_gray</item>
+        <item name="tabSelectedTextColor">#474747</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabIndicatorColor">#474747</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabIndicatorHeight">5dp</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="SpinnerDropDownItemStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/light_gray</item>
+    </style>
+    <style name="edit_text">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:textColorHint">@color/black</item>
+    </style>
+    <style name="edit_text_info_booking">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Info_User">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/light_gray</item>
+    </style>
+    <style name="radio">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
 </resources>
+

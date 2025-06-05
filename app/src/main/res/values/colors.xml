@@ -8,7 +8,7 @@
     <color name="green_futa">#00A859</color>
     <!-- Màu cơ bản -->
     <color name="gray">#FF888888</color>
-    <color name="light_gray">#FFCCCCCC</color>
+    <color name="light_gray">#E4E2E2</color>
     <color name="dark_gray">#FF444444</color>
 
     <!-- Màu thương hiệu -->
@@ -24,4 +24,18 @@
     <color name="divider">#FFDDDDDD</color>
     <color name="selected_item">#FFF3E0</color>
     <color name="yelow">#FFC107</color> <!-- ví dụ màu cam nhạt -->
+
+    <!-- Themes -->
+        <color name="dark_primary">#BB86FC</color>
+        <color name="dark_on_primary">#000000</color>
+
+        <color name="dark_secondary">#03DAC6</color>
+        <color name="dark_on_secondary">#000000</color>
+
+        <color name="dark_background">#121212</color>
+        <color name="dark_on_background">#FFFFFF</color>
+
+        <color name="dark_surface">#1E1E1E</color>
+        <color name="dark_on_surface">#FFFFFF</color>
+
 </resources>
