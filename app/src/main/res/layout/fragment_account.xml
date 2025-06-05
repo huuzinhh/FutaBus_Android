@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/Background"
-    tools:context=".Activity.AccountFragment">
+    tools:context=".Activity.AccountFragment"
+    android:id="@+id/account_fragment_container">
     <!-- Header -->
     <TextView
         android:layout_width="match_parent"

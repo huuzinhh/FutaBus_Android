@@ -147,6 +147,17 @@ public interface ApiService {
 
     @POST("api/admin/tuyenxe/them")
     Call<Map<String, Object>> themTuyenXe(@Body TuyenXe tuyenXe);
+
+    @POST("api/user/update-password")
+    Call<Map<String, Object>> updatePassword(@Body NguoiDung nguoiDung);
+
     @GET("api/user/purchase-history-items/{idPhieuDatVe}")
     Call<PurchaseItemResponse> getPurchaseItem(@Path("idPhieuDatVe") int idPhieuDatVe);
+
+    @POST("api/user/login-google-mobile")
+    Call<LoginResponse> loginWithGoogleMobile(@Body Map<String, String> payload);
+
+    @POST("api/user/login-google-android")
+    Call<LoginResponse> loginGoogleAndroid(@Body LoginRequest request);
+
 }

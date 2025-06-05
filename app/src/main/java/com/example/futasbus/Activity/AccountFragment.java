@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
@@ -28,6 +29,10 @@ import com.example.futasbus.R;
 import com.example.futasbus.helper.SharedPrefHelper;
 import com.example.futasbus.helper.ToastHelper;
 import com.example.futasbus.model.NguoiDung;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,12 +49,15 @@ public class AccountFragment extends Fragment {
     private boolean nightmode;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    private FragmentTransaction transaction;
+    private Fragment currentFragment;
+    private Fragment newFragment;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
 
-        // Ánh xạ view
         logoutLayout = rootView.findViewById(R.id.logout);
         accountInfo = rootView.findViewById(R.id.accountInfo);
         tv_username = rootView.findViewById(R.id.tv_username);
@@ -110,10 +118,20 @@ public class AccountFragment extends Fragment {
         ll_sharefriend.setOnClickListener(shareClickListener);
         if (btnShareWithFriend != null) btnShareWithFriend.setOnClickListener(shareClickListener);
 
-        // Listener chung cho change password
         View.OnClickListener changePasswordClickListener = view -> {
-            ToastHelper.show(requireContext(), "Thay đổi mật khẩu đang phát triển");
+            transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.account_fragment_container);
+
+            if (currentFragment != null) {
+                transaction.remove(currentFragment);
+            }
+
+            newFragment = new ChangePassCustomerFragment();
+            transaction.replace(R.id.account_fragment_container, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         };
+
         ll_changepassword.setOnClickListener(changePasswordClickListener);
         if (btnChangePassword != null) btnChangePassword.setOnClickListener(changePasswordClickListener);
 
@@ -180,20 +198,36 @@ public class AccountFragment extends Fragment {
                 .create();
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(cancelView -> dialog.dismiss());
+
         dialogView.findViewById(R.id.btnLogout).setOnClickListener(logoutView -> {
             SharedPreferences preferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();
-            editor.apply();
+            boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
+            String hoTen = preferences.getString("hoTen", "");
+            preferences.edit().clear().apply();
 
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            ToastHelper.show(requireContext(), "Đăng Xuất Thành Công !");
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(requireContext());
+            if (account != null) {
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .build();
+                GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+                googleSignInClient.signOut().addOnCompleteListener(task -> {
+                    moveToMain();
+                });
+            } else {
+                moveToMain();
+            }
+
             dialog.dismiss();
         });
 
         dialog.show();
     }
 
+    private void moveToMain() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        ToastHelper.show(requireContext(), "Đăng Xuất Thành Công !");
+    }
 }

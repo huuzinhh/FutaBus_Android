@@ -16,6 +16,10 @@ public class LoginRequest {
         this.matKhau = matKhau;
     }
 
+    public LoginRequest(String email) {
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }

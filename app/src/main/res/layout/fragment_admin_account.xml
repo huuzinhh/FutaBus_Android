@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/admin_fragment_account"
     android:paddingTop="24dp">
 
     <LinearLayout
@@ -50,6 +51,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/ic_avatar"
                 android:scaleType="centerCrop" />
 
@@ -230,6 +232,19 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:paddingBottom="16dp" />
+
+        <TextView
+            android:id="@+id/btnChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_top_bottom"
+            android:text="Đổi mật khẩu"
+            android:textColor="#474747"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +53,9 @@ public class AdminAccountFragment extends Fragment {
     private Button btnUpdate;
     private LinearLayout sidebar;
     private ImageView iconMenu;
+    private FragmentTransaction transaction;
+    private Fragment currentFragment;
+    private Fragment newFragment;
 
     public AdminAccountFragment() {
 
@@ -136,6 +140,23 @@ public class AdminAccountFragment extends Fragment {
                     })
                     .setNegativeButton("Không", null)
                     .show();
+        });
+
+        TextView btnChangePassword = view.findViewById(R.id.btnChangePassword);
+        btnChangePassword.setOnClickListener(v -> {
+            sidebar.setVisibility(View.GONE);
+
+            transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_account);
+
+            if (currentFragment != null) {
+                transaction.remove(currentFragment);
+            }
+
+            newFragment = new ChangePasswordFragment();
+            transaction.replace(R.id.admin_fragment_account, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
 
         ApiService apiService = ApiClient.getApiService();
