@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragment_bus_trip_management">
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:id="@+id/fragment_bus_trip_management">
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -13,6 +13,7 @@
         android:orientation="horizontal"
         android:paddingStart="16dp">
 
+        <!-- Icon Back -->
         <ImageView
             android:id="@+id/iconBack"
             android:layout_width="20dp"
@@ -20,18 +21,33 @@
             android:contentDescription="Back"
             android:src="@drawable/ic_back" />
 
+        <!-- Title -->
         <TextView
             android:id="@+id/topBarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
-            android:text="Quản lý chuyến xe"
+            android:text="Quản lý tuyến xe"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
+
+        <!-- Space để đẩy các nút sang phải -->
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
+
+        <!-- Nút Tìm kiếm -->
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_search"
+            android:contentDescription="Tìm kiếm"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Nút Thêm chuyến -->
         <ImageButton
             android:id="@+id/btnAddTrip"
             android:layout_width="40dp"
@@ -41,60 +57,18 @@
             android:contentDescription="Thêm chuyến" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutSearchAdd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/topBar"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:background="#fef7ff"
-        android:gravity="center_vertical"
-        android:clickable="true">
-        <Spinner
-            android:id="@+id/spinnerFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_marginEnd="4dp"
-            android:spinnerMode="dropdown"
-            android:background="@android:color/transparent" />
-        <EditText
-            android:id="@+id/edtSearch"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:hint="Tìm chuyến xe..."
-            android:backgroundTint="@color/futa_orange"
-            android:paddingHorizontal="8dp" />
-        <ImageButton
-            android:id="@+id/btnSearch"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_search"
-            android:contentDescription="Tìm kiếm"
-            android:layout_marginStart="4dp" />
-
-
-    </LinearLayout>
-
-    <GridView
-        android:id="@+id/gridViewBusTrip"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layoutSearchAdd"
-        android:background="#fef7ff"
-        android:numColumns="1"
-        android:verticalSpacing="8dp"
-        android:horizontalSpacing="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        android:clickable="true"/>
+<GridView
+    android:id="@+id/gridViewBusTrip"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/topBar"
+    android:background="#fef7ff"
+    android:numColumns="1"
+    android:verticalSpacing="8dp"
+    android:horizontalSpacing="8dp"
+    android:padding="8dp"
+    android:stretchMode="columnWidth"
+    android:gravity="center"
+    android:clickable="true"/>
 
 </RelativeLayout>

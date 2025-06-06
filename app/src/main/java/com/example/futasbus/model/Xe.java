@@ -4,17 +4,15 @@ public class Xe {
     private String bienSo;
     private String tenXe;
     private LoaiXe loaiXe;
-    private  int trangThai;
 
     public Xe() {
     }
 
-    public Xe(int idXe, String bienSo, String tenXe, LoaiXe loaiXe, int trangThai) {
+    public Xe(int idXe, String bienSo, String tenXe, LoaiXe loaiXe) {
         this.idXe = idXe;
         this.bienSo = bienSo;
         this.tenXe = tenXe;
         this.loaiXe = loaiXe;
-        this.trangThai = trangThai;
     }
 
     public int getIdXe() {
@@ -48,10 +46,6 @@ public class Xe {
     public void setLoaiXe(LoaiXe loaiXe) {
         this.loaiXe = loaiXe;
     }
-
-    public int getTrangThai() {return trangThai;}
-
-    public void setTrangThai(int trangThai) {this.trangThai = trangThai;}
 
     @Override
     public String toString() {

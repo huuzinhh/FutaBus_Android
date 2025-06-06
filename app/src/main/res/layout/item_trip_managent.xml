@@ -11,14 +11,13 @@
 
     <!-- Phần thông tin tuyến xe -->
     <LinearLayout
-        android:id="@+id/layoutThongTin"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvChuyenXe"
+            android:id="@+id/tvTuyenXe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tuyến: Huế - Đà Nẵng"
@@ -28,18 +27,10 @@
 
 
         <TextView
-            android:id="@+id/tvThoiGianDi"
+            android:id="@+id/tvThoiGian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Từ 00:00 01/01/2025"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
-        <TextView
-            android:id="@+id/tvThoiGianDen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Từ 00:00 31/12/2025"
+            android:text="Thời gian: 2h"
             android:textColor="#000000"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />

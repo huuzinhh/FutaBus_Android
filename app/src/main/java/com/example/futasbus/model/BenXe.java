@@ -6,18 +6,16 @@ public class BenXe {
     private String diaChi;
     private String soDienThoai;
     private int idQuanHuyen;
-    private int trangThai;
 
     public BenXe() {
     }
 
-    public BenXe(int idBenXe, String tenBenXe, String diaChi, String soDienThoai, int idQuanHuyen, int trangThai) {
+    public BenXe(int idBenXe, String tenBenXe, String diaChi, String soDienThoai, int idQuanHuyen) {
         this.idBenXe = idBenXe;
         this.tenBenXe = tenBenXe;
         this.diaChi = diaChi;
         this.soDienThoai = soDienThoai;
         this.idQuanHuyen = idQuanHuyen;
-        this.trangThai = trangThai;
     }
 
     public int getIdBenXe() {
@@ -59,10 +57,6 @@ public class BenXe {
     public void setIdQuanHuyen(int idQuanHuyen) {
         this.idQuanHuyen = idQuanHuyen;
     }
-
-    public int getTrangThai() { return trangThai;  }
-
-    public void setTrangThai(int trangThai) {this.trangThai = trangThai; }
 
     @Override
     public String toString() {
