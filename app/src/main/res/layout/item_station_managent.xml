@@ -9,7 +9,6 @@
     android:elevation="1dp"
     android:gravity="center_vertical">
 
-    <!-- Phần thông tin tuyến xe -->
     <LinearLayout
         android:id="@+id/layoutThongTin"
         android:layout_width="0dp"
@@ -18,42 +17,34 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvChuyenXe"
+            android:id="@+id/tvBenXe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tuyến: Huế - Đà Nẵng"
+            android:text="Bến xe: Mỹ Đình"
             android:textColor="#000000"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
 
+
         <TextView
-            android:id="@+id/tvThoiGianDi"
+            android:id="@+id/tvSdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Từ 00:00 01/01/2025"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
-        <TextView
-            android:id="@+id/tvThoiGianDen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Từ 00:00 31/12/2025"
+            android:text="0123456789"
             android:textColor="#000000"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
         <TextView
-            android:id="@+id/tvGiaVe"
+            android:id="@+id/tvQuanHuyen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Giá vé: 100.000đ"
+            android:text="Cầu Giấy"
             android:textColor="#000000"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
     </LinearLayout>
-
     <!-- Phần nút thao tác -->
     <LinearLayout
         android:layout_width="wrap_content"

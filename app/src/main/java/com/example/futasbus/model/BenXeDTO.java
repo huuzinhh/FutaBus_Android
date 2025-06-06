@@ -1,22 +1,23 @@
+
 package com.example.futasbus.model;
 
-public class BenXe {
+public class BenXeDTO {
     private int idBenXe;
     private String tenBenXe;
     private String diaChi;
     private String soDienThoai;
-    private int idQuanHuyen;
+    private QuanHuyen quanHuyen;
     private int trangThai;
 
-    public BenXe() {
+    public BenXeDTO() {
     }
 
-    public BenXe(int idBenXe, String tenBenXe, String diaChi, String soDienThoai, int idQuanHuyen, int trangThai) {
+    public BenXeDTO(int idBenXe, String tenBenXe, String diaChi, String soDienThoai, QuanHuyen idQuanHuyen, int trangThai) {
         this.idBenXe = idBenXe;
         this.tenBenXe = tenBenXe;
         this.diaChi = diaChi;
         this.soDienThoai = soDienThoai;
-        this.idQuanHuyen = idQuanHuyen;
+        this.quanHuyen = idQuanHuyen;
         this.trangThai = trangThai;
     }
 
@@ -52,12 +53,12 @@ public class BenXe {
         this.soDienThoai = soDienThoai;
     }
 
-    public int getIdQuanHuyen() {
-        return idQuanHuyen;
+    public QuanHuyen getIdQuanHuyen() {
+        return quanHuyen;
     }
 
-    public void setIdQuanHuyen(int idQuanHuyen) {
-        this.idQuanHuyen = idQuanHuyen;
+    public void setIdQuanHuyen(QuanHuyen idQuanHuyen) {
+        this.quanHuyen = idQuanHuyen;
     }
 
     public int getTrangThai() { return trangThai;  }

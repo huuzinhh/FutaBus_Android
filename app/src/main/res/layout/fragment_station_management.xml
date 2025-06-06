@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_bus_trip_management">
+    android:id="@+id/fragment_bus_station_management">
 
     <LinearLayout
         android:id="@+id/topBar"
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
-            android:text="Quản lý chuyến xe"
+            android:text="Quản lý bến xe"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
         <Space
@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
         <ImageButton
-            android:id="@+id/btnAddTrip"
+            android:id="@+id/btnAddStation"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -82,7 +82,7 @@
     </LinearLayout>
 
     <GridView
-        android:id="@+id/gridViewBusTrip"
+        android:id="@+id/gridViewBusStation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layoutSearchAdd"
