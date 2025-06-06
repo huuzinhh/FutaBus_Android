@@ -148,15 +148,6 @@
     </LinearLayout>
 
     <!-- Lịch trình -->
-    <TextView
-        android:id="@+id/tvLichTrinh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:drawableLeft="@drawable/ic_info"
-        android:text="Lịch trình"
-        android:textColor="#1E88E5"
-        android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout

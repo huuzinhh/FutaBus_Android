@@ -219,7 +219,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="4dp">
+                        android:layout_marginBottom="4dp"
+                        android:visibility="gone">
                         <TextView
                             android:layout_width="0dp"
                             android:textSize="18dp"

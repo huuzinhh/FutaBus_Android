@@ -29,6 +29,7 @@ import com.example.futasbus.respone.SelectedSeat;
 import com.example.futasbus.respone.TicketResponse;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firestore.bundle.BundleElement;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -48,7 +49,7 @@ public class CheckOutActivity extends AppCompatActivity {
     private ImageButton returnButton;
     private TicketResponse ticketResponse;
     private ChuyenXeResult selectedGo, selectedReturn;
-    private String startTimeGo, endTimeGo, startTimeReturn, endTimeReturn;
+    private String startTimeGo, endTimeGo, startTimeReturn, endTimeReturn,biensoxeGo,biensoxeReturn;
     private List<SelectedSeat> selectedSeatsGo = new ArrayList<>();
     private List<SelectedSeat> selectedSeatsReturn = new ArrayList<>();
     private NguoiDung user;
@@ -85,10 +86,10 @@ public class CheckOutActivity extends AppCompatActivity {
     }
     private void setupFragments() {
         adapter = new BookBusPagerAdapter(this);
-        adapter.addFragment(CheckoutFragment.newInstance(ticketResponse,selectedGo,selectedSeatsGo,priceGo), "Ngày Đi");
+        adapter.addFragment(CheckoutFragment.newInstance(ticketResponse,selectedGo,selectedSeatsGo,priceGo,biensoxeGo), "Ngày Đi");
 
         if (selectedReturn != null) {
-            adapter.addFragment(CheckoutFragment.newInstance(ticketResponse,selectedReturn,selectedSeatsReturn, priceReturn), "Ngày Về");
+            adapter.addFragment(CheckoutFragment.newInstance(ticketResponse,selectedReturn,selectedSeatsReturn, priceReturn,biensoxeReturn), "Ngày Về");
         }
 
         viewPager.setAdapter(adapter);
@@ -118,22 +119,25 @@ public class CheckOutActivity extends AppCompatActivity {
             startTimeGo = bundle.getString("Starttimego");
             endTimeGo = bundle.getString("Endtimego");
             priceGo = bundle.getDouble("priceGo", 0);
+            biensoxeGo = bundle.getString("biensoxeGo");
 
             if (selectedReturn != null) {
                 startTimeReturn = bundle.getString("Starttimereturn");
                 endTimeReturn = bundle.getString("Endtimereturn");
                 priceReturn = bundle.getDouble("priceReturn", 0);
+                biensoxeReturn = bundle.getString("biensoxeReturn");
+
             }
         }
 
         NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
 //        txtDeparture.setText(ticketResponse.getDeparture());
 //        txtDestination.setText(ticketResponse.getDestination());
-        tvgiavedi.setText("Số tiền: " + formatter.format(priceGo) + " VND");
-        tvtongtien.setText("Số tiền: " + formatter.format(priceGo + priceReturn) + " VND");
+        tvgiavedi.setText(formatter.format(priceGo) + " VND");
+        tvtongtien.setText(formatter.format(priceGo + priceReturn) + " VND");
 
         if (selectedReturn != null) {
-            tvgiaveve.setText("Số tiền: " + formatter.format(priceReturn) + " VND");
+            tvgiaveve.setText(formatter.format(priceReturn) + " VND");
             luotve.setVisibility(View.VISIBLE);
         }
     }
@@ -141,16 +145,15 @@ public class CheckOutActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ThankYouActivity.class);
 
         intent.putExtra("User_data",user);
-
+        Bundle bundle = new Bundle();
         intent.putExtra("goTrip", selectedGo);
         intent.putExtra("ticket", ticketResponse);
-        intent.putExtra("priceGo", priceGo);
-
+        bundle.putDouble("priceGo", priceGo);
         if (selectedReturn != null) {
-            intent.putExtra("priceReturn", priceReturn);
+            bundle.putDouble("priceReturn", priceReturn);
             intent.putExtra("returnTrip", selectedReturn);
         }
-
+        intent.putExtras(bundle);
         startActivity(intent);
     }
     private void confirmBooking() {

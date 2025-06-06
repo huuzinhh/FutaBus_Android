@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_ticket_management">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#EF5222"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp">
+
+        <ImageView
+            android:id="@+id/iconBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/topBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:text="Đổi mật khẩu"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBar"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="#fef7ff"
+        android:gravity="center_horizontal"
+        android:clickable="true">
+
+        <LinearLayout
+            android:id="@+id/infoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Mật khẩu cũ:"
+                style="@style/LabelStyle"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/editOldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập mật khẩu cũ"
+                android:inputType="textPassword"
+                android:textSize="14sp"
+                android:drawableEnd="@drawable/ic_eye_close"
+                android:paddingEnd="12dp"
+                style="@style/InputStyle" />
+
+            <TextView
+                android:text="Mật khẩu mới:"
+                style="@style/LabelStyle"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/editNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập mật khẩu mới"
+                android:inputType="textPassword"
+                android:textSize="14sp"
+                android:drawableEnd="@drawable/ic_eye_close"
+                style="@style/InputStyle" />
+
+            <TextView
+                android:text="Xác nhận mật khẩu:"
+                style="@style/LabelStyle"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="5dp" />
+
+            <EditText
+                android:id="@+id/editConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Xác nhận lại mật khẩu mới"
+                android:inputType="textPassword"
+                android:textSize="14sp"
+                android:drawableEnd="@drawable/ic_eye_close"
+                style="@style/InputStyle" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xác nhận"
+            android:layout_marginTop="17dp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="8dp"
+            android:backgroundTint="#EF5222"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+</RelativeLayout>

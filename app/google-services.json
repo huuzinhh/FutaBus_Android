@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "103049766738",
+    "project_id": "futabus-396db",
+    "storage_bucket": "futabus-396db.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103049766738:android:041d0cc3f9388456dd7c8b",
+        "android_client_info": {
+          "package_name": "com.example.futasbus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103049766738-nh4r4opjuth8t6jn26293v9419pr0emt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.futasbus",
+            "certificate_hash": "47a33b1a01c3daee093a6d28d69091da3811a9b0"
+          }
+        },
+        {
+          "client_id": "103049766738-nt1c9ubhgmdsojjhb390tmd8eohp96sp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3LDzf8h34ISazekC_8Kq_O-vD66kUFgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103049766738-nt1c9ubhgmdsojjhb390tmd8eohp96sp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

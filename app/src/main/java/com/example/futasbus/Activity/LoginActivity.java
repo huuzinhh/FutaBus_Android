@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,12 @@ import com.example.futasbus.respone.LoginResponse;
 import com.example.futasbus.respone.OtpResponse;
 import com.example.futasbus.respone.VerifyOtpResponse;
 
+import com.google.android.gms.auth.api.signin.*;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,15 +40,17 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout layoutLoginForm, layoutRegisterForm, layoutOtpForm;
     private EditText etEmail, etPassword, etRegisterEmail, etOtp;
     private Button btnLogin, btnSendOtp, btnVerifyOtp;
-
     private String registerEmail;
+    private static final int RC_SIGN_IN = 100;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient gsc;
+    private ImageView googleBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize views
         tvTitle = findViewById(R.id.tv_title);
         tvTabLogin = findViewById(R.id.tv_tab_login);
         tvTabRegister = findViewById(R.id.tv_tab_register);
@@ -57,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         btnVerifyOtp = findViewById(R.id.btn_verify_otp);
         tvForgotPassword = findViewById(R.id.tv_forgot_password);
 
-        // Tab Đăng Nhập
         tvTabLogin.setOnClickListener(v -> {
             tvTitle.setText("Đăng nhập tài khoản");
             tvTabLogin.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_dark));
@@ -67,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
             layoutOtpForm.setVisibility(View.GONE);
         });
 
-        // Tab Đăng Ký
         tvTabRegister.setOnClickListener(v -> {
             tvTitle.setText("Đăng ký tài khoản");
             tvTabLogin.setTextColor(ContextCompat.getColor(this, android.R.color.darker_gray));
@@ -77,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
             layoutOtpForm.setVisibility(View.GONE);
         });
 
-        // Handle login button click
         btnLogin.setOnClickListener(v -> {
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
@@ -89,20 +95,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Handle send OTP button click
         btnSendOtp.setOnClickListener(v -> {
             String email = etRegisterEmail.getText().toString().trim();
             if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(LoginActivity.this, "Vui lòng nhập email hợp lệ", Toast.LENGTH_SHORT).show();
             } else {
-                registerEmail = email; // Lưu email để dùng khi xác nhận OTP
+                registerEmail = email;
                 sendOtpToEmail(email);
                 layoutRegisterForm.setVisibility(View.GONE);
                 layoutOtpForm.setVisibility(View.VISIBLE);
             }
         });
 
-        // Handle verify OTP button click
         btnVerifyOtp.setOnClickListener(v -> {
             String otp = etOtp.getText().toString().trim();
 
@@ -113,9 +117,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // Handle forgot password click
         tvForgotPassword.setOnClickListener(v -> {
             Toast.makeText(LoginActivity.this, "Chức năng quên mật khẩu đang được phát triển", Toast.LENGTH_SHORT).show();
+        });
+
+        googleBtn = findViewById(R.id.google_btn);
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this,gso);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if(acct!=null){
+            String email = acct.getEmail();
+            loginWithGoogle(email);
+        }
+
+        googleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
         });
     }
 
@@ -185,7 +206,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // Hàm gửi OTP qua email
     private void sendOtpToEmail(String email) {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
         OtpRequest request = new OtpRequest(email);
@@ -209,7 +229,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // Hàm xác nhận OTP
     private void verifyOtp(String email, String otp) {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
         VerifyOtpRequest request = new VerifyOtpRequest(email, otp);
@@ -219,10 +238,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<VerifyOtpResponse> call, Response<VerifyOtpResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().getStatus().equals("success")) {
                     Toast.makeText(LoginActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                    // Chuyển sang màn hình đăng nhập hoặc màn hình chính
                     layoutOtpForm.setVisibility(View.GONE);
                     layoutLoginForm.setVisibility(View.VISIBLE);
-                    tvTabLogin.performClick(); // Quay lại tab đăng nhập
+                    tvTabLogin.performClick();
                 } else {
                     Toast.makeText(LoginActivity.this, "Mã OTP không đúng", Toast.LENGTH_SHORT).show();
                 }
@@ -234,4 +252,104 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    void signIn(){
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent,1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                if (account != null) {
+                    String name = account.getDisplayName();
+                    String email = account.getEmail();
+
+                    Map<String, String> dataNguoiDung = new HashMap<>();
+                    dataNguoiDung.put("email", account.getEmail());
+                    dataNguoiDung.put("name", account.getDisplayName());
+
+                    ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+                    Call<LoginResponse> call = apiService.loginWithGoogleMobile(dataNguoiDung);
+                    call.enqueue(new Callback<LoginResponse>() {
+                        @Override
+                        public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                            if (response.isSuccessful() && response.body() != null) {
+                                loginWithGoogle(email);
+                            } else {
+                                String errorMsg = "Lỗi: " + response.code() + " - " + response.message();
+                                Toast.makeText(LoginActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+                                Log.e("API_ERROR", errorMsg);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<LoginResponse> call, Throwable t) {
+                            Toast.makeText(LoginActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                            Log.e("API_FAILURE", t.toString());
+                        }
+                    });
+                }
+            } catch (ApiException e) {
+                Toast.makeText(getApplicationContext(), "Đã có lỗi xảy ra", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    private void loginWithGoogle(String email) {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        LoginRequest request = new LoginRequest(email);
+
+        Call<LoginResponse> call = apiService.loginGoogleAndroid(request);
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    LoginResponse loginResponse = response.body();
+                    String status = loginResponse.getStatus();
+                    String message = loginResponse.getMessage();
+
+                    if ("success".equals(status)) {
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                        SharedPreferences sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+
+                        if (loginResponse.getUser() != null) {
+                            editor.putInt("idNguoiDung", loginResponse.getUser().getIdNguoiDung());
+                            editor.putString("hoTen", loginResponse.getUser().getHoTen());
+                            editor.putBoolean("isLoggedIn", true);
+                        }
+
+                        editor.apply();
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e("GOOGLE_LOGIN_ERROR", "Phản hồi không thành công: " + response.code());
+                    Toast.makeText(LoginActivity.this, "Lỗi server: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                String errorMsg = t.getMessage() != null ? t.getMessage() : "Lỗi kết nối không xác định";
+                Log.e("GOOGLE_LOGIN_ERROR", "Lỗi Retrofit: " + errorMsg, t);
+                Toast.makeText(LoginActivity.this, "Lỗi kết nối: " + errorMsg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

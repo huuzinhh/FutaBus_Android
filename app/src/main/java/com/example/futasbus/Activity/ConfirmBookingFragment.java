@@ -63,7 +63,6 @@ public class ConfirmBookingFragment extends Fragment {
             ((TextView) view.findViewById(R.id.tvTo)).setText(trip.getTenBenXeDen());
             ((TextView) view.findViewById(R.id.tvSeatType)).setText(trip.getTenLoai());
             ((TextView) view.findViewById(R.id.tvDistanceDuration)).setText("Thời Gian Dự Kiến: " + formatter.format(trip.getThoiGianDiChuyenTB()) + "H");
-            ((TextView) view.findViewById(R.id.tvLichTrinh)).setText("Lịch trình");
             ((TextView) view.findViewById(R.id.tvSeatNumbers)).setText(getSeatNamesString(seats));
 
         }

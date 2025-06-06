@@ -1,6 +1,7 @@
 package com.example.futasbus.Activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,6 +27,11 @@ import com.example.futasbus.model.BookingInfo;
 import com.example.futasbus.model.PhieuDatVe;
 import com.example.futasbus.model.TuyenXe;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.Map;
 import retrofit2.Call;
@@ -47,7 +53,8 @@ public class TicketManagementFragment extends Fragment {
     private List<BookingInfo> bookingList;
     private TicketAdapter adapter;
     private List<BookingInfo> filteredList = new ArrayList<>();
-    List<BookingInfo> displayList = new ArrayList<>();
+    private List<BookingInfo> displayList = new ArrayList<>();
+    private ImageView imgPrint;
 
     public TicketManagementFragment() {
     }
@@ -169,6 +176,12 @@ public class TicketManagementFragment extends Fragment {
                             ((TextView) view.findViewById(R.id.tv_vehicle_number)).setText(bookingInfo.getBienSoXe());
                             ((TextView) view.findViewById(R.id.tv_vehicle_type)).setText(bookingInfo.getLoaiXe());
                             ((TextView) view.findViewById(R.id.tv_seat_list)).setText(bookingInfo.getDanhSachGhe());
+
+                            ImageView imgPrint = view.findViewById(R.id.img_print);
+                            imgPrint.setOnClickListener(v -> {
+                                String content = generateTicketContent(bookingInfo);
+                                saveToFile(content, bookingInfo, requireContext());
+                            });
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
                             builder.setView(view);
@@ -450,6 +463,105 @@ public class TicketManagementFragment extends Fragment {
         displayList.clear();
         displayList.addAll(filteredList);
         adapter.notifyDataSetChanged();
+    }
+
+    private String formatDateTime(String inputDate) {
+        String[] possibleFormats = {
+                "yyyy-MM-dd HH:mm:ss.S",
+                "yyyy-MM-dd HH:mm:ss",
+                "yyyy-MM-dd HH:mm"
+        };
+
+        for (String format : possibleFormats) {
+            try {
+                SimpleDateFormat inputFormat = new SimpleDateFormat(format, Locale.getDefault());
+                Date parsedDate = inputFormat.parse(inputDate);
+
+                SimpleDateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                return outputFormat.format(parsedDate);
+            } catch (ParseException e) {
+            }
+        }
+
+        return inputDate;
+    }
+
+    private String generateTicketContent(BookingInfo bookingInfo) {
+        String trangThaiText;
+
+        switch (bookingInfo.getTrangThai()) {
+            case 0:
+                trangThaiText = "Đã huỷ";
+                break;
+            case 1:
+                trangThaiText = "Đã đặt";
+                break;
+            case 2:
+                trangThaiText = "Chờ thanh toán";
+                break;
+            case 3:
+                trangThaiText = "Đã thanh toán";
+                break;
+            case 4:
+                trangThaiText = "Hoàn tất";
+                break;
+            default:
+                trangThaiText = "Không xác định";
+        }
+
+        String thoiDiemDiFormatted = formatDateTime(bookingInfo.getThoiDiemDi());
+        String thoiDiemDenFormatted = formatDateTime(bookingInfo.getThoiDiemDen());
+        String thoiGianDatVeFormatted = formatDateTime(bookingInfo.getThoiGianDatVe());
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        String formattedGiaVe = currencyFormat.format(bookingInfo.getGiaVe());
+        String formattedTongTien = currencyFormat.format(bookingInfo.getTongTien());
+
+        return "PHIẾU ĐẶT VÉ\n"
+                + "-------------------------\n"
+                + "Họ tên: " + bookingInfo.getHoTen() + "\n"
+                + "Số điện thoại: " + bookingInfo.getSoDienThoai() + "\n"
+                + "Email: " + bookingInfo.getEmail() + "\n"
+                + "Thời điểm đi: " + thoiDiemDiFormatted + "\n"
+                + "Thời điểm đến: " + thoiDiemDenFormatted + "\n"
+                + "Tên tuyến: " + bookingInfo.getTenTuyen() + "\n"
+                + "Bến đi: " + bookingInfo.getBenDi() + "\n"
+                + "Bến đến: " + bookingInfo.getBenDen() + "\n"
+                + "Biển số xe: " + bookingInfo.getBienSoXe() + "\n"
+                + "Loại xe: " + bookingInfo.getLoaiXe() + "\n"
+                + "Số lượng vé: " + bookingInfo.getSoLuongVe() + "\n"
+                + "Danh sách ghế: " + bookingInfo.getDanhSachGhe() + "\n"
+                + "Giá vé: " + formattedGiaVe + "\n"
+                + "Tổng tiền: " + formattedTongTien + "\n"
+                + "Thời gian đặt vé: " + thoiGianDatVeFormatted + "\n"
+                + "Trạng thái: " + trangThaiText + "\n";
+    }
+
+    public String removeVietnameseDiacritics(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
+    private void saveToFile(String content, BookingInfo bookingInfo, Context context) {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+
+        String hoTen = removeVietnameseDiacritics(bookingInfo.getHoTen())
+                .replaceAll("[^a-zA-Z0-9]", "_");
+        String fileName = "Phieu_" + hoTen + "_" + timeStamp + ".txt";
+
+        File path = new File(context.getExternalFilesDir(null), "Tickets");
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+
+        File file = new File(path, fileName);
+
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(content.getBytes(StandardCharsets.UTF_8));
+            Toast.makeText(context, "Xuất vé thành công!", Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Lỗi khi ghi file", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

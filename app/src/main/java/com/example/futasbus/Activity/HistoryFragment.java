@@ -17,12 +17,17 @@ import com.example.futasbus.Adapter.PurchaseAdapter;
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.R;
+import com.example.futasbus.helper.DateTimeHelper;
 import com.example.futasbus.helper.SharedPrefHelper;
 import com.example.futasbus.respone.ListPurchaseResponse;
+import com.example.futasbus.respone.PurchaseItem;
+import com.example.futasbus.respone.PurchaseItemResponse;
 import com.example.futasbus.respone.PurchaseResponse;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,14 +53,67 @@ public class HistoryFragment extends Fragment {
         purchaseList = new ArrayList<>();
         purchaseAdapter = new PurchaseAdapter(getContext(), R.layout.item_purchase, purchaseList);
         listViewTrips.setAdapter(purchaseAdapter);
-        return v;
 
+        listViewTrips.setOnItemClickListener((parent, view, position, id) -> {
+            PurchaseResponse purchase = purchaseList.get(position);
+            showPurchaseDetails(purchase);
+        });
+        return v;
     }
     @Override
     public void onResume() {
         super.onResume();
         getPurchaseHistory();
     }
+    private void showPurchaseDetails(PurchaseResponse purchase) {
+        int idPhieuDatVe = purchase.getIdPhieuDatVe();
+
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        apiService.getPurchaseItem(idPhieuDatVe).enqueue(new Callback<PurchaseItemResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PurchaseItemResponse> call, @NonNull Response<PurchaseItemResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    PurchaseItem item = response.body().getData();
+
+                    LayoutInflater inflater = LayoutInflater.from(requireContext());
+                    View dialogView = inflater.inflate(R.layout.dialog_purchase_details, null);
+                    ((TextView) dialogView.findViewById(R.id.tvMaVe)).setText(String.valueOf(item.getIdPhieuDatVe()));
+                    ((TextView) dialogView.findViewById(R.id.tvTuyenXe)).setText(item.getTenTuyen());
+                    ((TextView) dialogView.findViewById(R.id.tv_departure_time)).setText(DateTimeHelper.toFullDateTime(item.getThoiDiemDi()));
+                    ((TextView) dialogView.findViewById(R.id.tvSoVe)).setText(String.valueOf(item.getSoLuongVe()));
+                    NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+                    ((TextView) dialogView.findViewById(R.id.tvTongTien)).setText(formatter.format(item.getTongTien()) + " VND");
+                    ((TextView) dialogView.findViewById(R.id.tvGhe)).setText(item.getDanhSachIDGhe());
+                    ((TextView) dialogView.findViewById(R.id.tvHovaTen)).setText(item.getHoTenNguoiDatVe());
+                    ((TextView) dialogView.findViewById(R.id.tvSDT)).setText(item.getSdtNguoiDatVe());
+                    ((TextView) dialogView.findViewById(R.id.tvEmail)).setText(item.getEmailNguoiDatVe());
+                    ((TextView) dialogView.findViewById(R.id.tvtimedatve)).setText(DateTimeHelper.toFullDateTime(item.getThoiGianDatVe()));
+                    ((TextView) dialogView.findViewById(R.id.tvBienSoXe)).setText(item.getBienSoXe());
+                    ((TextView) dialogView.findViewById(R.id.tvLoaiXe)).setText(item.getLoaiXe());
+                    ((TextView) dialogView.findViewById(R.id.tvDiaChiBenXeDi)).setText(item.getDiaChiBenXeDi());
+                    ((TextView) dialogView.findViewById(R.id.tvSDTBXDi)).setText(item.getSdtBenXeDi());
+                    ((TextView) dialogView.findViewById(R.id.tvDiaChiBenXeDen)).setText(item.getDiaChiBenXeDen());
+
+                    new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                            .setTitle("")
+                            .setView(dialogView)
+                            .setPositiveButton("Đóng", null)
+                            .show();
+
+                } else {
+                    Toast.makeText(getContext(), "Không thể tải chi tiết vé.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<PurchaseItemResponse> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
 
     private void getPurchaseHistory() {
         int idNguoiDung = SharedPrefHelper.getUserId(requireContext());

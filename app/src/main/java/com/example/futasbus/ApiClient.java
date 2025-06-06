@@ -16,6 +16,7 @@ public class ApiClient {
 //    "Máy Dũng"
 
 //    private static final String BASE_URL = "http://192.168.43.184:8085/FutaBus_Backend/";
+//    private static final String BASE_URL = "http://192.168.79.1:8085/"; //Máy Thông
 //    private static final String BASE_URL = "http://192.168.79.1:8085/FutaBus_Backend/"; //Máy Thông
     private static Retrofit retrofit = null;
 

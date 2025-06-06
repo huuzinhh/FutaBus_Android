@@ -85,32 +85,25 @@ public class BookBusActivity extends AppCompatActivity {
         Button btnConfirm = findViewById(R.id.btnConfirmTrip);
         btnConfirm.setOnClickListener(v -> {
             BookBusFragment goFragment = findFragmentByPosition(0);
-            if (goFragment == null) {
-                Log.d("DEBUG", "goFragment null");
-                return;
-            }
-
             ChuyenXeResult selectedGo = goFragment.getSelectedTrip();
-            if (selectedGo == null) {
-                ToastHelper.show(BookBusActivity.this, "Vui lòng chọn chuyến xe đi");
-                return;
-            }
 
             if (isRoundTrip) {
                 BookBusFragment returnFragment = findFragmentByPosition(1);
-                if (returnFragment == null) {
-                    Log.d("DEBUG", "returnFragment null");
+                ChuyenXeResult selectedReturn = returnFragment.getSelectedTrip();
+
+                // TH1: chưa chọn cả hai chuyến
+                if (selectedGo == null && selectedReturn == null) {
+                    ToastHelper.show(BookBusActivity.this, "Vui lòng chọn chuyến đi và chuyến về");
                     return;
                 }
 
-                ChuyenXeResult selectedReturn = returnFragment.getSelectedTrip();
-                if (selectedReturn == null) {
+                // TH2: chỉ chọn chuyến đi
+                if (selectedGo != null && selectedReturn == null) {
                     new AlertDialog.Builder(BookBusActivity.this)
                             .setTitle("Thiếu chuyến về")
                             .setMessage("Bạn chưa chọn chuyến về. Bạn có muốn chuyển sang vé một chiều không?")
                             .setPositiveButton("Có", (dialog, which) -> {
                                 isRoundTrip = false;
-
                                 Bundle bundle = new Bundle();
                                 bundle.putInt("departureId", departureId);
                                 bundle.putString("departure", departure);
@@ -118,7 +111,7 @@ public class BookBusActivity extends AppCompatActivity {
                                 bundle.putString("destination", destination);
                                 bundle.putString("departureDate", departureDate);
                                 bundle.putString("returnDate", returnDate);
-                                bundle.putBoolean("isRoundTrip", false); // cập nhật trong intent
+                                bundle.putBoolean("isRoundTrip", false);
                                 bundle.putInt("tickets", tickets);
 
                                 Intent intent = new Intent(BookBusActivity.this, SeatSelectionActivity.class);
@@ -131,7 +124,34 @@ public class BookBusActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Đã chọn cả hai chuyến → tiếp tục
+                // TH3: chỉ chọn chuyến về
+                if (selectedGo == null && selectedReturn != null) {
+                    new AlertDialog.Builder(BookBusActivity.this)
+                            .setTitle("Thiếu chuyến đi")
+                            .setMessage("Bạn chưa chọn chuyến đi. Bạn có muốn chuyển sang vé một chiều không?")
+                            .setPositiveButton("Có", (dialog, which) -> {
+                                isRoundTrip = false;
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("departureId", departureId);
+                                bundle.putString("departure", departure);
+                                bundle.putInt("destinationId", destinationId);
+                                bundle.putString("destination", destination);
+                                bundle.putString("departureDate", departureDate);
+                                bundle.putString("returnDate", returnDate);
+                                bundle.putBoolean("isRoundTrip", false);
+                                bundle.putInt("tickets", tickets);
+
+                                Intent intent = new Intent(BookBusActivity.this, SeatSelectionActivity.class);
+                                intent.putExtras(bundle);
+                                intent.putExtra("goTrip", selectedReturn); // vì chỉ chọn chuyến về nên dùng tạm returnTrip làm "goTrip"
+                                startActivity(intent);
+                            })
+                            .setNegativeButton("Không", null)
+                            .show();
+                    return;
+                }
+
+                // Trường hợp đã chọn cả hai chuyến
                 Bundle bundle = new Bundle();
                 bundle.putInt("departureId", departureId);
                 bundle.putString("departure", departure);
@@ -147,8 +167,14 @@ public class BookBusActivity extends AppCompatActivity {
                 intent.putExtra("goTrip", selectedGo);
                 intent.putExtra("returnTrip", selectedReturn);
                 startActivity(intent);
+
             } else {
                 // Vé một chiều
+                if (selectedGo == null) {
+                    ToastHelper.show(BookBusActivity.this, "Vui lòng chọn chuyến xe đi");
+                    return;
+                }
+
                 Bundle bundle = new Bundle();
                 bundle.putInt("departureId", departureId);
                 bundle.putString("departure", departure);

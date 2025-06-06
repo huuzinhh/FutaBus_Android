@@ -25,15 +25,17 @@ public class CheckoutFragment extends Fragment {
     private static final String ARG_TICKET = "ticket";
     private static final String ARG_TRIP = "trip";
     private static final String ARG_Seat = "seat";
-    private static final String ARG_Price = "price";
+    private static final Double ARG_Price = 0.0 ;
+    private static final String ARG_BSX = "price";
 
-    public static CheckoutFragment newInstance(TicketResponse ticketResponse, ChuyenXeResult trip, List<SelectedSeat> seats, double price) {
+    public static CheckoutFragment newInstance(TicketResponse ticketResponse, ChuyenXeResult trip, List<SelectedSeat> seats, double price,String BSX) {
         CheckoutFragment fragment = new CheckoutFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_TICKET, ticketResponse);
         args.putSerializable(ARG_TRIP, trip);
         args.putSerializable(ARG_Seat, (Serializable) seats);
-        args.putDouble(ARG_Price, price);
+        args.putDouble(String.valueOf(ARG_Price), price);
+        args.putString(ARG_BSX, BSX);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +48,8 @@ public class CheckoutFragment extends Fragment {
         TicketResponse ticketResponse = (TicketResponse) getArguments().getSerializable(ARG_TICKET);
         ChuyenXeResult trip = (ChuyenXeResult) getArguments().getSerializable(ARG_TRIP);
         List<SelectedSeat> seats = (List<SelectedSeat>) getArguments().getSerializable(ARG_Seat);
-        double price = getArguments().getDouble(ARG_Price);
+        double price = getArguments().getDouble(String.valueOf(ARG_Price));
+        String BSX = getArguments().getString(ARG_BSX);
 
         if (trip != null) {
             NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
@@ -58,6 +61,7 @@ public class CheckoutFragment extends Fragment {
             ((TextView) view.findViewById(R.id.tvDiemLenXe)).setText(trip.getTenBenXeDi());
             ((TextView) view.findViewById(R.id.tvThoiGianDon)).setText(DateTimeHelper.toFullDateTime(trip.getThoiDiemDi()));
             ((TextView) view.findViewById(R.id.tvDiemTra)).setText(trip.getTenBenXeDen());
+            ((TextView) view.findViewById(R.id.tvBienSoXe)).setText(BSX);
             ((TextView) view.findViewById(R.id.tvTongTien)).setText(formatter.format(trip.getGiaHienHanh()) + " VND");
 
         }
