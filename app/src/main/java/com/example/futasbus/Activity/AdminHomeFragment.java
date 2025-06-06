@@ -213,16 +213,56 @@ public class AdminHomeFragment extends Fragment {
                     transaction.commit();
                     break;
                 case "Quản lý bến xe":
+                    transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
 
+                    if (currentFragment != null) {
+                        transaction.remove(currentFragment);
+                    }
+
+                    newFragment = new StationManagementFragment();
+                    transaction.replace(R.id.admin_fragment_container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
                 case "Quản lý xe":
+                    transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
 
+                    if (currentFragment != null) {
+                        transaction.remove(currentFragment);
+                    }
+
+                    newFragment = new BusManagementFragment();
+                    transaction.replace(R.id.admin_fragment_container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
                 case "Quản lý địa điểm":
+                    transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
 
+                    if (currentFragment != null) {
+                        transaction.remove(currentFragment);
+                    }
+
+                    newFragment = new LocationManagementFragment();
+                    transaction.replace(R.id.admin_fragment_container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
                 case "Thống kê":
+                    transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.admin_fragment_container);
 
+                    if (currentFragment != null) {
+                        transaction.remove(currentFragment);
+                    }
+
+                    newFragment = new StatisticsManagementFragment();
+                    transaction.replace(R.id.admin_fragment_container, newFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                     break;
             }
         });

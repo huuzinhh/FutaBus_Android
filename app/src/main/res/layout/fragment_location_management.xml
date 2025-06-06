@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragment_bus_trip_management">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/fragment_location_management"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="#fef7ff">
 
+<!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -25,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
-            android:text="Quản lý chuyến xe"
+            android:text="Quản lý địa điểm"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
         <Space
@@ -33,12 +36,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
         <ImageButton
-            android:id="@+id/btnAddTrip"
+            android:id="@+id/btnAddLocation"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_input_add"
-            android:contentDescription="Thêm chuyến" />
+            android:contentDescription="Thêm địa điểm" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,20 +56,13 @@
         android:background="#fef7ff"
         android:gravity="center_vertical"
         android:clickable="true">
-        <Spinner
-            android:id="@+id/spinnerFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_marginEnd="4dp"
-            android:spinnerMode="dropdown"
-            android:background="@android:color/transparent" />
+
         <EditText
             android:id="@+id/edtSearch"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
-            android:hint="Tìm chuyến xe..."
+            android:hint="Tìm tỉnh/thành..."
             android:backgroundTint="@color/futa_orange"
             android:paddingHorizontal="8dp" />
         <ImageButton
@@ -81,20 +77,35 @@
 
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/gridViewBusTrip"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layoutSearchAdd"
-        android:background="#fef7ff"
-        android:numColumns="1"
-        android:verticalSpacing="8dp"
-        android:horizontalSpacing="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:stretchMode="columnWidth"
-        android:gravity="center"
-        android:clickable="true"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-</RelativeLayout>
+        <!-- Cột trái: Tỉnh thành -->
+        <GridView
+            android:id="@+id/gridViewLocation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:numColumns="1"
+            android:verticalSpacing="8dp"
+            android:horizontalSpacing="8dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            android:isScrollContainer="false"
+            android:nestedScrollingEnabled="true" />
+
+        <!-- Cột phải: Quận huyện -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerQuanHuyen"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="8dp"
+            android:nestedScrollingEnabled="true" />
+    </LinearLayout>
+
+</LinearLayout>

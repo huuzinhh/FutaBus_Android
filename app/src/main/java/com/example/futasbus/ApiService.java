@@ -16,8 +16,6 @@ import com.example.futasbus.respone.BookTicketsResponse;
 import com.example.futasbus.respone.ListPurchaseResponse;
 import com.example.futasbus.respone.LoginResponse;
 import com.example.futasbus.respone.OtpResponse;
-import com.example.futasbus.respone.PurchaseItem;
-import com.example.futasbus.respone.PurchaseItemResponse;
 import com.example.futasbus.respone.RegisterResponse;
 import com.example.futasbus.respone.TinhThanhResponse;
 import com.example.futasbus.respone.TripResponse;
@@ -59,7 +57,7 @@ public interface ApiService {
             @Query("returnDate") String returnDate,
             @Query("tickets") int tickets
     );
-    @GET("api/user/book-tickets1")
+    @GET("api/user/book-tickets")
     Call<BookTicketsResponse> bookTickets(
             @Query("departureId") int departureId,
             @Query("departure") String departure,
@@ -147,17 +145,5 @@ public interface ApiService {
 
     @POST("api/admin/tuyenxe/them")
     Call<Map<String, Object>> themTuyenXe(@Body TuyenXe tuyenXe);
-
-    @POST("api/user/update-password")
-    Call<Map<String, Object>> updatePassword(@Body NguoiDung nguoiDung);
-
-    @GET("api/user/purchase-history-items/{idPhieuDatVe}")
-    Call<PurchaseItemResponse> getPurchaseItem(@Path("idPhieuDatVe") int idPhieuDatVe);
-
-    @POST("api/user/login-google-mobile")
-    Call<LoginResponse> loginWithGoogleMobile(@Body Map<String, String> payload);
-
-    @POST("api/user/login-google-android")
-    Call<LoginResponse> loginGoogleAndroid(@Body LoginRequest request);
 
 }
