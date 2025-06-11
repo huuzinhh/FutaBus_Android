@@ -3,6 +3,9 @@ package com.example.futasbus.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -179,8 +182,9 @@ public class TicketManagementFragment extends Fragment {
 
                             ImageView imgPrint = view.findViewById(R.id.img_print);
                             imgPrint.setOnClickListener(v -> {
-                                String content = generateTicketContent(bookingInfo);
-                                saveToFile(content, bookingInfo, requireContext());
+                                View ticketView = inflater.inflate(R.layout.ticket_layout, null);
+                                showTicketOnLayout(ticketView, bookingInfo);
+                                saveTicketViewAsPdf(ticketView, "VeXe_" + System.currentTimeMillis());
                             });
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -563,6 +567,80 @@ public class TicketManagementFragment extends Fragment {
             Toast.makeText(context, "Lỗi khi ghi file", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void showTicketOnLayout(View view, BookingInfo bookingInfo) {
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
+        ((TextView) view.findViewById(R.id.tv_ho_ten)).setText("Họ tên: " + bookingInfo.getHoTen());
+        ((TextView) view.findViewById(R.id.tv_so_dien_thoai)).setText("Số điện thoại: " + bookingInfo.getSoDienThoai());
+        ((TextView) view.findViewById(R.id.tv_email)).setText("Email: " + bookingInfo.getEmail());
+        ((TextView) view.findViewById(R.id.tv_thoi_diem_di)).setText("Thời điểm đi: " + formatDateTime(bookingInfo.getThoiDiemDi()));
+        ((TextView) view.findViewById(R.id.tv_thoi_diem_den)).setText("Thời điểm đến: " + formatDateTime(bookingInfo.getThoiDiemDen()));
+        ((TextView) view.findViewById(R.id.tv_ten_tuyen)).setText(bookingInfo.getTenTuyen());
+        ((TextView) view.findViewById(R.id.tv_ben_di)).setText("Nơi đi: " + bookingInfo.getBenDi());
+        ((TextView) view.findViewById(R.id.tv_ben_den)).setText("Nơi đến: " + bookingInfo.getBenDen());
+        ((TextView) view.findViewById(R.id.tv_bien_so_xe)).setText("Biển số xe: " + bookingInfo.getBienSoXe());
+        ((TextView) view.findViewById(R.id.tv_loai_xe)).setText("Loại xe: " + bookingInfo.getLoaiXe());
+        ((TextView) view.findViewById(R.id.tv_so_luong_ve)).setText("Số lượng vé: " + bookingInfo.getSoLuongVe());
+        ((TextView) view.findViewById(R.id.tv_danh_sach_ghe)).setText("Ghế: " + bookingInfo.getDanhSachGhe());
+        ((TextView) view.findViewById(R.id.tv_gia_ve)).setText("Giá vé: " + currencyFormat.format(bookingInfo.getGiaVe()));
+        ((TextView) view.findViewById(R.id.tv_tong_tien)).setText("Tổng tiền: " + currencyFormat.format(bookingInfo.getTongTien()));
+        ((TextView) view.findViewById(R.id.tv_thoi_gian_dat)).setText("Thời gian đặt vé: " + formatDateTime(bookingInfo.getThoiGianDatVe()));
+        ((TextView) view.findViewById(R.id.tv_trang_thai)).setText("Trạng thái: " + getTrangThaiText(bookingInfo.getTrangThai()));
+    }
+
+    private String getTrangThaiText(int trangThai) {
+        switch (trangThai) {
+            case 0: return "Đã huỷ";
+            case 1: return "Đã đặt";
+            case 2: return "Chờ thanh toán";
+            case 3: return "Đã thanh toán";
+            case 4: return "Hoàn tất";
+            default: return "Không xác định";
+        }
+    }
+
+    private void saveTicketViewAsPdf(View ticketView, String fileName) {
+        // Đo và layout View
+        int widthSpec = View.MeasureSpec.makeMeasureSpec(1080, View.MeasureSpec.EXACTLY); // hoặc kích thước bạn mong muốn
+        int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        ticketView.measure(widthSpec, heightSpec);
+        ticketView.layout(0, 0, ticketView.getMeasuredWidth(), ticketView.getMeasuredHeight());
+
+        // Tạo bitmap từ View
+        Bitmap bitmap = Bitmap.createBitmap(ticketView.getMeasuredWidth(), ticketView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        ticketView.draw(canvas);
+
+        // Tạo PDF
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        Canvas pdfCanvas = page.getCanvas();
+        pdfCanvas.drawBitmap(bitmap, 0, 0, null);
+        document.finishPage(page);
+
+        // Lưu file
+        File dir = new File(requireContext().getExternalFilesDir(null), "tickets");
+        if (!dir.exists()) dir.mkdirs();
+
+        File file = new File(dir, fileName + ".pdf");
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            document.writeTo(fos);
+            Toast.makeText(requireContext(), "Xuất vé PDF thành công:\n" + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(requireContext(), "Lỗi khi lưu PDF", Toast.LENGTH_SHORT).show();
+        }
+
+        document.close();
+    }
+
+
+
+
 }
 
 

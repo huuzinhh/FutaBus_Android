@@ -1,6 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.FutasBus" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#BB86FC</item>
+        <item name="colorPrimaryVariant">#3700B3</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+
         <item name="insideBackgroundColor">#ADACAC</item>
         <item name="android:textColor">@color/black</item>
         <item name="backgroundColor">#474747</item>
@@ -46,7 +54,4 @@
     <style name="radio">
         <item name="android:textColor">@color/black</item>
     </style>
-
-
 </resources>
-

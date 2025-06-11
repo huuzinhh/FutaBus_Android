@@ -3,6 +3,13 @@
     <style name="Base.Theme.FutasBus" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="insideBackgroundColor">@color/white</item>
         <item name="backgroundColor">@color/futa_orange</item>
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#6200EE</item>
+        <item name="colorPrimaryVariant">#3700B3</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
     </style>
 
     <style name="Theme.FutasBus" parent="Base.Theme.FutasBus" />
@@ -38,4 +45,3 @@
         <item name="android:background">@color/white</item>
     </style>
 </resources>
-
