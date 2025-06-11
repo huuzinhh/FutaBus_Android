@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.futasbus" />
+                  <option name="mobileSdkAppId" value="1:103049766738:android:041d0cc3f9388456dd7c8b" />
+                  <option name="projectId" value="futabus-396db" />
+                  <option name="projectNumber" value="103049766738" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

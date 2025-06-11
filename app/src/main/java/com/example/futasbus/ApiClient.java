@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 //    private static final String BASE_URL = "http://192.168.1.11:8085/FutaBus_Backend/";
 //    "Máy Thông"
-    private static final String BASE_URL = "http://192.168.43.184:8085/FutaBus_Backend/";
+    private static final String BASE_URL = "http://192.168.1.5:8085/FutaBus_Backend/";
 //    "Máy Dũng"
 
 //    private static final String BASE_URL = "http://192.168.43.184:8085/FutaBus_Backend/";
