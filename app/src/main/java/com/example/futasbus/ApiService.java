@@ -13,11 +13,13 @@ import com.example.futasbus.model.TuyenXeUpdateDTO;
 import com.example.futasbus.model.Xe;
 import com.example.futasbus.model.XeDTO;
 import com.example.futasbus.request.BookingWrapper;
+import com.example.futasbus.request.CreateAccountRequest;
 import com.example.futasbus.request.LoginRequest;
 import com.example.futasbus.request.OtpRequest;
 import com.example.futasbus.request.RegisterRequest;
 import com.example.futasbus.request.VerifyOtpRequest;
 import com.example.futasbus.respone.BookTicketsResponse;
+import com.example.futasbus.respone.CreateAccountResponse;
 import com.example.futasbus.respone.ListPurchaseResponse;
 import com.example.futasbus.respone.LoginResponse;
 import com.example.futasbus.respone.OtpResponse;
@@ -206,4 +208,6 @@ public interface ApiService {
     Call<ResponseBody> xoaQuanHuyen(@Path("id") int id);
     @GET("api/admin/thongke")
     Call<StatisticsResponse> getThongKe(@Query("startDate") String startDate, @Query("endDate") String endDate);
+    @POST("api/user/create-account")
+    Call<CreateAccountResponse> createAccount(@Body CreateAccountRequest request);
 }

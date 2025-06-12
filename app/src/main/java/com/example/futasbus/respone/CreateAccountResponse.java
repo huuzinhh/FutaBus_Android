@@ -1,8 +1,6 @@
 package com.example.futasbus.respone;
 
-
-
-public class VerifyOtpResponse {
+public class CreateAccountResponse {
     private boolean success;
     private String message;
 

@@ -20,9 +20,11 @@ import retrofit2.Response;
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
 import com.example.futasbus.R;
+import com.example.futasbus.request.CreateAccountRequest;
 import com.example.futasbus.request.LoginRequest;
 import com.example.futasbus.request.OtpRequest;
 import com.example.futasbus.request.VerifyOtpRequest;
+import com.example.futasbus.respone.CreateAccountResponse;
 import com.example.futasbus.respone.LoginResponse;
 import com.example.futasbus.respone.OtpResponse;
 import com.example.futasbus.respone.VerifyOtpResponse;
@@ -31,15 +33,16 @@ import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
     private TextView tvTitle, tvTabLogin, tvTabRegister, tvForgotPassword;
-    private LinearLayout layoutLoginForm, layoutRegisterForm, layoutOtpForm;
-    private EditText etEmail, etPassword, etRegisterEmail, etOtp;
-    private Button btnLogin, btnSendOtp, btnVerifyOtp;
+    private LinearLayout layoutLoginForm, layoutRegisterForm, layoutOtpForm,layoutNewPasswordForm;
+    private EditText etEmail, etPassword, etRegisterEmail, etOtp,etPasswordRegister,etComfirmPasswordRegister;
+    private Button btnLogin, btnSendOtp, btnVerifyOtp,registerComplete;
     private String registerEmail;
     private static final int RC_SIGN_IN = 100;
     private GoogleSignInOptions gso;
@@ -65,6 +68,11 @@ public class LoginActivity extends AppCompatActivity {
         btnSendOtp = findViewById(R.id.btn_send_otp);
         btnVerifyOtp = findViewById(R.id.btn_verify_otp);
         tvForgotPassword = findViewById(R.id.tv_forgot_password);
+        etPasswordRegister = findViewById(R.id.et_new_password_register);
+        layoutNewPasswordForm = findViewById(R.id.layout_password_form_register);
+        etComfirmPasswordRegister = findViewById(R.id.et_confirm_password_register);
+        registerComplete = findViewById(R.id.btn_finish_register);
+
 
         tvTabLogin.setOnClickListener(v -> {
             tvTitle.setText("Đăng nhập tài khoản");
@@ -236,13 +244,32 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<VerifyOtpResponse>() {
             @Override
             public void onResponse(Call<VerifyOtpResponse> call, Response<VerifyOtpResponse> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getStatus().equals("success")) {
-                    Toast.makeText(LoginActivity.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                    Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     layoutOtpForm.setVisibility(View.GONE);
-                    layoutLoginForm.setVisibility(View.VISIBLE);
-                    tvTabLogin.performClick();
+                    layoutLoginForm.setVisibility(View.GONE);
+                    layoutNewPasswordForm.setVisibility(View.VISIBLE);
+//                    tvTabLogin.performClick();
+                    registerComplete.setOnClickListener(v -> {
+                        String newPassword = etPasswordRegister.getText().toString().trim();
+                        String confirmPassword = etComfirmPasswordRegister.getText().toString().trim();
+
+                        if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                            Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ mật khẩu", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        if (!newPassword.equals(confirmPassword)) {
+                            Toast.makeText(LoginActivity.this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Gọi API tạo tài khoản hoặc đặt lại mật khẩu
+                        createAccount(email, newPassword);
+                    });
+
                 } else {
-                    Toast.makeText(LoginActivity.this, "Mã OTP không đúng", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, response.body() != null ? response.body().getMessage() : "Lỗi xác thực OTP", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -351,5 +378,41 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void createAccount(String email, String password) {
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        CreateAccountRequest request = new CreateAccountRequest(email, password);
 
+        Call<CreateAccountResponse> call = apiService.createAccount(request);
+        call.enqueue(new Callback<CreateAccountResponse>() {
+            @Override
+            public void onResponse(Call<CreateAccountResponse> call, Response<CreateAccountResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CreateAccountResponse res = response.body();
+                    if (res.isSuccess()) {
+                        Toast.makeText(LoginActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        // Chuyển về màn hình đăng nhập
+                        layoutNewPasswordForm.setVisibility(View.GONE);
+                        layoutLoginForm.setVisibility(View.VISIBLE);
+                    } else {
+                        Toast.makeText(LoginActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    try {
+                        String errorMsg = response.errorBody() != null ? response.errorBody().string() : "Không rõ lỗi";
+                        Log.e("API_ERROR", "Lỗi từ server: " + errorMsg);
+                        Toast.makeText(LoginActivity.this, "Lỗi máy chủ: " + errorMsg, Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(LoginActivity.this, "Không đọc được lỗi từ server!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreateAccountResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
