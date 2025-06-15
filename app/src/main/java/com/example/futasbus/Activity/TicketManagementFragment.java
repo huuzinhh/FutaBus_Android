@@ -453,6 +453,11 @@ public class TicketManagementFragment extends Fragment {
     private void filterBookingListByStatus(int statusIndex) {
         filteredList.clear();
 
+        if (bookingList == null) {
+            Log.e("TicketManagement", "bookingList is null!");
+            return;
+        }
+
         if (statusIndex == 0) {
             filteredList.addAll(bookingList);
         } else {
@@ -629,7 +634,7 @@ public class TicketManagementFragment extends Fragment {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             document.writeTo(fos);
-            Toast.makeText(requireContext(), "Xuất vé PDF thành công:\n" + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(requireContext(), "Xuất vé PDF thành công!", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(requireContext(), "Lỗi khi lưu PDF", Toast.LENGTH_SHORT).show();

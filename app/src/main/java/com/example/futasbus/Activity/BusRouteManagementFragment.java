@@ -325,7 +325,9 @@ public class BusRouteManagementFragment extends Fragment {
             public void onResponse(Call<List<TuyenXe>> call, Response<List<TuyenXe>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     tuyenXeList.clear();
-                    loadTuyenXe();
+                    //loadTuyenXe();
+                    tuyenXeList.addAll(response.body());
+                    adapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getContext(), "Không tải được danh sách tuyến xe", Toast.LENGTH_SHORT).show();
                 }
