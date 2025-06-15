@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@android:color/white"
+    android:background="@color/card_bg"
     android:padding="16dp"
     android:layout_margin="4dp"
     android:elevation="1dp"
@@ -13,14 +13,16 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/card_bg"
+        >
 
         <TextView
             android:id="@+id/tv_ten_khach"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tên khách: Nguyễn Văn A"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -29,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SĐT: 0909123456"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -38,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email: nguyenvana@example.com"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -54,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="Số lượng vé: 2"
-                android:textColor="#000000"
+                android:textColor="@color/text_primary"
                 android:textSize="16sp" />
 
             <TextView
@@ -63,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4.3"
                 android:text="Tổng tiền: 600.000đ"
-                android:textColor="#000000"
+                android:textColor="@color/text_primary"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -72,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Trạng thái: Đã thanh toán"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -81,7 +83,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:paddingStart="8dp">
+        android:paddingStart="8dp"
+        android:background="@color/card_bg"
+        >
 
         <ImageView
             android:id="@+id/btn_view"

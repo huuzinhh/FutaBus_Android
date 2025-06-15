@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@android:color/white"
+    android:background="@color/card_bg"
     android:padding="16dp"
     android:layout_margin="4dp"
     android:elevation="1dp"
@@ -15,14 +15,16 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/card_bg"
+        >
 
         <TextView
             android:id="@+id/tvChuyenXe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tuyến: Huế - Đà Nẵng"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -32,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Từ 00:00 01/01/2025"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
         <TextView
@@ -40,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Từ 00:00 31/12/2025"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -49,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Giá vé: 100.000đ"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
     </LinearLayout>
@@ -60,7 +62,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:paddingStart="8dp">
+        android:paddingStart="8dp"
+        android:background="@color/card_bg"
+        >
 
 
         <ImageView

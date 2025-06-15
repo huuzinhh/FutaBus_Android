@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_bus_management"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment_bus_management">
+    android:background="@color/card_bg">
 
+    <!-- Top bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#EF5222"
+        android:background="@color/top_bar_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="16dp">
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp">
 
         <ImageView
             android:id="@+id/iconBack"
@@ -26,12 +29,14 @@
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:text="Quản lý xe"
-            android:textColor="@android:color/white"
+            android:textColor="@color/top_bar_text"
             android:textSize="18sp" />
-        <Space
+
+        <View
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1" />
+
         <ImageButton
             android:id="@+id/btnAddBus"
             android:layout_width="40dp"
@@ -41,6 +46,7 @@
             android:contentDescription="Thêm chuyến" />
     </LinearLayout>
 
+    <!-- Search bar -->
     <LinearLayout
         android:id="@+id/layoutSearchAdd"
         android:layout_width="match_parent"
@@ -48,27 +54,25 @@
         android:layout_below="@id/topBar"
         android:orientation="horizontal"
         android:paddingTop="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:background="#fef7ff"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:background="@color/image_bg"
         android:gravity="center_vertical"
         android:clickable="true">
-        <Spinner
-            android:id="@+id/spinnerFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_marginEnd="4dp"
-            android:spinnerMode="dropdown"
-            android:background="@android:color/transparent" />
+
+
+
         <EditText
             android:id="@+id/edtSearch"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="40dp"
+            android:layout_weight="1"
             android:hint="Tìm xe..."
-            android:backgroundTint="@color/futa_orange"
+            android:backgroundTint="@color/highlight_text"
+            android:textColor="@color/text_primary"
+            android:textColorHint="#888888"
             android:paddingHorizontal="8dp" />
+
         <ImageButton
             android:id="@+id/btnSearch"
             android:layout_width="40dp"
@@ -77,24 +81,22 @@
             android:src="@android:drawable/ic_menu_search"
             android:contentDescription="Tìm kiếm"
             android:layout_marginStart="4dp" />
-
-
     </LinearLayout>
 
+    <!-- GridView -->
     <GridView
         android:id="@+id/gridViewBus"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layoutSearchAdd"
-        android:background="#fef7ff"
+        android:background="@color/card_bg"
         android:numColumns="1"
         android:verticalSpacing="8dp"
         android:horizontalSpacing="8dp"
         android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
-        android:clickable="true"/>
-
+        android:clickable="true" />
 </RelativeLayout>

@@ -4,14 +4,15 @@ android:id="@+id/fragment_location_management"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-android:background="#fef7ff">
+    android:background="@color/card_bg"
+>
 
 <!-- Top Bar -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#EF5222"
+        android:background="@color/top_bar_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp">
@@ -29,7 +30,7 @@ android:background="#fef7ff">
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:text="Quản lý địa điểm"
-            android:textColor="@android:color/white"
+            android:textColor="@color/top_bar_text"
             android:textSize="18sp" />
         <Space
             android:layout_width="0dp"
@@ -53,7 +54,7 @@ android:background="#fef7ff">
         android:paddingTop="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:background="#fef7ff"
+        android:background="@color/card_bg"
         android:gravity="center_vertical"
         android:clickable="true">
 
@@ -63,7 +64,9 @@ android:background="#fef7ff">
             android:layout_weight="1"
             android:layout_height="40dp"
             android:hint="Tìm tỉnh/thành..."
-            android:backgroundTint="@color/futa_orange"
+            android:backgroundTint="@color/highlight_text"
+            android:textColor="@color/text_primary"
+            android:textColorHint="#888888"
             android:paddingHorizontal="8dp" />
         <ImageButton
             android:id="@+id/btnSearch"
@@ -82,7 +85,9 @@ android:background="#fef7ff">
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@color/card_bg"
+        >
 
         <!-- Cột trái: Tỉnh thành -->
         <GridView
@@ -96,7 +101,9 @@ android:background="#fef7ff">
             android:stretchMode="columnWidth"
             android:gravity="center"
             android:isScrollContainer="false"
-            android:nestedScrollingEnabled="true" />
+            android:nestedScrollingEnabled="true"
+            android:background="@color/card_bg"
+            />
 
         <!-- Cột phải: Quận huyện -->
         <androidx.recyclerview.widget.RecyclerView
@@ -105,7 +112,9 @@ android:background="#fef7ff">
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingStart="8dp"
-            android:nestedScrollingEnabled="true" />
+            android:nestedScrollingEnabled="true"
+            android:background="@color/card_bg"
+            />
     </LinearLayout>
 
 </LinearLayout>

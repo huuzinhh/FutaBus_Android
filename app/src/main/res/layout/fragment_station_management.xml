@@ -8,7 +8,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#EF5222"
+        android:background="@color/top_bar_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp">
@@ -50,24 +50,18 @@
         android:paddingTop="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:background="#fef7ff"
+        android:background="@color/image_bg"
         android:gravity="center_vertical"
         android:clickable="true">
-        <Spinner
-            android:id="@+id/spinnerFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_marginEnd="4dp"
-            android:spinnerMode="dropdown"
-            android:background="@android:color/transparent" />
         <EditText
             android:id="@+id/edtSearch"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
             android:hint="Tìm chuyến xe..."
-            android:backgroundTint="@color/futa_orange"
+            android:backgroundTint="@color/highlight_text"
+            android:textColor="@color/text_primary"
+            android:textColorHint="#888888"
             android:paddingHorizontal="8dp" />
         <ImageButton
             android:id="@+id/btnSearch"
@@ -86,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layoutSearchAdd"
-        android:background="#fef7ff"
+        android:background="@color/card_bg"
         android:numColumns="1"
         android:verticalSpacing="8dp"
         android:horizontalSpacing="8dp"

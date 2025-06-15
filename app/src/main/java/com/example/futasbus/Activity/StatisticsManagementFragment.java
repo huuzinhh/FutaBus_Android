@@ -5,20 +5,16 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import androidx.fragment.app.Fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.futasbus.ApiClient;
 import com.example.futasbus.ApiService;
@@ -32,7 +28,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -54,7 +49,7 @@ public class StatisticsManagementFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.nhap, container, false);
+        return inflater.inflate(R.layout.statistic_management, container, false);
     }
 
     @Override

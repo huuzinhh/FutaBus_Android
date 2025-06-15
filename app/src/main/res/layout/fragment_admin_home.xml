@@ -9,7 +9,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#EF5222"
+        android:background="@color/top_bar_bg"
         android:orientation="horizontal"
         android:paddingStart="16dp"
         android:gravity="center_vertical">
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trang chủ"
-            android:textColor="@android:color/white"
+            android:textColor="@color/top_bar_text"
             android:textSize="18sp"
             android:paddingStart="16dp"/>
     </LinearLayout>
@@ -49,7 +49,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:orientation="vertical"
-        android:background="#EEEEEE"
+        android:background="@color/image_bg"
         android:visibility="gone"
         android:elevation="4dp"
         android:padding="16dp">
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Tài khoản"
-                android:textColor="#EF5222"
+                android:textColor="@color/highlight_text"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -96,7 +96,8 @@
             android:text="Admin"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:paddingBottom="16dp" />
+            android:paddingBottom="16dp"
+            android:textColor="@color/button_text"/>
 
         <TextView
             android:id="@+id/btnChangePassword"
@@ -106,10 +107,20 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_top_bottom"
             android:text="Đổi mật khẩu"
-            android:textColor="#474747"
+            android:textColor="@color/button_text"
             android:gravity="center"
             android:padding="12dp"
             android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/switchMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dark Mode"
+            android:textSize="14sp"
+            android:textColor="@color/switch_text"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp" />
 
         <View
             android:layout_width="match_parent"
@@ -121,7 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đăng xuất"
-            android:backgroundTint="#EF5222"
-            android:textColor="#FFFFFF" />
+            android:backgroundTint="@color/logout_bg"
+            android:textColor="@color/logout_text" />
     </LinearLayout>
 </RelativeLayout>

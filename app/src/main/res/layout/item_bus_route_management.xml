@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@android:color/white"
+    android:background="@color/card_bg"
     android:padding="16dp"
     android:layout_margin="4dp"
     android:elevation="1dp"
@@ -13,14 +13,16 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/card_bg"
+        >
 
         <TextView
             android:id="@+id/tv_ten_tuyen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tuyến: Sài Gòn - Hà Nội"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -29,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bến xe đi: Bến xe Miền Đông"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -38,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bến xe đến: Bến xe Giáp Bát"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -47,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quãng đường: 1.700 km"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
 
@@ -56,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thời gian: 32h"
-            android:textColor="#000000"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="8dp" />
     </LinearLayout>
@@ -66,7 +68,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:paddingStart="8dp">
+        android:paddingStart="8dp"
+        android:background="@color/card_bg"
+        >
 
         <ImageView
             android:id="@+id/btn_view"

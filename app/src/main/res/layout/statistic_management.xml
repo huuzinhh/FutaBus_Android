@@ -2,14 +2,15 @@
     android:id="@+id/fragment_bus_trip_management"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/card_bg">
 
     <!-- Top bar giữ nguyên -->
     <LinearLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#EF5222"
+        android:background="@color/top_bar_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Thống kê"
-            android:textColor="@android:color/white"
+            android:textColor="@color/top_bar_text"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:background="#fef7ff">
+            android:background="@color/card_bg">
 
 
 
@@ -63,21 +64,26 @@
                 android:orientation="vertical"
                 android:background="@drawable/bg_card"
                 android:padding="12dp"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="12dp"
+                >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tổng khách hàng:"
                     android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
 
                 <TextView
                     android:id="@+id/tvTotalCustomer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -93,14 +99,18 @@
                     android:layout_height="wrap_content"
                     android:text="Tổng xe:"
                     android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
 
                 <TextView
                     android:id="@+id/tvTotalXe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -116,14 +126,18 @@
                     android:layout_height="wrap_content"
                     android:text="Tổng chuyến xe:"
                     android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
 
                 <TextView
                     android:id="@+id/tvTotalChuyenXe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -139,14 +153,18 @@
                     android:layout_height="wrap_content"
                     android:text="Doanh thu tháng:"
                     android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
 
                 <TextView
                     android:id="@+id/tvTotalRevenue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="0 VNĐ"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -159,7 +177,9 @@
                     android:layout_height="wrap_content"
                     android:text="Doanh thu "
                     android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    />
 
 
             </LinearLayout>
@@ -169,7 +189,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:background="@color/card_bg"
+
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,6 +201,8 @@
                     android:padding="12dp"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+
                     />
                 <TextView
                     android:id="@+id/edtStartDate"
@@ -187,7 +212,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="12dp"
                     android:text="Chọn ngày bắt đầu"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/text_primary"
                     android:gravity="center"
                     android:textSize="14sp"
                     android:textStyle="bold"/>
@@ -198,6 +223,8 @@
                     android:padding="12dp"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+
                     />
                 <TextView
                     android:id="@+id/edtEndDate"
@@ -208,7 +235,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:padding="12dp"
                     android:text="Chọn ngày kết thúc"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/text_primary"
                     android:gravity="center"
                     android:textSize="14sp"
                     android:textStyle="bold"/>

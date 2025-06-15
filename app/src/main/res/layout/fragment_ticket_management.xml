@@ -8,7 +8,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#EF5222"
+        android:background="@color/top_bar_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="16dp">
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="16dp"
             android:text="Quản lý vé"
-            android:textColor="@android:color/white"
+            android:textColor="@color/top_bar_text"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -39,7 +39,7 @@
         android:paddingTop="8dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:background="#fef7ff"
+        android:background="@color/image_bg"
         android:gravity="center_vertical"
         android:clickable="true">
 
@@ -49,7 +49,9 @@
             android:layout_weight="1"
             android:layout_height="40dp"
             android:hint="Tìm vé..."
-            android:backgroundTint="@color/futa_orange"
+            android:backgroundTint="@color/highlight_text"
+            android:textColor="@color/text_primary"
+            android:textColorHint="#888888"
             android:paddingHorizontal="8dp" />
 
         <Spinner
@@ -57,7 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:background="#fef7ff"
+            android:background="#E0E0E0"
+            android:textColor="@color/text_primary"
+            android:popupBackground="#E0E0E0"
             android:spinnerMode="dropdown"
             android:paddingHorizontal="8dp" />
     </LinearLayout>
@@ -67,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layoutSearch"
-        android:background="#fef7ff"
+        android:background="@color/card_bg"
         android:numColumns="1"
         android:verticalSpacing="8dp"
         android:horizontalSpacing="8dp"

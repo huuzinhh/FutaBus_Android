@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="top_bar_bg">#333333</color>
+    <color name="top_bar_text">#FFFFFF</color>
+    <color name="sidebar_bg">#121212</color>
+    <color name="highlight_text">#FF9800</color>
+    <color name="button_text">#FFFFFF</color> <!-- Text màu trắng -->
+    <color name="button_bg">#424242</color>   <!-- Nền đậm hơn để nổi bật -->
+    <color name="switch_text">#FFFFFF</color>
+    <color name="logout_bg">#EF5222</color>
+    <color name="logout_text">#FFFFFF</color>
+    <color name="card_bg">#121212</color> <!-- nền tối -->
+    <color name="image_bg">#1E1E1E</color> <!-- nền hình tối -->
+    <color name="text_primary">#FFFFFF</color> <!-- chữ trắng -->
+</resources>

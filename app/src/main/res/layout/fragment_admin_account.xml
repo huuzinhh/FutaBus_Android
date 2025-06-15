@@ -9,26 +9,26 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#EF5222"
+        android:background="@color/top_bar_bg"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:gravity="center_vertical">
+        android:paddingStart="16dp">
 
         <ImageView
             android:id="@+id/iconMenu"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@drawable/ic_menu"
-            android:contentDescription="Menu icon" />
+            android:contentDescription="Menu icon"
+            android:src="@drawable/ic_menu" />
 
         <TextView
             android:id="@+id/topBarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="16dp"
             android:text="Tài khoản"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:paddingStart="16dp"/>
+            android:textColor="@color/top_bar_text"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ScrollView
@@ -49,6 +49,7 @@
 
             <ImageView
                 android:id="@+id/avatar"
+                android:background="@color/image_bg"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
@@ -65,17 +66,21 @@
                 <TextView
                     style="@style/LabelStyle"
                     android:layout_marginBottom="5dp"
-                    android:text="Họ và tên:" />
+                    android:text="Họ và tên:"
+                    android:textColor="@color/text_primary" />/>
                 <EditText
                     android:id="@+id/editFullName"
                     android:hint="Nhập họ và tên"
                     android:enabled="false"
-                    style="@style/InputStyle" />
+                    style="@style/InputStyle"
+                    android:textColor="@color/text_primary"
+                    android:backgroundTint="@color/card_bg"/>
 
                 <TextView
                     android:text="Giới tính:"
                     style="@style/LabelStyle"
-                    android:layout_marginBottom="5dp" />
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/text_primary" />/>
 
                 <Spinner
                     android:id="@+id/spinnerGender"
@@ -86,21 +91,26 @@
 
                     android:layout_marginTop="0dp"
                     android:layout_marginBottom="0dp"
-                    android:background="#f6f6f6"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:spinnerMode="dropdown" />
+                    android:spinnerMode="dropdown"
+                    android:background="#E0E0E0"
+                    android:textColor="@color/text_primary"
+                    android:popupBackground="#E0E0E0"/>
 
                 <TextView
                     style="@style/LabelStyle"
                     android:layout_marginBottom="5dp"
                     android:paddingTop="8dp"
-                    android:text="Năm sinh:" />
+                    android:text="Năm sinh:"
+                    android:textColor="@color/text_primary" />/>
                 <EditText
                     android:id="@+id/editBirthDay"
                     android:hint="Nhập năm sinh"
                     android:enabled="false"
-                    style="@style/InputStyle" />
+                    style="@style/InputStyle"
+                    android:textColor="@color/text_primary"
+                    android:backgroundTint="@color/card_bg"/>
 
                 <TextView android:text="Số điện thoại:"
                     style="@style/LabelStyle"
@@ -109,7 +119,9 @@
                     android:id="@+id/editPhone"
                     android:hint="Nhập số điện thoại"
                     android:enabled="false"
-                    style="@style/InputStyle" />
+                    style="@style/InputStyle"
+                    android:textColor="@color/text_primary"
+                    android:backgroundTint="@color/card_bg"/>/>
 
                 <TextView
                     android:text="Email:"
@@ -119,7 +131,9 @@
                     android:id="@+id/editEmail"
                     android:hint="Nhập email"
                     android:enabled="false"
-                    style="@style/InputStyle" />
+                    style="@style/InputStyle"
+                    android:textColor="@color/text_primary"
+                    android:backgroundTint="@color/card_bg"/>/>
 
                 <TextView
                     android:text="Địa chỉ:"
@@ -129,7 +143,9 @@
                     android:id="@+id/editAddress"
                     android:hint="Nhập địa chỉ"
                     android:enabled="false"
-                    style="@style/InputStyle" />
+                    style="@style/InputStyle"
+                    android:textColor="@color/text_primary"
+                    android:backgroundTint="@color/card_bg"/>
             </LinearLayout>
 
             <Button
@@ -140,9 +156,9 @@
                 android:layout_marginTop="24dp"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="8dp"
-                android:backgroundTint="#EF5222"
-                android:textColor="@android:color/white"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/logout_bg"
+                android:textColor="@color/button_text"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -158,10 +174,10 @@
                     android:text="Hủy"
                     android:paddingHorizontal="24dp"
                     android:paddingVertical="8dp"
-                    android:backgroundTint="#EF5222"
-                    android:textColor="@android:color/white"
                     android:layout_marginEnd="16dp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:backgroundTint="@color/logout_bg"
+                    android:textColor="@color/button_text"/>
 
                 <Button
                     android:id="@+id/btnUpdate"
@@ -170,9 +186,9 @@
                     android:text="Cập nhật"
                     android:paddingHorizontal="24dp"
                     android:paddingVertical="8dp"
-                    android:backgroundTint="#4CAF50"
-                    android:textColor="@android:color/white"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:backgroundTint="@color/highlight_text"
+                    android:textColor="@color/button_text"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -184,7 +200,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:orientation="vertical"
-        android:background="#EEEEEE"
+        android:background="@color/sidebar_bg"
         android:visibility="gone"
         android:elevation="4dp"
         android:padding="16dp">
@@ -209,7 +225,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Tài khoản"
-                android:textColor="#EF5222"
+                android:textColor="@color/highlight_text"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -231,7 +247,8 @@
             android:text="Admin"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:paddingBottom="16dp" />
+            android:paddingBottom="16dp"
+            android:textColor="@color/button_text"/>
 
         <TextView
             android:id="@+id/btnChangePassword"
@@ -241,10 +258,20 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_top_bottom"
             android:text="Đổi mật khẩu"
-            android:textColor="#474747"
+            android:textColor="@color/button_text"
             android:gravity="center"
             android:padding="12dp"
             android:textStyle="bold" />
+
+        <Switch
+            android:id="@+id/switchMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dark Mode"
+            android:textSize="14sp"
+            android:textColor="@color/switch_text"
+            android:padding="8dp"
+            android:layout_marginBottom="16dp" />
 
         <View
             android:layout_width="match_parent"
@@ -256,8 +283,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Đăng xuất"
-            android:backgroundTint="#EF5222"
-            android:textColor="#FFFFFF" />
+            android:backgroundTint="@color/logout_bg"
+            android:textColor="@color/logout_text" />
     </LinearLayout>
 
 </RelativeLayout>

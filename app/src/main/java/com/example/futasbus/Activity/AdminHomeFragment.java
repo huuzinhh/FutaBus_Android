@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -19,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -53,6 +55,12 @@ public class AdminHomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        SharedPreferences prefs = getActivity().getSharedPreferences("settings", MODE_PRIVATE);
+        boolean isDark = prefs.getBoolean("dark_mode", false);
+        AppCompatDelegate.setDefaultNightMode(isDark ?
+                AppCompatDelegate.MODE_NIGHT_YES :
+                AppCompatDelegate.MODE_NIGHT_NO);
+
         View view = inflater.inflate(R.layout.fragment_admin_home, container, false);
 
         gridView = view.findViewById(R.id.gridViewAdminHome);
@@ -93,7 +101,20 @@ public class AdminHomeFragment extends Fragment {
                 sidebar.setVisibility(View.GONE);
             }
         });
+        Switch switchMode = view.findViewById(R.id.switchMode);
 
+        switchMode.setChecked(isDark);
+
+        switchMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("dark_mode", isChecked);
+            editor.apply();
+
+            AppCompatDelegate.setDefaultNightMode(isChecked ?
+                    AppCompatDelegate.MODE_NIGHT_YES :
+                    AppCompatDelegate.MODE_NIGHT_NO);
+            getActivity().recreate();
+        });
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_prefs", MODE_PRIVATE);
 
         int idNguoiDung = sharedPreferences.getInt("idNguoiDung", -1);
